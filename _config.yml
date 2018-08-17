@@ -24,7 +24,7 @@ github_username: TheAIAJ
 linkedin_username: 
 rss: RSS
 
-permalink: /:title
+permalink: /:year/:month/:day/:title
 
 # Build settings
 markdown: kramdown
