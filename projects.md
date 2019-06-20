@@ -3,8 +3,12 @@ title: Projects
 layout: page
 ---
 
-# [Mirage XMPP](https://github.com/jeffa5/mirage-xmpp)
+{% for project in site.data.projects reversed %}
+# {{ project.title }}
 
-# [Waytext](https://github.com/jeffa5/waytext)
+{% if project.github %}
+[Source](https://github.com/{{project.github}})
+{% endif %}
 
-# [Owork](https://github.com/jeffa5/owork)
+{% endfor %}
+
