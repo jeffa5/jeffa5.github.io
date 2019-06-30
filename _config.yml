@@ -1,12 +1,11 @@
-title: Jeffas
+title: Too Late Now
 author: Jeffas
-email:
+email: dev@jeffas.io
 description: >-
   Correctness, Efficiency, Performance
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://jeffas.io"
 
-github_username: jeffa5
 gitlab_username: jeffas
 rss: RSS
 
@@ -14,6 +13,9 @@ permalink: pretty
 
 minima:
   date_format: "%-d %b, %Y"
+  social_links:
+    github: jeffa5
+    rss: RSS
 
 # Build settings
 markdown: kramdown
