@@ -11,11 +11,11 @@ rss: RSS
 
 permalink: pretty
 
+github_username: jeffa5
+rss: RSS
+
 minima:
   date_format: "%-d %b, %Y"
-  social_links:
-    github: jeffa5
-    rss: RSS
 
 # Build settings
 markdown: kramdown
