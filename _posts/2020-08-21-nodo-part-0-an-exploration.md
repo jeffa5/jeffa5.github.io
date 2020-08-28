@@ -2,10 +2,11 @@
 title: Nodo Part 0 - An Exploration
 ---
 
-I've just published a brief [post]({% post_url 2020-08-16-thoughts-on-notes-and-todos %}) about notes and todos in which I outline some
-ways I want to interact with my notes and todos. I'm going to try and keep up
-with the development of the tool I experiment with here to outline to myself
-why I'm making decisions and for anyone else that finds it useful.
+I've just published a brief [post]({% post_url
+2020-08-16-thoughts-on-notes-and-todos %}) about notes and todos in which I
+outline some ways I want to interact with my notes and todos. I'm going to try
+and keep up with the development of the tool I experiment with here to outline
+to myself why I'm making decisions and for anyone else that finds it useful.
 
 So, without further ado, Nodo (notes and todos) is my intended notes and todo
 management tool. I must briefly preface this with saying that I have already
@@ -26,11 +27,10 @@ To start things off, I have a few ideas for the design:
    files, one file per nodo. This makes sharing with other users, as well as
    manipulation via other tools, easy.
 
-2. I want some sort of history, like git, probably git. This means that
-   if for some reason I delete a bit and later want to revert to that I can,
-   and I can do so with native git commands. This will hopefully help with the
-   syncing issue as well, though may pose some challenges for more advanced use
-   cases.
+2. I want some sort of history, like git, probably git. This means that if for
+   some reason I delete a bit and later want to revert to that I can, and I can
+   do so with native git commands. This will hopefully help with the syncing
+   issue as well, though may pose some challenges for more advanced use cases.
 
 3. There needs to be a core library for most of the common operations such as
    parsing, querying, formatting, etc. Then various frontends can be built to
@@ -45,7 +45,7 @@ Now for some potential execution examples:
 
 Showing the current nodos. Displays attributes and task completion status.
 
-```shell
+```
 $ nodo
 review [repeats:daily]
 ideas
@@ -55,17 +55,20 @@ nodo
 ```
 
 Open a nodo for editing or create it if it doesn't exist.
-```shell
+
+```
 $ nodo edit ideas
 ```
 
 Move a nodo to the archive, keeping it around for viewing but hiding from normal view.
-```shell
+
+```
 $ nodo archive nodo/syncing
 ```
 
 Sync the current set of nodos.
-```shell
+
+```
 $ nodo sync
 ```
 
