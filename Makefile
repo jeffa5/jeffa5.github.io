@@ -1,8 +1,8 @@
 serve:
-	bundle exec jekyll serve
+	bundle exec jekyll serve --open-url
 
 drafts:
-	bundle exec jekyll serve --drafts
+	bundle exec jekyll serve --drafts --open-url
 
 install:
 	bundle install
