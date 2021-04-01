@@ -13,3 +13,9 @@ title: Notes on Papers
 - non breaking space between text and cite/ref
 
 - ensure figures are referenced in the text and pull their weight
+
+- Consistent citations, e.g. all full first names rather than initials, conference proceedings in common format
+
+- Captions above tables and below figures. [ref](https://tex.stackexchange.com/questions/3243/why-should-a-table-caption-be-placed-above-the-table)
+
+- Use `\Description` for improving accessibility
