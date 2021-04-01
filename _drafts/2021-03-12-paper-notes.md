@@ -19,3 +19,5 @@ title: Notes on Papers
 - Captions above tables and below figures. [ref](https://tex.stackexchange.com/questions/3243/why-should-a-table-caption-be-placed-above-the-table)
 
 - Use `\Description` for improving accessibility
+
+- ACM best practices [here](https://www.acm.org/publications/taps/latex-best-practices)
