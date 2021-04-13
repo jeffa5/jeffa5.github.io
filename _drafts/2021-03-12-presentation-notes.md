@@ -1,5 +1,5 @@
 ---
-title: Notes on making Presentations
+title: Notes on presentations
 ---
 
 This is a collection of notes on making a presentation.

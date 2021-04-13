@@ -1,5 +1,5 @@
 ---
-title: Notes on Papers
+title: Notes on papers
 ---
 
 This is a collection of notes on writing a paper.
