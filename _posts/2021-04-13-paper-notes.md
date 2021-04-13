@@ -2,9 +2,12 @@
 title: Notes on Papers
 ---
 
-This is some assorted notes on writing a paper.
+This is a collection of notes on writing a paper.
 Some of these may apply more generally to writing but no promises.
 The target for this is an academic paper written in LaTeX.
+
+Of course, this is not all my own advice but things I have learned and picked up from friends and colleagues.
+Many thanks.
 
 ### Write one line per sentence (or one sentence per line)
 
