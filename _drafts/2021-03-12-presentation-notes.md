@@ -2,8 +2,6 @@
 title: Notes on making Presentations
 ---
 
-Like my notes on papers:
-
 This is a collection of notes on making a presentation.
 
 Of course, this is not all my own advice but things I have learned and picked up from friends and colleagues.
