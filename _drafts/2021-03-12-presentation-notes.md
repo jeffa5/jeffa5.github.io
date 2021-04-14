@@ -62,3 +62,9 @@ Talks are rarely lectures, at least outside of University.
 Focus on the interesting bits and make them fun with relatable examples.
 Trim out unnecessary information guiding the audience on a clear path.
 No tutorials.
+
+### Tell them
+
+1. Tell them what you are going to tell them
+2. Tell them
+3. Tell them what you told them
