@@ -68,3 +68,8 @@ No tutorials.
 1. Tell them what you are going to tell them
 2. Tell them
 3. Tell them what you told them
+
+
+### Some other useful advice
+
+- [How to give a good research talk](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/08/giving-a-talk.pdf)
