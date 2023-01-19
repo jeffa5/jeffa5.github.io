@@ -60,3 +60,5 @@ This is more than a caption and should describe what happens in the figure, it i
 
 - [ACM best practices](https://www.acm.org/publications/taps/latex-best-practices)
 - [Capra style guide](https://capra.cs.cornell.edu/styleguide/)
+- [Hints on how to write an SOSP paper](https://irenezhang.net/blog/2021/06/05/hints.html)
+- [How to write papers so people can read them](https://people.mpi-sws.org/~dreyer/talks/talk-plmw20icfp.pdf)
