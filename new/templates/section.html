@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+  <head>
+    {% include "head.html" %}
+
+    <title>{{ section.title }} | {{ config.title }}</title>
+  </head>
+  <body>
+    {% include "header.html" %}
+
+    <div>
+      <h1>{{ section.title }}</h1>
+    </div>
+
+    <div>
+      <ul class="subpages">
+        {% for page in section.pages %}
+        <li>
+          <a href="{{ page.path }}">{{ page.title }}</a>
+        </li>
+        {% endfor %}
+      <ul>
+    </div>
+
+    {% include "footer.html" %}
+  </body>
+</html>

@@ -1,0 +1,32 @@
+* {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 70ex;
+    word-wrap: break-word;
+}
+
+nav {
+    margin-bottom: 1em;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:active {
+    text-decoration: underline;
+}
+
+.subpages {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+pre {
+    margin: 0;
+}

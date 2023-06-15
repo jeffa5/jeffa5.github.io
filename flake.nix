@@ -26,6 +26,7 @@
         devShell = pkgs.mkShell {
           packages = [
             jekyll_env
+            pkgs.zola
           ];
         };
       }
