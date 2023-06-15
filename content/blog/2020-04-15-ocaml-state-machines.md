@@ -1,3 +1,7 @@
+---
+title: "OCaml state machines"
+---
+
 ## The goal, type correct state machines
 
 OCaml has great type inference and functions permeate the language. Coupling
@@ -16,7 +20,7 @@ We have two states: `A` and `B`, and two inputs `0` and `1`.
 
 The machine is as follows:
 
-![State Machine](/assets/ocaml-state-machines/machine.png)
+![State Machine](machine.png)
 
 Or in table form:
 
