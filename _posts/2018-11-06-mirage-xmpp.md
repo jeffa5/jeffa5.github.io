@@ -7,4 +7,4 @@ title: "Mirage XMPP"
 
 This project is an attempt to create an OCaml library for XMPP and then build this into a functional MirageOS unikernel.
 
-Check out the projects page for some links.
+[GitHub](https://github.com/jeffa5/mirage-xmpp)

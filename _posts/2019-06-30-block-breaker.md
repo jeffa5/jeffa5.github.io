@@ -10,4 +10,5 @@ is just some simple Rust modules stitched together.
 Since I spend a lot of time in the terminal I created an accompanying tui
 frontend. This is quite nice and certainly enough for this simple game.
 
-Check out the projects page for some links.
+[GitHub (core)](https://github.com/jeffa5/block-breaker)
+[GitHub (tui)](https://github.com/jeffa5/block-breaker-tui)
