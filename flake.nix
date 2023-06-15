@@ -15,18 +15,10 @@
     (
       system: let
         pkgs = import nixpkgs {inherit system;};
-        jekyll_env = pkgs.bundlerEnv {
-          name = "blog";
-          ruby = pkgs.ruby;
-          gemfile = ./Gemfile;
-          lockfile = ./Gemfile.lock;
-          gemset = ./gemset.nix;
-        };
       in {
         devShell = pkgs.mkShell {
-          packages = [
-            jekyll_env
-            pkgs.zola
+          packages = with pkgs; [
+            zola
           ];
         };
       }
