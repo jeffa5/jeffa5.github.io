@@ -18,11 +18,11 @@ jobs:
         uses: actions/configure-pages@v3
       - name: Build
         run: |
-          nix develop -c bash -c "zola build"
+          nix build .#website
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: public
+          path: result
 
   deploy:
     permissions:

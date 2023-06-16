@@ -20,6 +20,18 @@
           ${pkgs.nodePackages.js-beautify}/bin/js-beautify **/*.html **/*.css
         '';
 
+        packages.website = pkgs.stdenvNoCC.mkDerivation {
+          name = "website";
+          src = ./.;
+          nativeBuildInputs = [pkgs.zola];
+          buildPhase = ''
+            zola build
+          '';
+          installPhase = ''
+            mv public $out
+          '';
+        };
+
         formatter = pkgs.alejandra;
 
         devShell = pkgs.mkShell {
