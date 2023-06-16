@@ -16,7 +16,7 @@
         {% if page.draft %}<b>Draft</b>{% endif %}
     </div>
 
-    {% if page.toc %}
+    {% if page.toc and page.extra.enable_toc | default(value=true) %}
     <div>
         <details open>
             <summary>Contents</summary>

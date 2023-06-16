@@ -1,5 +1,7 @@
 ---
 title: "Publications"
+extra:
+  enable_toc: false
 ---
 
 ## Papers
