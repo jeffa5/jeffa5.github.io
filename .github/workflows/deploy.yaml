@@ -17,8 +17,7 @@ jobs:
         uses: actions/configure-pages@v3
       - name: Build
         run: |
-          nix develop
-          zola build
+          nix develop -c "zola build"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
