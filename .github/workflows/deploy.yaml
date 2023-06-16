@@ -19,10 +19,12 @@ jobs:
       - name: Build
         run: |
           nix build .#website
+          # https://github.com/actions/deploy-pages/issues/58
+          cp --recursive --dereference --no-preserve=mode,ownership result public
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: result
+          path: public
 
   deploy:
     permissions:
