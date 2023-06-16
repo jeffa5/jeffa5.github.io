@@ -44,7 +44,7 @@ Now for some potential execution examples:
 
 Showing the current nodos. Displays attributes and task completion status.
 
-```
+```sh
 $ nodo
 review [repeats:daily]
 ideas
@@ -55,19 +55,19 @@ nodo
 
 Open a nodo for editing or create it if it doesn't exist.
 
-```
+```sh
 $ nodo edit ideas
 ```
 
 Move a nodo to the archive, keeping it around for viewing but hiding from normal view.
 
-```
+```sh
 $ nodo archive nodo/syncing
 ```
 
 Sync the current set of nodos.
 
-```
+```sh
 $ nodo sync
 ```
 
