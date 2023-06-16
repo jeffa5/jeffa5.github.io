@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html lang="en-gb">
-  <head>
+
+<head>
     {% include "head.html" %}
 
     <title>{{ page.title }} | {{ config.title }}</title>
-  </head>
-  <body>
+</head>
+
+<body>
     {% include "header.html" %}
 
     <div>
-      <h1>{{ page.title }}</h1>
-      <em>{{ page.date }}</em>
-      {% if page.draft %}<b>Draft</b>{% endif %}
+        <h1>{{ page.title }}</h1>
+        <em>{{ page.date }}</em>
+        {% if page.draft %}<b>Draft</b>{% endif %}
     </div>
 
     <div>
-      {{ page.content | safe }}
+        {{ page.content | safe }}
     </div>
 
     {% include "footer.html" %}
-  </body>
+</body>
+
 </html>

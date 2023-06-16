@@ -19,6 +19,7 @@
         devShell = pkgs.mkShell {
           packages = with pkgs; [
             zola
+            nodePackages.js-beautify
           ];
         };
       }

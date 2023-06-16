@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 <html lang="en-gb">
-  <head>
+
+<head>
     {% include "head.html" %}
 
     <title>{{ section.title }} | {{ config.title }}</title>
-  </head>
-  <body>
+</head>
+
+<body>
     {% include "header.html" %}
 
     <div>
-      <h1>{{ section.title }}</h1>
+        <h1>{{ section.title }}</h1>
     </div>
 
     <div>
-      <ul class="subpages">
-        {% for page in section.pages %}
-        <li>
-          <a href="{{ page.path }}">{{ page.title }}</a>
-          {% if page.draft %}<b> Draft </b>{% endif %}
-        </li>
-        {% endfor %}
-      </ul>
+        <ul class="subpages">
+            {% for page in section.pages %}
+            <li>
+                <a href="{{ page.path }}">{{ page.title }}</a>
+                {% if page.draft %}<b> Draft </b>{% endif %}
+            </li>
+            {% endfor %}
+        </ul>
     </div>
 
     {% include "footer.html" %}
-  </body>
+</body>
+
 </html>
