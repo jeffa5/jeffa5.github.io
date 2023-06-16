@@ -43,3 +43,12 @@ pre::before {
     content: attr(data-lang);
     text-decoration: underline;
 }
+
+footer ul {
+    list-style-type: none; /* Remove bullets */
+    padding: 0;
+}
+
+footer li {
+    margin: 0.5em 0;
+}
