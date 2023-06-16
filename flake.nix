@@ -16,6 +16,12 @@
       system: let
         pkgs = import nixpkgs {inherit system;};
       in {
+        packages.format = pkgs.writeShellScriptBin "format" ''
+          ${pkgs.nodePackages.js-beautify}/bin/js-beautify **/*.html **/*.css
+        '';
+
+        formatter = pkgs.alejandra;
+
         devShell = pkgs.mkShell {
           packages = with pkgs; [
             zola
