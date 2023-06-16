@@ -21,6 +21,10 @@ a:active {
     text-decoration: underline;
 }
 
+nav > a {
+    margin-right: 1em;
+}
+
 .subpages {
     list-style-type: none;
     padding: 0;
