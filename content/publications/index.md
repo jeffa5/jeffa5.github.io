@@ -12,7 +12,7 @@ AMC: Towards Trustworthy and Explorable CRDT Applications with the Automerge Mod
 <br />
 @ [PaPoC '23](https://papoc-workshop.github.io/2023/)
 <br />
-\[[ACM](https://dl.acm.org/doi/10.1145/3578358.3591326)\]
+\[[ACM](https://dl.acm.org/doi/10.1145/3578358.3591326), [PDF](./papers/automerge-model-checker.pdf)\]
 
 _2021-04-26_
 <br />
