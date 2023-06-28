@@ -6,7 +6,7 @@ extra:
 
 ## Papers
 
-_2023-05_
+_2023-05-08_
 <br />
 AMC: Towards Trustworthy and Explorable CRDT Applications with the Automerge Model Checker
 <br />
@@ -14,7 +14,7 @@ AMC: Towards Trustworthy and Explorable CRDT Applications with the Automerge Mod
 <br />
 \[[ACM](https://dl.acm.org/doi/10.1145/3578358.3591326)\]
 
-_2021-04_
+_2021-04-26_
 <br />
 Rearchitecting Kubernetes for the Edge
 <br />
