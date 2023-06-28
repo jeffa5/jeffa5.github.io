@@ -38,6 +38,7 @@ Rearchitecting Kubernetes for the Edge (Paper Presentation)
 <br />
 @ [EdgeSys ‘21](https://edge-sys.github.io/2021/)
 <br />
+\[[Slides](./slides/rearchitecting-kubernetes-edgesys.pdf)\]
 
 _2021-03-11_
 <br />
