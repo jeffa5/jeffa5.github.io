@@ -20,7 +20,7 @@ Rearchitecting Kubernetes for the Edge
 <br />
 @ [EdgeSys '21](https://edge-sys.github.io/2021/)
 <br />
-\[[arXiv](https://arxiv.org/abs/2104.02423), [ACM](https://dl.acm.org/doi/10.1145/3434770.3459730)\]
+\[[arXiv](https://arxiv.org/abs/2104.02423), [ACM](https://dl.acm.org/doi/10.1145/3434770.3459730), [PDF](./papers/rearchitecting-kubernetes-for-the-edge.pdf)\]
 
 ## Talks
 
@@ -44,4 +44,4 @@ Rearchitecting Kubernetes for the Edge
 <br />
 @ [Department of Computer Science and Technology - SRG Seminars series](https://www.cl.cam.ac.uk/research/srg/seminars/)
 <br />
-\[[Video](https://www.cl.cam.ac.uk/research/srg/seminars/videos/2021-03-11.mp4), [Event](http://talks.cam.ac.uk/talk/index/156778)\]
+\[[Video](https://www.cl.cam.ac.uk/research/srg/seminars/videos/2021-03-11.mp4), [Event](http://talks.cam.ac.uk/talk/index/156778), [Slides](./slides/rearchitecting-kubernetes-for-the-edge.pdf)\]
