@@ -30,6 +30,7 @@ LSKV: Democratising Confidential Computing from the Core
 <br />
 @ [FOSDEM ‘23](https://fosdem.org/2023/schedule/event/cc_lskv/)
 <br />
+\[[Slides](./slides/LSKV-fosdem.pdf)\]
 
 _2021-04-26_
 <br />
