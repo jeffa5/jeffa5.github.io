@@ -1,9 +1,18 @@
 body {
+    background-color: white;
+    color: black;
     margin-left: auto;
     margin-right: auto;
     padding: 0 1em;
     max-width: 70ex;
     word-wrap: break-word;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: black;
+    color: white;
+  }
 }
 
 nav {
