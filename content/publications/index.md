@@ -28,7 +28,7 @@ _2023-07-13_
 <br />
 Migrating Key-Value Data Stores to the Edge
 <br />
-@ [Next Generation Networking, Multi-Service Networks workshop (Coseners)](https://coseners.net/history/previous/coseners-2023/)
+@ [Coseners (MSN) '23](https://coseners.net/history/previous/coseners-2023/)
 <br />
 \[[Slides](./slides/dismerge-coseners.pdf)\]
 
