@@ -6,6 +6,14 @@ extra:
 
 ## Papers
 
+_2023-11-16_
+<br />
+Mutating etcd Towards Edge Suitability
+<br />
+@ _preprint_
+<br />
+\[[arXiv](https://arxiv.org/abs/2311.09929), [PDF](./papers/mergeable-etcd.pdf)\]
+
 _2023-05-08_
 <br />
 AMC: Towards Trustworthy and Explorable CRDT Applications with the Automerge Model Checker
