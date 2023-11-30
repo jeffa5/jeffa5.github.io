@@ -27,6 +27,8 @@ They handily publish archives of their PDFs, grouped by the year and month they 
 That also happens to be a lot of papers, so I've just selected a few `yearmonth`s and worked with those.
 You can find the scripts for processing, if you want to try with more data for instance, on my GitHub: https://github.com/jeffa5/arxiv-pdf-meta.
 
+Despite a desire for care to be taken of documents produced for publishing, the publisher could also fill the gap, given they present the core metadata (and much more) directly on the webpage.
+
 ## The data
 
 ## The plots
