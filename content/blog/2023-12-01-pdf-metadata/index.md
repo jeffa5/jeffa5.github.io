@@ -33,32 +33,32 @@ You can find the scripts for processing, if you want to try with more data for i
 
 So, lets start with how many papers had a title specified in the metadata:
 
-![](./has_title.svg)
+![](has_title.svg)
 
 Well, that isn't too promising.
 It doesn't seem to be increasing much over the duration.
 
 Might as well have a look at the distribution of the title lengths while we're here:
 
-![](./title_length.svg)
+![](title_length.svg)
 
 Oh, and yeah, lets remove the zero from that... (note the y-axis)
 
-![](./title_length_no_zero.svg)
+![](title_length_no_zero.svg)
 
 ### Authors
 
 Given the data for titles, I don't have much of an expectation that authors are specified in the metadata either:
 
-![](./has_author.svg)
+![](has_author.svg)
 
 About what we expected, how about the distribution of lengths?
 
-![](./author_length.svg)
+![](author_length.svg)
 
 And again without the 0 ones...
 
-![](./author_length_no_zero.svg)
+![](author_length_no_zero.svg)
 
 ## Other oddities
 
