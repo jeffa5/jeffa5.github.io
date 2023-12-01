@@ -25,7 +25,7 @@ Rather than just speaking from my experience of downloading papers, I thought I'
 ArXiv is a popular repository for papers in my field, particularly because it is open-access.
 They handily publish archives of their PDFs, grouped by the year and month they were submitted, so we can play around with some of that.
 That also happens to be a lot of papers, so I've just selected a few `yearmonth`s and worked with those.
-You can find the scripts for processing, if you want to try with more data for instance, on my GitHub: https://github.com/jeffa5/arxiv-pdf-meta.
+You can find the scripts for processing, if you want to try with more data for instance, on my GitHub: [github.com/jeffa5/arxiv-pdf-meta](https://github.com/jeffa5/arxiv-pdf-meta).
 
 ## The data
 
