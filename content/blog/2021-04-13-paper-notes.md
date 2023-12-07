@@ -43,6 +43,12 @@ The reference should tie the figure into the discussion and so it should be rele
 Figures also take space in the paper so plan to include only the most pertinent.
 Take care as besides distracting the user they can be confusing and detrimental if not clearly thought out or explained.
 
+## Use references early on in the text
+
+When linking to a figure, table, etc.,  (that's pulling its weight) try and have the reference to it appear early on in the text.
+Having it appear early helps the reader realise that you're talking about the figure, and so can reference it, rather than reading, noticing the figure link, then re-reading.
+Keep the flow.
+
 ## Consistent citations
 
 All the citations in the bibliography should be in a consistent style.
