@@ -62,6 +62,11 @@ For instance, all first names in full rather than initials, conference proceedin
 
 This is more than a caption and should describe what happens in the figure, it is _describing_ the figure.
 
+## Captions represent the takeaways
+
+The caption needs to (succinctly) state what the takeaway is.
+What is the thing that you want the reader to notice in particular and relate to from the text.
+
 ## Some other useful advice
 
 - [ACM best practices](https://www.acm.org/publications/taps/latex-best-practices)
