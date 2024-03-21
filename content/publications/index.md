@@ -64,3 +64,13 @@ Rearchitecting Kubernetes for the Edge
 @ [Department of Computer Science and Technology - SRG Seminars series](https://www.cl.cam.ac.uk/research/srg/seminars/)
 <br />
 \[[Video](https://www.cl.cam.ac.uk/research/srg/seminars/videos/2021-03-11.mp4), [Event](http://talks.cam.ac.uk/talk/index/156778), [Slides](./slides/rearchitecting-kubernetes-for-the-edge.pdf)\]
+
+## Posters
+
+_2024-04-23_
+<br />
+Themelios: a model-checked reimplementation of Kubernetes
+<br />
+@ [EuroSys '24](https://2024.eurosys.org/)
+<br />
+\[Poster to come\]
