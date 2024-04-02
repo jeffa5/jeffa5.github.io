@@ -58,8 +58,6 @@ _Andrew Jeffery_
 <br />
 \[Slides to come\]
 
-
-
 _2023-07-13_
 <br />
 **Migrating Key-Value Data Stores to the Edge**
@@ -69,7 +67,6 @@ _Andrew Jeffery_, Heidi Howard, Richard Mortier
 @ [Coseners (MSN) '23](https://coseners.net/history/previous/coseners-2023/)
 <br />
 \[[Slides](./slides/dismerge-coseners.pdf)\]
-
 
 _2023-02-05_
 <br />
