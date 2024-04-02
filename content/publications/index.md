@@ -8,7 +8,9 @@ extra:
 
 _2023-11-16_
 <br />
-Mutating etcd Towards Edge Suitability
+**Mutating etcd Towards Edge Suitability**
+<br />
+_Andrew Jeffery_, Heidi Howard, Richard Mortier
 <br />
 @ _preprint_
 <br />
@@ -16,7 +18,9 @@ Mutating etcd Towards Edge Suitability
 
 _2023-10-01_
 <br />
-Confidential Consortium Framework: Secure Multiparty Applications with Confidentiality, Integrity, and High Availability
+**Confidential Consortium Framework: Secure Multiparty Applications with Confidentiality, Integrity, and High Availability**
+<br />
+Heidi Howard, Fritz Alder, Edward Ashton, Amaury Chamayou, Sylvan Clebsch, Manuel Costa, Antoine Delignat-Lavaud, Cédric Fournet, _Andrew Jeffery_, Matthew Kerner, Fotios Kounelis, Markus A. Kuppe, Julien Maffre, Mark Russinovich, Christoph M. Wintersteiger
 <br />
 @ [VLDB '24](https://www.vldb.org/2024/)
 <br />
@@ -24,7 +28,9 @@ Confidential Consortium Framework: Secure Multiparty Applications with Confident
 
 _2023-05-08_
 <br />
-AMC: Towards Trustworthy and Explorable CRDT Applications with the Automerge Model Checker
+**AMC: Towards Trustworthy and Explorable CRDT Applications with the Automerge Model Checker**
+<br />
+_Andrew Jeffery_, Heidi Howard, Richard Mortier
 <br />
 @ [PaPoC '23](https://papoc-workshop.github.io/2023/)
 <br />
@@ -32,7 +38,9 @@ AMC: Towards Trustworthy and Explorable CRDT Applications with the Automerge Mod
 
 _2021-04-26_
 <br />
-Rearchitecting Kubernetes for the Edge
+**Rearchitecting Kubernetes for the Edge**
+<br />
+_Andrew Jeffery_, Heidi Howard, Richard Mortier
 <br />
 @ [EdgeSys '21](https://edge-sys.github.io/2021/)
 <br />
@@ -42,7 +50,9 @@ Rearchitecting Kubernetes for the Edge
 
 _2023-07-13_
 <br />
-Migrating Key-Value Data Stores to the Edge
+**Migrating Key-Value Data Stores to the Edge**
+<br />
+_Andrew Jeffery_, Heidi Howard, Richard Mortier
 <br />
 @ [Coseners (MSN) '23](https://coseners.net/history/previous/coseners-2023/)
 <br />
@@ -51,7 +61,9 @@ Migrating Key-Value Data Stores to the Edge
 
 _2023-02-05_
 <br />
-LSKV: Democratising Confidential Computing from the Core
+**LSKV: Democratising Confidential Computing from the Core**
+<br />
+_Andrew Jeffery_
 <br />
 @ [FOSDEM ‘23](https://fosdem.org/2023/schedule/event/cc_lskv/)
 <br />
@@ -59,7 +71,9 @@ LSKV: Democratising Confidential Computing from the Core
 
 _2021-04-26_
 <br />
-Rearchitecting Kubernetes for the Edge (Paper Presentation)
+**Rearchitecting Kubernetes for the Edge (Paper Presentation)**
+<br />
+_Andrew Jeffery_, Heidi Howard, Richard Mortier
 <br />
 @ [EdgeSys ‘21](https://edge-sys.github.io/2021/)
 <br />
@@ -67,7 +81,9 @@ Rearchitecting Kubernetes for the Edge (Paper Presentation)
 
 _2021-03-11_
 <br />
-Rearchitecting Kubernetes for the Edge
+**Rearchitecting Kubernetes for the Edge**
+<br />
+_Andrew Jeffery_, Heidi Howard, Richard Mortier
 <br />
 @ [Department of Computer Science and Technology - SRG Seminars series](https://www.cl.cam.ac.uk/research/srg/seminars/)
 <br />
@@ -77,7 +93,9 @@ Rearchitecting Kubernetes for the Edge
 
 _2024-04-23_
 <br />
-Themelios: a model-checked reimplementation of Kubernetes
+**Themelios: a model-checked reimplementation of Kubernetes**
+<br />
+_Andrew Jeffery_
 <br />
 @ [EuroSys '24](https://2024.eurosys.org/)
 <br />
