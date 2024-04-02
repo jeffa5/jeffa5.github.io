@@ -14,6 +14,14 @@ Mutating etcd Towards Edge Suitability
 <br />
 \[[arXiv](https://arxiv.org/abs/2311.09929), [PDF](./papers/mergeable-etcd.pdf)\]
 
+_2023-10-01_
+<br />
+Confidential Consortium Framework: Secure Multiparty Applications with Confidentiality, Integrity, and High Availability
+<br />
+@ [VLDB '24](https://www.vldb.org/2024/)
+<br />
+\[[ACM](https://dl.acm.org/doi/abs/10.14778/3626292.3626304)\]
+
 _2023-05-08_
 <br />
 AMC: Towards Trustworthy and Explorable CRDT Applications with the Automerge Model Checker
