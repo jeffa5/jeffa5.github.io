@@ -18,8 +18,10 @@
         <ul class="subpages">
             {% for page in section.pages %}
             <li>
-                <a href="{{ page.path }}">{{ page.title }}</a>
                 {% if page.draft %}<b> Draft </b>{% endif %}
+                <a href="{{ page.path }}" class="subpagestitle">{{ page.title }}</a>
+                <br/>
+                {{ page.date }}
             </li>
             {% endfor %}
         </ul>
