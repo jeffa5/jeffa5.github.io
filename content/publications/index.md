@@ -52,7 +52,7 @@ _2024-04-18_
 <br />
 **Themelios: a model-checked reimplementation of Kubernetes**
 <br />
-_Andrew Jeffery_
+_Andrew Jeffery_, Richard Mortier
 <br />
 @ [UKSys '24](https://uksystems.org/workshop/2024/)
 <br />
