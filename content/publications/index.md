@@ -48,7 +48,7 @@ _Andrew Jeffery_, Heidi Howard, Richard Mortier
 
 ## Talks
 
-_2024-04-??_
+_2024-04-18_
 <br />
 **Themelios: a model-checked reimplementation of Kubernetes**
 <br />
@@ -56,7 +56,7 @@ _Andrew Jeffery_
 <br />
 @ [UKSys '24](https://uksystems.org/workshop/2024/)
 <br />
-\[Slides to come\]
+\[[Slides](./slides/themelios-uksys.pdf)\]
 
 _2023-07-13_
 <br />
