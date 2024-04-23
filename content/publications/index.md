@@ -108,4 +108,4 @@ _Andrew Jeffery_
 <br />
 @ [EuroSys '24](https://2024.eurosys.org/)
 <br />
-\[[Poster](./posters/themelios-eurosys.pdf)\]
+\[[Poster](./posters/themelios-eurosys.pdf), [Abstract](./posters/themelios-eurosys-abstract.pdf)\]
