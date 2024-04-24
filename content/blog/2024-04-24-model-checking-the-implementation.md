@@ -33,7 +33,7 @@ This new strategy, _true_ implementation-level model checking can be both things
 - fast, its just the implementation code, which can be optimised
 
 Notably, optimising the implementation in this scenario can doubly improve performance, once for model checking, and once for the deployments.
-Also, engineers who now how to write code can just continue in the same language, just needing to express their integration tests as model properties to be checked.
+Also, engineers who know how to write code can just continue in the same language, just needing to express their integration tests as model properties to be checked.
 
 If you want to check out an example of this that I work on, see [Themelios](https://github.com/jeffa5/themelios), a model-checked reimplementation of Kubernetes.
 
