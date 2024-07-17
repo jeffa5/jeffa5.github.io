@@ -6,6 +6,16 @@ extra:
 
 ## Papers
 
+_2024-07-17_
+<br />
+**Reducing Tail Latencies Through Environment- and Neighbour-aware Thread Management**
+<br />
+_Andrew Jeffery_, Chris Jensen, Richard Mortier
+<br />
+@ _preprint_
+<br />
+\[[arXiv](https://arxiv.org/abs/2407.11582), [PDF](./papers/friendlypool.pdf)\]
+
 _2023-11-16_
 <br />
 **Mutating etcd Towards Edge Suitability**
