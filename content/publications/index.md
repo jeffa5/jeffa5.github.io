@@ -8,6 +8,16 @@ extra:
 
 _2024-07-17_
 <br />
+**LSKV: A Confidential Distributed Datastore to Protect Critical Data in the Cloud**
+<br />
+_Andrew Jeffery_, Julien Maffre, Heidi Howard, Richard Mortier
+<br />
+@ _preprint_
+<br />
+\[[arXiv](https://arxiv.org/abs/2407.12623), [PDF](./papers/lskv.pdf)\]
+
+_2024-07-17_
+<br />
 **Reducing Tail Latencies Through Environment- and Neighbour-aware Thread Management**
 <br />
 _Andrew Jeffery_, Chris Jensen, Richard Mortier
