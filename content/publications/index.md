@@ -68,6 +68,16 @@ _Andrew Jeffery_, Heidi Howard, Richard Mortier
 
 ## Talks
 
+_2024-10-24_
+<br />
+**Modelling orchestration**
+<br />
+_Andrew Jeffery_
+<br />
+@ [Department of Computer Science and Technology - SRG Seminars series](https://www.cl.cam.ac.uk/research/srg/seminars/)
+<br />
+\[Video to come, [Event](https://talks.cam.ac.uk/talk/index/223459), [Slides](./slides/modelling-orchestration.pdf)\]
+
 _2024-04-18_
 <br />
 **Themelios: a model-checked reimplementation of Kubernetes**
