@@ -76,7 +76,7 @@ _Andrew Jeffery_
 <br />
 @ [Department of Computer Science and Technology - SRG Seminars series](https://www.cl.cam.ac.uk/research/srg/seminars/)
 <br />
-\[Video to come, [Event](https://talks.cam.ac.uk/talk/index/223459), [Slides](./slides/modelling-orchestration.pdf)\]
+\[[Video](https://www.cl.cam.ac.uk/research/srg/seminars/videos/2024-10-24.mp4), [Event](https://talks.cam.ac.uk/talk/index/223459), [Slides](./slides/modelling-orchestration.pdf)\]
 
 _2024-04-18_
 <br />
