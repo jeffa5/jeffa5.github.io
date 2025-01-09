@@ -4,6 +4,18 @@ extra:
   enable_toc: false
 ---
 
+## PhD dissertation
+
+_2025-01-08_
+<br />
+**Modelling orchestration**
+<br />
+_Andrew Jeffery_
+<br />
+@ University of Cambridge
+<br />
+\[[DOI (Apollo)](https://doi.org/10.17863/CAM.114695), [PDF](./papers/phd-dissertation.pdf)\]
+
 ## Papers
 
 _2024-07-17_
