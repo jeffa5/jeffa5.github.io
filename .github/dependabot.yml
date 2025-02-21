@@ -9,3 +9,8 @@ updates:
   - dependency-name: github-pages
     versions:
     - "211"
+- package-ecosystem: "github-actions"
+  directory: "/"
+  schedule:
+    interval: "daily"
+  open-pull-requests-limit: 10
