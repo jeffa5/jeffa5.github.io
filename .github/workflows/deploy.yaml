@@ -24,7 +24,7 @@ jobs:
           # https://github.com/actions/deploy-pages/issues/58
           cp --recursive --dereference --no-preserve=mode,ownership result public
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
           path: public
 
