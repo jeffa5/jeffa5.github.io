@@ -14,7 +14,7 @@ _Andrew Jeffery_
 <br />
 @ University of Cambridge
 <br />
-\[[DOI (Apollo)](https://doi.org/10.17863/CAM.114695), [PDF](./papers/phd-dissertation.pdf)\]
+\[[DOI (Apollo)](https://doi.org/10.17863/CAM.114695), [PDF](./papers/phd-dissertation.pdf), [Tech Report](./papers/phd-techreport.pdf)\]
 
 ## Papers
 
