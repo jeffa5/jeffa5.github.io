@@ -1,18 +1,27 @@
 body {
-    background-color: white;
-    color: black;
+    background-color: coral;
     margin-left: auto;
     margin-right: auto;
-    padding: 0 1em;
-    max-width: 70ex;
+    max-width: 80ex;
     word-wrap: break-word;
 }
 
 @media (prefers-color-scheme: dark) {
-  body {
-    background-color: black;
-    color: white;
+  #main {
+      background-color: black;
+      color: white;
   }
+}
+
+#main {
+    background-color: white;
+    color: black;
+    padding: 1em;
+    border-radius: 1em;
+}
+
+h1 {
+    margin: 0.25em 0;
 }
 
 nav {
