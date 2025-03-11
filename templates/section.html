@@ -18,12 +18,14 @@
     <div>
         <ul class="subpages">
             {% for page in section.pages %}
+            {%- if not page.extra or page.extra.hidden != true %}
             <li>
                 {% if page.draft %}<b> Draft </b>{% endif %}
                 <a href="{{ page.path }}" class="subpagestitle">{{ page.title }}</a>
                 <br/>
                 {{ page.date }}
             </li>
+            {% endif %}
             {% endfor %}
         </ul>
     </div>
