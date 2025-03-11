@@ -106,10 +106,10 @@ It does however aim to be solid starting point for them to rebuild caches from.
 
 ### Alternatives
 
-**file per message**: I envision this might lead to too many files and doesn't have an inherent ordering scheme compared to appending to the file.
+**File per message.** I envision this might lead to too many files and doesn't have an inherent ordering scheme compared to appending to the file.
 File names could be ordered but I still think it might lead to too many files, particularly given that most chat messages are small.
 
-**one big file**: This prevents the clients from efficiently viewing events from a subset of rooms, such as on startup.
+**One big file.** This prevents the clients from efficiently viewing events from a subset of rooms, such as on startup.
 
 ## Conclusion
 
