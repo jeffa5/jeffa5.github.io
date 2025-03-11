@@ -41,9 +41,9 @@
         formatter = pkgs.alejandra;
 
         devShell = pkgs.mkShell {
-          packages = with pkgs; [
-            zola
-            nodePackages.js-beautify
+          packages = [
+            pkgs.zola
+            pkgs.nodePackages.js-beautify
           ];
         };
       }
