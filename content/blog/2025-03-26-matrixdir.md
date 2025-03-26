@@ -1,7 +1,5 @@
 ---
 title: "Matrixdir: a file-first approach for chat programs"
-extra:
-  hidden: true
 ---
 
 ## Motivation
