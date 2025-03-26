@@ -1,17 +1,17 @@
 ---
 title: "Matrixdir: a file-first approach for chat programs"
 extra:
-    hidden: true
+  hidden: true
 ---
 
 ## Motivation
 
 In my email setup I have a nice separation between synchronising emails from my mail server, viewing my emails locally, and another program responsible for sending emails.
-This split is commonly called: mail retrieval agent (MRA) and mail delivery agent (MDA), message user agent (MUA), and message submission agent (MSA) and mail transfer agent (MTA).
+This split is commonly called: mail retrieval agent ([MRA](https://en.wikipedia.org/wiki/Mail_retrieval_agent)) and mail delivery agent ([MDA](https://en.wikipedia.org/wiki/Message_delivery_agent)), message user agent ([MUA](https://en.wikipedia.org/wiki/Email_client)), and message submission agent ([MSA](https://en.wikipedia.org/wiki/Message_submission_agent)) and mail transfer agent ([MTA](https://en.wikipedia.org/wiki/Message_transfer_agent)).
 I like it, it keeps things separate and means that I don't have to have my 'email client' open all the time to receive email, but its downloaded and ready for my perusal offline whenever I like.
 Synchronising it to my device also means that I have a local archive and don't need to repeatedly 'export' my data from the service.
 One other key factor in this is that there is a defined standard for storing emails on a filesystem that other email programs are compatible with and can share.
-This standard is called maildir (yes, there are extensions, and other standards like mbox but I'll keep it simple here).
+This standard is called [maildir](https://en.wikipedia.org/wiki/Maildir) (yes, there are extensions, and other standards like [mbox](https://en.wikipedia.org/wiki/Mbox) but I'll keep it simple here).
 
 Now, I increasingly chat with people over instant messaging, not uncommon I know.
 However, my chats here are locked away in various apps in various clients, some of which are considerably more open than others.
@@ -22,8 +22,8 @@ There are multiple chat programs I use, but I want one standard filesystem layou
 Then we can have viewers of this data, like what I've thought about with [Chatters](https://github.com/jeffa5/chatters), that can view messages from any chat system.
 
 But of course, I don't want to create another standard for messages themselves.
-Matrix does have a nice 'bridge' concept to integrate with other chat systems which gives me confidence that the Matrix format would be a suitable one for the messages.
-I imagine writing programs that synchronise messages from their respective chat servers and map them into the matrix format before storing.
+The [Matrix protocol](https://matrix.org/) does have a nice ['bridge'](https://matrix.org/ecosystem/bridges/) concept to integrate with other chat systems which gives me confidence that the Matrix format would be a suitable one for the messages.
+I imagine writing programs that synchronise messages from their respective chat servers and map them into the matrix format before storing on the filesystem.
 
 ## High level architecture
 
@@ -52,9 +52,9 @@ I'd term this the chat submission agent (CSA).
 > CUA -> CSA -> Chat system
 
 This is where I'm currently a bit fuzzy.
-Keeping to how it works in email, and keeping login logic out of the CUA, I want the CUA to invoke a process to send a message, with the matrix format as input.
+Keeping to how it works in email, and keeping login logic out of the CUA, I want the CUA to invoke a process to send a message or write to a socket or something, with the matrix format as input.
 Then the CSA works out encrypting it or not, and sending it to the server.
-What I'm unsure about is do we need to copy to the matrixdir at this point, or should the CRA get it (or if we do both how do we avoid duplicates).
+What I'm unsure about is whether the message needs to be copied to the matrixdir at this point, or whether the CRA should get it during a sync (or if we do both how do we avoid duplicates).
 
 ## File layout and format
 
@@ -80,7 +80,7 @@ The particular format is JSON lines as the matrix messages can be arbitrary, and
 When initialising, the CRA must acquire the file lock on the `lock.pid` file in the root of the `chats` directory, and write its own process ID into the file.
 
 Attachments are stored in an `attachments` directory next to the events file for each room.
-The location within is determined from the matrix content URI (`mxc://<server-name>/<media-id>`).
+The location within is determined from the [matrix content URI](https://spec.matrix.org/latest/client-server-api/#matrix-content-mxc-uris) (`mxc://<server-name>/<media-id>`).
 This enables leaving the original event untouched while being able to check whether the attachment has been downloaded.
 
 When a client (CUA) wants to view chats it can create a notify subscription on the event files for the rooms it is interested in, and maintain seek positions in them for where it has read to.
@@ -88,7 +88,6 @@ Then, when given a notification that a file has been updated, it can read from i
 
 Splitting the events by room means that a client can just load events for a room as needed.
 Splitting events by arbitrary chunks allows the CRA to adapt to volumes within channels and avoid lots of tiny files for a room or having one large file for a room.
-
 
 ### Grievances
 
@@ -106,11 +105,18 @@ It does however aim to be solid starting point for them to rebuild caches from.
 
 ### Alternatives
 
-**File per message.** I envision this might lead to too many files and doesn't have an inherent ordering scheme compared to appending to the file.
+**File per message.**
+I envision this might lead to too many files and doesn't have an inherent ordering scheme compared to appending to the file.
 File names could be ordered but I still think it might lead to too many files, particularly given that most chat messages are small.
 
-**One big file.** This prevents the clients from efficiently viewing events from a subset of rooms, such as on startup.
+**One big file.**
+This prevents the clients from efficiently viewing events from a subset of rooms, such as on startup.
 
 ## Conclusion
+
+I'd like to make some time to implement this in a Rust library, basic handling of the file layout things, and then try to integrate synchronising from a matrix server.
+In fact, here's a work in progress repo: [matrixdir](https://github.com/jeffa5/matrixdir).
+Once that's working I think it would be interesting to try and integrate other protocols via matrix bridges, hopefully minimising the work needed as they should already be able to transform things to and from the matrix protocol format.
+Perhaps in parallel I would be able to make a start on moving chatters towards working with this new file format rather than having the synchronisation backends embedded in it.
 
 If you have any comments on this proposal, or want to work on it in some way, let me know.
