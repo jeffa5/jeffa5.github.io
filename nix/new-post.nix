@@ -1,7 +1,11 @@
 {writeShellScriptBin}:
 writeShellScriptBin "new-post" ''
-  path="content/blog/$(date +'%y-%m-%d')-$1"
-  mkdir $path
-  touch $path/index.md
-  echo "Created post at $path"
+  path="content/blog/$(date +'%Y-%m-%d')-$1"
+  mkdir "$path"
+  post="$path/index.md"
+  touch "$post"
+
+  echo -e "---\ntitle: \"$1\"\ndraft: true\n---\n\n" > "$post"
+
+  echo "Created post at $post"
 ''
