@@ -17,7 +17,7 @@
         pkgs = import nixpkgs {inherit system;};
         packages = pkgs.callPackage ./nix {};
       in {
-        packages = {inherit (packages) format website deploy;};
+        packages = packages;
 
         formatter = pkgs.alejandra;
 
@@ -25,6 +25,7 @@
           packages = [
             pkgs.zola
             pkgs.nodePackages.js-beautify
+            packages.new-post
           ];
         };
       }
