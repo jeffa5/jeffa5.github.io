@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title>Too late now - Blog</title>
-    <link rel="self" type="application/atom+xml" href="https://pages.home.jeffas.net/jeffasnet/blog/atom.xml"/>
-    <link rel="alternate" type="text/html" href="https://pages.home.jeffas.net/jeffasnet/blog/"/>
+    <link rel="self" type="application/atom+xml" href="https://public-pages.home.jeffas.net/jeffasnet/blog/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://public-pages.home.jeffas.net/jeffasnet/blog/"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
     <updated>2025-04-05T00:00:00+00:00</updated>
-    <id>https://pages.home.jeffas.net/jeffasnet/blog/atom.xml</id>
+    <id>https://public-pages.home.jeffas.net/jeffasnet/blog/atom.xml</id>
     <entry xml:lang="en">
         <title>CSV Language Server</title>
         <published>2025-04-05T00:00:00+00:00</published>
@@ -19,10 +19,10 @@
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://pages.home.jeffas.net/jeffasnet/blog/csv-lsp/"/>
-        <id>https://pages.home.jeffas.net/jeffasnet/blog/csv-lsp/</id>
+        <link rel="alternate" type="text/html" href="https://public-pages.home.jeffas.net/jeffasnet/blog/csv-lsp/"/>
+        <id>https://public-pages.home.jeffas.net/jeffasnet/blog/csv-lsp/</id>
         
-        <content type="html" xml:base="https://pages.home.jeffas.net/jeffasnet/blog/csv-lsp/">&lt;p&gt;Language servers, part of the language server protocol (LSP), enable enriching plain text documents to provide navigation, completion, or extra hints, among other things.
+        <content type="html" xml:base="https://public-pages.home.jeffas.net/jeffasnet/blog/csv-lsp/">&lt;p&gt;Language servers, part of the language server protocol (LSP), enable enriching plain text documents to provide navigation, completion, or extra hints, among other things.
 Typically we see them for programming languages, enabling us to complete function names, jump to definitions, and get type hints inline.
 But why stop there?&lt;&#x2F;p&gt;
 &lt;p&gt;In the line of enriching content, I had a thought about making a language server for CSV files.
@@ -68,10 +68,10 @@ Maybe inlay hints could be used to do this without modifying the spacing in the 
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://pages.home.jeffas.net/jeffasnet/blog/tui-discoverability/"/>
-        <id>https://pages.home.jeffas.net/jeffasnet/blog/tui-discoverability/</id>
+        <link rel="alternate" type="text/html" href="https://public-pages.home.jeffas.net/jeffasnet/blog/tui-discoverability/"/>
+        <id>https://public-pages.home.jeffas.net/jeffasnet/blog/tui-discoverability/</id>
         
-        <content type="html" xml:base="https://pages.home.jeffas.net/jeffasnet/blog/tui-discoverability/">&lt;p&gt;&lt;em&gt;I talk about TUIs in this post, but it can equally apply to GUIs.
+        <content type="html" xml:base="https://public-pages.home.jeffas.net/jeffasnet/blog/tui-discoverability/">&lt;p&gt;&lt;em&gt;I talk about TUIs in this post, but it can equally apply to GUIs.
 I&#x27;d love to see that happen too!&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;Terminal User Interfaces (TUIs) primarily focus on power users who can spend a reasonable (to long) amount of time customising their setup and learning about the application&#x27;s configuration mechanism and actions.
 That generally works OK, through reading the documentation online, or through man pages.
@@ -124,10 +124,10 @@ I&#x27;ve since also started stealing inspiration from it for my TUI chat client
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://pages.home.jeffas.net/jeffasnet/blog/matrixdir/"/>
-        <id>https://pages.home.jeffas.net/jeffasnet/blog/matrixdir/</id>
+        <link rel="alternate" type="text/html" href="https://public-pages.home.jeffas.net/jeffasnet/blog/matrixdir/"/>
+        <id>https://public-pages.home.jeffas.net/jeffasnet/blog/matrixdir/</id>
         
-        <content type="html" xml:base="https://pages.home.jeffas.net/jeffasnet/blog/matrixdir/">&lt;h2 id=&quot;motivation&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#motivation&quot; aria-label=&quot;Anchor link for: motivation&quot;&gt;#&lt;&#x2F;a&gt;
+        <content type="html" xml:base="https://public-pages.home.jeffas.net/jeffasnet/blog/matrixdir/">&lt;h2 id=&quot;motivation&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#motivation&quot; aria-label=&quot;Anchor link for: motivation&quot;&gt;#&lt;&#x2F;a&gt;
 Motivation&lt;&#x2F;h2&gt;
 &lt;p&gt;In my email setup I have a nice separation between synchronising emails from my mail server, viewing my emails locally, and another program responsible for sending emails.
 This split is commonly called: mail retrieval agent (&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Mail_retrieval_agent&quot;&gt;MRA&lt;&#x2F;a&gt;) and mail delivery agent (&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Message_delivery_agent&quot;&gt;MDA&lt;&#x2F;a&gt;), message user agent (&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Email_client&quot;&gt;MUA&lt;&#x2F;a&gt;), and message submission agent (&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Message_submission_agent&quot;&gt;MSA&lt;&#x2F;a&gt;) and mail transfer agent (&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Message_transfer_agent&quot;&gt;MTA&lt;&#x2F;a&gt;).
@@ -241,10 +241,10 @@ Perhaps in parallel I would be able to make a start on moving chatters towards w
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://pages.home.jeffas.net/jeffasnet/blog/model-checking-the-implementation/"/>
-        <id>https://pages.home.jeffas.net/jeffasnet/blog/model-checking-the-implementation/</id>
+        <link rel="alternate" type="text/html" href="https://public-pages.home.jeffas.net/jeffasnet/blog/model-checking-the-implementation/"/>
+        <id>https://public-pages.home.jeffas.net/jeffasnet/blog/model-checking-the-implementation/</id>
         
-        <content type="html" xml:base="https://pages.home.jeffas.net/jeffasnet/blog/model-checking-the-implementation/">&lt;p&gt;There are now a few papers covering distributed systems model checking (FlyMC, SandTable).
+        <content type="html" xml:base="https://public-pages.home.jeffas.net/jeffasnet/blog/model-checking-the-implementation/">&lt;p&gt;There are now a few papers covering distributed systems model checking (FlyMC, SandTable).
 These take one of two approaches:&lt;&#x2F;p&gt;
 &lt;ul&gt;
 &lt;li&gt;deploy the system, and model check it through intercepting messages&lt;&#x2F;li&gt;
@@ -297,10 +297,10 @@ Also, engineers who know how to write code can just continue in the same languag
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://pages.home.jeffas.net/jeffasnet/blog/what-is-the-ui-optimized-for/"/>
-        <id>https://pages.home.jeffas.net/jeffasnet/blog/what-is-the-ui-optimized-for/</id>
+        <link rel="alternate" type="text/html" href="https://public-pages.home.jeffas.net/jeffasnet/blog/what-is-the-ui-optimized-for/"/>
+        <id>https://public-pages.home.jeffas.net/jeffasnet/blog/what-is-the-ui-optimized-for/</id>
         
-        <content type="html" xml:base="https://pages.home.jeffas.net/jeffasnet/blog/what-is-the-ui-optimized-for/">&lt;p&gt;User interfaces are increasingly surrounding us.
+        <content type="html" xml:base="https://public-pages.home.jeffas.net/jeffasnet/blog/what-is-the-ui-optimized-for/">&lt;p&gt;User interfaces are increasingly surrounding us.
 They are &lt;em&gt;designed&lt;&#x2F;em&gt; by someone with incentives.
 In otherwords, they are optimized for something.
 Not necessarily just the one thing but often for a primary purpose.&lt;&#x2F;p&gt;
@@ -331,10 +331,10 @@ Though I have considered going back to just having the boot console only...&lt;&
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://pages.home.jeffas.net/jeffasnet/blog/why-am-i-a-vegan/"/>
-        <id>https://pages.home.jeffas.net/jeffasnet/blog/why-am-i-a-vegan/</id>
+        <link rel="alternate" type="text/html" href="https://public-pages.home.jeffas.net/jeffasnet/blog/why-am-i-a-vegan/"/>
+        <id>https://public-pages.home.jeffas.net/jeffasnet/blog/why-am-i-a-vegan/</id>
         
-        <content type="html" xml:base="https://pages.home.jeffas.net/jeffasnet/blog/why-am-i-a-vegan/">&lt;p&gt;I grew up being, from what I remember, a picky eater.
+        <content type="html" xml:base="https://public-pages.home.jeffas.net/jeffasnet/blog/why-am-i-a-vegan/">&lt;p&gt;I grew up being, from what I remember, a picky eater.
 I liked some things and just wouldn&#x27;t try other things, I guess I just wanted to eat what I knew I liked.
 This eventually stopped being a problem and I ate pretty much anything, and became increasingly happy to try new things.
 This has been most of what I know for my whole life.&lt;&#x2F;p&gt;
@@ -387,10 +387,10 @@ But I no longer think that when I have to do this I will be comfortable at the m
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://pages.home.jeffas.net/jeffasnet/blog/pdf-metadata/"/>
-        <id>https://pages.home.jeffas.net/jeffasnet/blog/pdf-metadata/</id>
+        <link rel="alternate" type="text/html" href="https://public-pages.home.jeffas.net/jeffasnet/blog/pdf-metadata/"/>
+        <id>https://public-pages.home.jeffas.net/jeffasnet/blog/pdf-metadata/</id>
         
-        <content type="html" xml:base="https://pages.home.jeffas.net/jeffasnet/blog/pdf-metadata/">&lt;h2 id=&quot;the-background&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#the-background&quot; aria-label=&quot;Anchor link for: the-background&quot;&gt;#&lt;&#x2F;a&gt;
+        <content type="html" xml:base="https://public-pages.home.jeffas.net/jeffasnet/blog/pdf-metadata/">&lt;h2 id=&quot;the-background&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#the-background&quot; aria-label=&quot;Anchor link for: the-background&quot;&gt;#&lt;&#x2F;a&gt;
 The background&lt;&#x2F;h2&gt;
 &lt;p&gt;Metadata is commonly used for providing additional information in files that is typically also readable by computer programs.
 It can be very useful for automated extraction of things, such as the now popular machine learning, if for some reason you wanted to train a model to predict the next title based on your favourite papers locally.
@@ -415,21 +415,21 @@ The data&lt;&#x2F;h2&gt;
 &lt;h3 id=&quot;titles&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#titles&quot; aria-label=&quot;Anchor link for: titles&quot;&gt;##&lt;&#x2F;a&gt;
 Titles&lt;&#x2F;h3&gt;
 &lt;p&gt;So, lets start with how many papers had a title specified in the metadata:&lt;&#x2F;p&gt;
-&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;pages.home.jeffas.net&#x2F;jeffasnet&#x2F;blog&#x2F;pdf-metadata&#x2F;has_title.svg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;public-pages.home.jeffas.net&#x2F;jeffasnet&#x2F;blog&#x2F;pdf-metadata&#x2F;has_title.svg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;Well, that isn&#x27;t too promising.
 It doesn&#x27;t seem to be increasing much over the duration.&lt;&#x2F;p&gt;
 &lt;p&gt;Might as well have a look at the distribution of the title lengths while we&#x27;re here:&lt;&#x2F;p&gt;
-&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;pages.home.jeffas.net&#x2F;jeffasnet&#x2F;blog&#x2F;pdf-metadata&#x2F;title_length.svg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;public-pages.home.jeffas.net&#x2F;jeffasnet&#x2F;blog&#x2F;pdf-metadata&#x2F;title_length.svg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;Oh, and yeah, lets remove the zero from that... (note the y-axis)&lt;&#x2F;p&gt;
-&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;pages.home.jeffas.net&#x2F;jeffasnet&#x2F;blog&#x2F;pdf-metadata&#x2F;title_length_no_zero.svg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;public-pages.home.jeffas.net&#x2F;jeffasnet&#x2F;blog&#x2F;pdf-metadata&#x2F;title_length_no_zero.svg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;h3 id=&quot;authors&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#authors&quot; aria-label=&quot;Anchor link for: authors&quot;&gt;##&lt;&#x2F;a&gt;
 Authors&lt;&#x2F;h3&gt;
 &lt;p&gt;Given the data for titles, I don&#x27;t have much of an expectation that authors are specified in the metadata either:&lt;&#x2F;p&gt;
-&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;pages.home.jeffas.net&#x2F;jeffasnet&#x2F;blog&#x2F;pdf-metadata&#x2F;has_author.svg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;public-pages.home.jeffas.net&#x2F;jeffasnet&#x2F;blog&#x2F;pdf-metadata&#x2F;has_author.svg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;About what we expected, how about the distribution of lengths?&lt;&#x2F;p&gt;
-&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;pages.home.jeffas.net&#x2F;jeffasnet&#x2F;blog&#x2F;pdf-metadata&#x2F;author_length.svg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;public-pages.home.jeffas.net&#x2F;jeffasnet&#x2F;blog&#x2F;pdf-metadata&#x2F;author_length.svg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;And again without the 0 ones...&lt;&#x2F;p&gt;
-&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;pages.home.jeffas.net&#x2F;jeffasnet&#x2F;blog&#x2F;pdf-metadata&#x2F;author_length_no_zero.svg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;public-pages.home.jeffas.net&#x2F;jeffasnet&#x2F;blog&#x2F;pdf-metadata&#x2F;author_length_no_zero.svg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;other-oddities&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#other-oddities&quot; aria-label=&quot;Anchor link for: other-oddities&quot;&gt;#&lt;&#x2F;a&gt;
 Other oddities&lt;&#x2F;h2&gt;
 &lt;p&gt;So, there&#x27;s some strong evidence for papers often not having sufficient simple metadata embedded in the PDF.
@@ -466,10 +466,10 @@ Some of the most popular authors are &lt;code&gt;Anonymous Submission&lt;&#x2F;c
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://pages.home.jeffas.net/jeffasnet/blog/presentation-notes/"/>
-        <id>https://pages.home.jeffas.net/jeffasnet/blog/presentation-notes/</id>
+        <link rel="alternate" type="text/html" href="https://public-pages.home.jeffas.net/jeffasnet/blog/presentation-notes/"/>
+        <id>https://public-pages.home.jeffas.net/jeffasnet/blog/presentation-notes/</id>
         
-        <content type="html" xml:base="https://pages.home.jeffas.net/jeffasnet/blog/presentation-notes/">&lt;p&gt;This is a collection of notes on making a presentation.&lt;&#x2F;p&gt;
+        <content type="html" xml:base="https://public-pages.home.jeffas.net/jeffasnet/blog/presentation-notes/">&lt;p&gt;This is a collection of notes on making a presentation.&lt;&#x2F;p&gt;
 &lt;p&gt;Of course, this is not all my own advice but things I have learned and picked up from friends and colleagues.
 Many thanks.&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;title-slide&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#title-slide&quot; aria-label=&quot;Anchor link for: title-slide&quot;&gt;#&lt;&#x2F;a&gt;
@@ -550,10 +550,10 @@ Some other useful advice&lt;&#x2F;h2&gt;
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://pages.home.jeffas.net/jeffasnet/blog/paper-notes/"/>
-        <id>https://pages.home.jeffas.net/jeffasnet/blog/paper-notes/</id>
+        <link rel="alternate" type="text/html" href="https://public-pages.home.jeffas.net/jeffasnet/blog/paper-notes/"/>
+        <id>https://public-pages.home.jeffas.net/jeffasnet/blog/paper-notes/</id>
         
-        <content type="html" xml:base="https://pages.home.jeffas.net/jeffasnet/blog/paper-notes/">&lt;p&gt;This is a collection of notes on writing a paper.
+        <content type="html" xml:base="https://public-pages.home.jeffas.net/jeffasnet/blog/paper-notes/">&lt;p&gt;This is a collection of notes on writing a paper.
 Some of these may apply more generally to writing but no promises.
 The target for this is an academic paper written in LaTeX.&lt;&#x2F;p&gt;
 &lt;p&gt;Of course, this is not all my own advice but things I have learned and picked up from friends and colleagues.
@@ -630,11 +630,11 @@ Some other useful advice&lt;&#x2F;h2&gt;
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://pages.home.jeffas.net/jeffasnet/blog/nodo-part-1-formats/"/>
-        <id>https://pages.home.jeffas.net/jeffasnet/blog/nodo-part-1-formats/</id>
+        <link rel="alternate" type="text/html" href="https://public-pages.home.jeffas.net/jeffasnet/blog/nodo-part-1-formats/"/>
+        <id>https://public-pages.home.jeffas.net/jeffasnet/blog/nodo-part-1-formats/</id>
         
-        <content type="html" xml:base="https://pages.home.jeffas.net/jeffasnet/blog/nodo-part-1-formats/">&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;pages.home.jeffas.net&#x2F;jeffasnet&#x2F;blog&#x2F;nodo-part-0-an-exploration&#x2F;&quot;&gt;Nodo Part 0 - An Exploration&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+        <content type="html" xml:base="https://public-pages.home.jeffas.net/jeffasnet/blog/nodo-part-1-formats/">&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;public-pages.home.jeffas.net&#x2F;jeffasnet&#x2F;blog&#x2F;nodo-part-0-an-exploration&#x2F;&quot;&gt;Nodo Part 0 - An Exploration&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;jeffa5&#x2F;nodo&quot;&gt;Git Repo&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
 &lt;&#x2F;ul&gt;
 &lt;p&gt;To begin implementing Nodo we need to make a start with Rust. This means
@@ -733,10 +733,10 @@ some more...&lt;&#x2F;p&gt;
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://pages.home.jeffas.net/jeffasnet/blog/nodo-part-0-an-exploration/"/>
-        <id>https://pages.home.jeffas.net/jeffasnet/blog/nodo-part-0-an-exploration/</id>
+        <link rel="alternate" type="text/html" href="https://public-pages.home.jeffas.net/jeffasnet/blog/nodo-part-0-an-exploration/"/>
+        <id>https://public-pages.home.jeffas.net/jeffasnet/blog/nodo-part-0-an-exploration/</id>
         
-        <content type="html" xml:base="https://pages.home.jeffas.net/jeffasnet/blog/nodo-part-0-an-exploration/">&lt;p&gt;I&#x27;ve just published a brief &lt;a href=&quot;https:&#x2F;&#x2F;pages.home.jeffas.net&#x2F;jeffasnet&#x2F;blog&#x2F;thoughts-on-notes-and-todos&#x2F;&quot;&gt;post&lt;&#x2F;a&gt; about notes and todos in which I
+        <content type="html" xml:base="https://public-pages.home.jeffas.net/jeffasnet/blog/nodo-part-0-an-exploration/">&lt;p&gt;I&#x27;ve just published a brief &lt;a href=&quot;https:&#x2F;&#x2F;public-pages.home.jeffas.net&#x2F;jeffasnet&#x2F;blog&#x2F;thoughts-on-notes-and-todos&#x2F;&quot;&gt;post&lt;&#x2F;a&gt; about notes and todos in which I
 outline some ways I want to interact with my notes and todos. I&#x27;m going to try
 and keep up with the development of the tool I experiment with here to outline
 to myself why I&#x27;m making decisions and for anyone else that finds it useful.&lt;&#x2F;p&gt;
@@ -813,10 +813,10 @@ later as needed.&lt;&#x2F;p&gt;
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://pages.home.jeffas.net/jeffasnet/blog/thoughts-on-notes-and-todos/"/>
-        <id>https://pages.home.jeffas.net/jeffasnet/blog/thoughts-on-notes-and-todos/</id>
+        <link rel="alternate" type="text/html" href="https://public-pages.home.jeffas.net/jeffasnet/blog/thoughts-on-notes-and-todos/"/>
+        <id>https://public-pages.home.jeffas.net/jeffasnet/blog/thoughts-on-notes-and-todos/</id>
         
-        <content type="html" xml:base="https://pages.home.jeffas.net/jeffasnet/blog/thoughts-on-notes-and-todos/">&lt;p&gt;I often find myself a bit lost with what I have going on, what needs doing and
+        <content type="html" xml:base="https://public-pages.home.jeffas.net/jeffasnet/blog/thoughts-on-notes-and-todos/">&lt;p&gt;I often find myself a bit lost with what I have going on, what needs doing and
 what state things are in. I make notes on pieces of paper which are nice, small
 and physical, but easily lost, missed and forgotten. I also have some notes on
 Google&#x27;s Keep, these mostly get forgotten about though. I primarily spend my
@@ -869,10 +869,10 @@ more what I want out of the tool too.&lt;&#x2F;p&gt;
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://pages.home.jeffas.net/jeffasnet/blog/ocaml-state-machines/"/>
-        <id>https://pages.home.jeffas.net/jeffasnet/blog/ocaml-state-machines/</id>
+        <link rel="alternate" type="text/html" href="https://public-pages.home.jeffas.net/jeffasnet/blog/ocaml-state-machines/"/>
+        <id>https://public-pages.home.jeffas.net/jeffasnet/blog/ocaml-state-machines/</id>
         
-        <content type="html" xml:base="https://pages.home.jeffas.net/jeffasnet/blog/ocaml-state-machines/">&lt;h2 id=&quot;the-goal-type-correct-state-machines&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#the-goal-type-correct-state-machines&quot; aria-label=&quot;Anchor link for: the-goal-type-correct-state-machines&quot;&gt;#&lt;&#x2F;a&gt;
+        <content type="html" xml:base="https://public-pages.home.jeffas.net/jeffasnet/blog/ocaml-state-machines/">&lt;h2 id=&quot;the-goal-type-correct-state-machines&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#the-goal-type-correct-state-machines&quot; aria-label=&quot;Anchor link for: the-goal-type-correct-state-machines&quot;&gt;#&lt;&#x2F;a&gt;
 The goal, type correct state machines&lt;&#x2F;h2&gt;
 &lt;p&gt;OCaml has great type inference and functions permeate the language. Coupling
 these, how do we design not only a type safe mechanism for state machines but a
@@ -886,7 +886,7 @@ our machine can be (more) statically correct.&lt;&#x2F;p&gt;
 The example state machine&lt;&#x2F;h2&gt;
 &lt;p&gt;We have two states: &lt;code&gt;A&lt;&#x2F;code&gt; and &lt;code&gt;B&lt;&#x2F;code&gt;, and two inputs &lt;code&gt;0&lt;&#x2F;code&gt; and &lt;code&gt;1&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
 &lt;p&gt;The machine is as follows:&lt;&#x2F;p&gt;
-&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;pages.home.jeffas.net&#x2F;jeffasnet&#x2F;blog&#x2F;ocaml-state-machines&#x2F;machine.png&quot; alt=&quot;State Machine&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;public-pages.home.jeffas.net&#x2F;jeffasnet&#x2F;blog&#x2F;ocaml-state-machines&#x2F;machine.png&quot; alt=&quot;State Machine&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;Or in table form:&lt;&#x2F;p&gt;
 &lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;From \ To&lt;&#x2F;th&gt;&lt;th&gt;A&lt;&#x2F;th&gt;&lt;th&gt;B&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
 &lt;tr&gt;&lt;td&gt;A&lt;&#x2F;td&gt;&lt;td&gt;0&lt;&#x2F;td&gt;&lt;td&gt;1&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
@@ -984,10 +984,10 @@ circuiting for errors or unique inputs for a subset of states.&lt;&#x2F;p&gt;
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://pages.home.jeffas.net/jeffasnet/blog/block-breaker/"/>
-        <id>https://pages.home.jeffas.net/jeffasnet/blog/block-breaker/</id>
+        <link rel="alternate" type="text/html" href="https://public-pages.home.jeffas.net/jeffasnet/blog/block-breaker/"/>
+        <id>https://public-pages.home.jeffas.net/jeffasnet/blog/block-breaker/</id>
         
-        <content type="html" xml:base="https://pages.home.jeffas.net/jeffasnet/blog/block-breaker/">&lt;p&gt;Block breaker is a fun game for killing time. There is a library component and
+        <content type="html" xml:base="https://public-pages.home.jeffas.net/jeffasnet/blog/block-breaker/">&lt;p&gt;Block breaker is a fun game for killing time. There is a library component and
 frontend implementations. It doesn&#x27;t make use of a game engine or anything and
 is just some simple Rust modules stitched together.&lt;&#x2F;p&gt;
 &lt;p&gt;Since I spend a lot of time in the terminal I created an accompanying tui
@@ -1010,10 +1010,10 @@ frontend. This is quite nice and certainly enough for this simple game.&lt;&#x2F
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://pages.home.jeffas.net/jeffasnet/blog/owork/"/>
-        <id>https://pages.home.jeffas.net/jeffasnet/blog/owork/</id>
+        <link rel="alternate" type="text/html" href="https://public-pages.home.jeffas.net/jeffasnet/blog/owork/"/>
+        <id>https://public-pages.home.jeffas.net/jeffasnet/blog/owork/</id>
         
-        <content type="html" xml:base="https://pages.home.jeffas.net/jeffasnet/blog/owork/">&lt;p&gt;Owork is a productivity timer written in OCaml. It provides four states of
+        <content type="html" xml:base="https://public-pages.home.jeffas.net/jeffasnet/blog/owork/">&lt;p&gt;Owork is a productivity timer written in OCaml. It provides four states of
 work: &lt;code&gt;idle&lt;&#x2F;code&gt;, &lt;code&gt;working&lt;&#x2F;code&gt;, &lt;code&gt;short break&lt;&#x2F;code&gt; and &lt;code&gt;long break&lt;&#x2F;code&gt;. The times for each
 duration are configurable and the user can create their own scripts to interact
 with the server.&lt;&#x2F;p&gt;
@@ -1044,10 +1044,10 @@ work.&lt;&#x2F;p&gt;
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://pages.home.jeffas.net/jeffasnet/blog/waytext/"/>
-        <id>https://pages.home.jeffas.net/jeffasnet/blog/waytext/</id>
+        <link rel="alternate" type="text/html" href="https://public-pages.home.jeffas.net/jeffasnet/blog/waytext/"/>
+        <id>https://public-pages.home.jeffas.net/jeffasnet/blog/waytext/</id>
         
-        <content type="html" xml:base="https://pages.home.jeffas.net/jeffasnet/blog/waytext/">&lt;p&gt;Waytext is a simple Wayland program to display text to a user on all displays
+        <content type="html" xml:base="https://public-pages.home.jeffas.net/jeffasnet/blog/waytext/">&lt;p&gt;Waytext is a simple Wayland program to display text to a user on all displays
 at once.&lt;&#x2F;p&gt;
 &lt;p&gt;It makes use of the (currently) unstable layer shell protocol to render on top
 of other windows.&lt;&#x2F;p&gt;
@@ -1071,10 +1071,10 @@ that it overlays even over fullscreen windows is very useful!&lt;&#x2F;p&gt;
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://pages.home.jeffas.net/jeffasnet/blog/mirage-xmpp/"/>
-        <id>https://pages.home.jeffas.net/jeffasnet/blog/mirage-xmpp/</id>
+        <link rel="alternate" type="text/html" href="https://public-pages.home.jeffas.net/jeffasnet/blog/mirage-xmpp/"/>
+        <id>https://public-pages.home.jeffas.net/jeffasnet/blog/mirage-xmpp/</id>
         
-        <content type="html" xml:base="https://pages.home.jeffas.net/jeffasnet/blog/mirage-xmpp/">&lt;p&gt;This project is an attempt to create an OCaml library for XMPP and then build this into a functional MirageOS unikernel.&lt;&#x2F;p&gt;
+        <content type="html" xml:base="https://public-pages.home.jeffas.net/jeffasnet/blog/mirage-xmpp/">&lt;p&gt;This project is an attempt to create an OCaml library for XMPP and then build this into a functional MirageOS unikernel.&lt;&#x2F;p&gt;
 &lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;jeffa5&#x2F;mirage-xmpp&quot;&gt;GitHub&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 </content>
         

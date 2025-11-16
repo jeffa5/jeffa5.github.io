@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 Allow: /
-Sitemap: https://pages.home.jeffas.net/jeffasnet/sitemap.xml
+Sitemap: https://public-pages.home.jeffas.net/jeffasnet/sitemap.xml
