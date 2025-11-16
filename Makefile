@@ -1,3 +1,3 @@
 .PHONY: public
 public:
-	zola build
+	zola build --base-url "https://pages.home.jeffas.net/jeffasnet/"
