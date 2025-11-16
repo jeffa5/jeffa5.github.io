@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+<head>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/style.css" />
+  <!-- <link rel="alternate" type="application/atom+xml" title="RSS" href="/blog/atom.xml"> -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Andrew's (jeffas') personal site.">
+
+  <title>Too late now</title>
+</head>
+
+<body>
+  <main>
+<header>
+    <h1>Too late now</h1>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/blog">Blog</a>
+        <a href="/publications">Publications</a>
+    </nav>
+    <hr />
+</header>
+<p>This is a collection of notes on writing a paper.
+Some of these may apply more generally to writing but no promises.
+The target for this is an academic paper written in LaTeX.</p>
+<p>Of course, this is not all my own advice but things I have learned and picked up from friends and colleagues.
+Many thanks.</p>
+<h2 id="write-one-line-per-sentence-or-one-sentence-per-line">Write one line per sentence (or one sentence per line)</h2>
+<p>This makes it easier to skim through a document and see particularly long sentences.
+These can often be broken down into multiple sentences for a clearer message.
+If there are long links in the way then maybe try detexifying the source first.</p>
+<h2 id="have-a-self-referential-layout">Have a self-referential layout</h2>
+<p>The structure of the abstract should reflect the structure of the sections in the paper.
+This is similar with the introduction but it may add more context, this follows the general to specific principle.
+The conclusion may be a similar style again but in reverse, specific to general.</p>
+<h2 id="link-the-introduction-to-the-layout">Link the introduction to the layout</h2>
+<p>The introduction is a key part of the paper that people will read first.
+This shouldn&#8217;t be boring or too lengthy so give the reader a guide to the paper.
+It doesn&#8217;t need a pointer paragraph at the end of it to say the section headings again.
+Instead, point out your key contributions with reference to the sections, much more interesting and useful.</p>
+<h2 id="use-booktabs-for-tables">Use booktabs for tables</h2>
+<p>That is all.</p>
+<h2 id="use-a-non-breaking-space-between-text-and-citeref">Use a non-breaking space between text and cite&#47;ref</h2>
+<p>In LaTeX: <code>~</code>, e.g. <code>some smart paper~\cite{smarts}</code>.</p>
+<h2 id="ensure-figures-are-referenced-in-the-text-and-pull-their-weight">Ensure figures are referenced in the text and pull their weight</h2>
+<p>If a figure isn&#8217;t referenced then when should the reader look at it?
+The reference should tie the figure into the discussion and so it should be relevant and beneficial to that discussion.
+Figures also take space in the paper so plan to include only the most pertinent.
+Take care as besides distracting the user they can be confusing and detrimental if not clearly thought out or explained.</p>
+<h2 id="use-references-early-on-in-the-text">Use references early on in the text</h2>
+<p>When linking to a figure, table, etc.,  (that&#8217;s pulling its weight) try and have the reference to it appear early on in the text.
+Having it appear early helps the reader realise that you&#8217;re talking about the figure, and so can reference it, rather than reading, noticing the figure link, then re-reading.
+Keep the flow.</p>
+<h2 id="consistent-citations">Consistent citations</h2>
+<p>All the citations in the bibliography should be in a consistent style.
+For instance, all first names in full rather than initials, conference proceedings in common format with common fields filled out where possible.</p>
+<h2 id="captions-above-tables-and-below-figures">Captions above tables and below figures</h2>
+<p><a href="https://tex.stackexchange.com/questions/3243/why-should-a-table-caption-be-placed-above-the-table">See here for a reference</a>.</p>
+<h2 id="use-for-improving-accessibility">Use <code>\Description</code> for improving accessibility</h2>
+<p>This is more than a caption and should describe what happens in the figure, it is <em>describing</em> the figure.</p>
+<h2 id="captions-represent-the-takeaways">Captions represent the takeaways</h2>
+<p>The caption needs to (succinctly) state what the takeaway is.
+What is the thing that you want the reader to notice in particular and relate to from the text.</p>
+<h2 id="some-other-useful-advice">Some other useful advice</h2>
+<ul>
+<li><a href="https://www.acm.org/publications/taps/latex-best-practices">ACM best practices</a></li>
+<li><a href="https://capra.cs.cornell.edu/styleguide/">Capra style guide</a></li>
+<li><a href="https://irenezhang.net/blog/2021/06/05/hints.html">Hints on how to write an SOSP paper</a></li>
+<li><a href="https://people.mpi-sws.org/~dreyer/talks/talk-plmw20icfp.pdf">How to write papers so people can read them</a></li>
+<li><a href="https://www.cs.columbia.edu/~hgs/etc/writing-bugs.html">Common Bugs in Writing</a></li>
+</ul>
+<footer>
+    <hr />
+    <b>Correctness, Efficiency, Performance</b>
+    <ul>
+        <li>
+            <a href="https://github.com/jeffa5">GitHub - <code>jeffa5</code></a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/in/andrew-jeffery">LinkedIn</a>
+        </li>
+        <li>
+            <a href="https://scholar.google.com/citations?user=9mJpZCgAAAAJ&hl=en&citsig=AMD79oqdDsfKS5CDUdoSiOK42EeuPXKUMg">Google Scholar profile</a>
+        </li>
+        <li>
+            <a href="/blog/atom.xml">Atom/RSS feed</a>
+        </li>
+    </ul>
+</footer>
+  </main>
+</body>

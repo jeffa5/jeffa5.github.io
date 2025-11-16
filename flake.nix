@@ -25,6 +25,7 @@
           packages = [
             pkgs.zola
             pkgs.nodePackages.js-beautify
+            pkgs.lowdown
             packages.new-post
           ];
         };

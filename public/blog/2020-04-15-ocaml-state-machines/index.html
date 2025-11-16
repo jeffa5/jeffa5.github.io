@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+<head>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/style.css" />
+  <!-- <link rel="alternate" type="application/atom+xml" title="RSS" href="/blog/atom.xml"> -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Andrew's (jeffas') personal site.">
+
+  <title>Too late now</title>
+</head>
+
+<body>
+  <main>
+<header>
+    <h1>Too late now</h1>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/blog">Blog</a>
+        <a href="/publications">Publications</a>
+    </nav>
+    <hr />
+</header>
+<h2 id="the-goal-type-correct-state-machines">The goal, type correct state machines</h2>
+<p>OCaml has great type inference and functions permeate the language. Coupling
+these, how do we design not only a type safe mechanism for state machines but a
+type correct one?</p>
+<h3 id="type-correct-what">Type correct, what?</h3>
+<p>Type safety gives us things like exhaustive matching on variants but I want a
+way of preventing certain transitions in a state machine at the type level so
+our machine can be (more) statically correct.</p>
+<h2 id="the-example-state-machine">The example state machine</h2>
+<p>We have two states: <code>A</code> and <code>B</code>, and two inputs <code>0</code> and <code>1</code>.</p>
+<p>The machine is as follows:</p>
+<p><img src="machine.png" alt="State Machine" /></p>
+<p>Or in table form:</p>
+<table>
+<thead>
+<tr>
+<th>From \ To</th>
+<th>A</th>
+<th>B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>B</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="attempt-one-variants">Attempt one, variants</h2>
+<p>Variants, or algebraic datatypes, give us nice ways of doing enumerations at
+the type level which can be <code>match</code>ed on, perfect for limited sets of states
+and inputs.</p>
+<pre><code class="language-ocaml">type state = A | B
+
+type input = Zero | One
+
+(* state *)
+let initial = A
+
+(* state -&#62; input -&#62; state *)
+let transition s i =
+  match (s, i) with
+  | A, Zero -&#62; A
+  | A, One -&#62; B
+  | B, Zero -&#62; A
+  | B, One -&#62; B
+</code></pre>
+<p>This gives us a complete implementation with an exhaustively checked <code>match</code>
+statement in the <code>transitions</code> function. This is useful as it specifies the
+transitions but requires us to look into the code to see what transitions are
+possible from a given state so this isn&#8217;t typey enough for me.</p>
+<h2 id="attempt-two-polymorphic-variants">Attempt two, polymorphic Variants</h2>
+<p>Polymorphic variants, super powered variants (kinda), allow us to have
+enumerations of states but can appear in type signatures as their individual
+<em>atoms</em>.</p>
+<pre><code class="language-ocaml">type state = [ `A | `B ]
+
+type input = [ `Zero | `One ]
+
+(* [&#62; `A ] *)
+let initial = `A
+
+(* [&#60; `A | `B ] -&#62; [&#60; `One | `Zero ] -&#62; [&#62; `A | `B ] *)
+let transition s i =
+  match (s, i) with
+  | `A, `Zero -&#62; `A
+  | `A, `One -&#62; `B
+  | `B, `Zero -&#62; `A
+  | `B, `One -&#62; `B
+</code></pre>
+<p>This may seem like I&#8217;ve just added backticks before the names of our states and
+inputs (and that is what I did) but we also gained some different type
+signatures, look at <code>initial</code> for instance, which will lead us to attempt
+three.</p>
+<h2 id="attempt-three-transition-functions">Attempt three, transition functions</h2>
+<p>From attempt two we could see that our states and inputs are split up in the
+type system. How about we make that more useful?</p>
+<pre><code class="language-ocaml">type state = [ `A | `B ]
+
+(* [&#62; `A ] *)
+let initial = `A
+
+(* [&#60; `A | `B ] -&#62; [&#62; `A ] *)
+let zero = function `A | `B -&#62; `A
+
+(* [&#60; `A | `B ] -&#62; [&#62; `B ] *)
+let one = function `A | `B -&#62; `B
+
+(* [&#60; `One | `Zero ] -&#62; [&#60; `A | `B ] -&#62; [&#62; `A | `B ] *)
+let input_to_function = function `Zero -&#62; zero | `One -&#62; one
+
+(*  [&#60; `A | `B ] -&#62; [&#60; `One | `Zero ] -&#62; [&#62; `A | `B ] *)
+let transition s = function `Zero -&#62; zero s | `One -&#62; one s
+</code></pre>
+<p>This allows us to now create functions representing the transitions for a given
+input and the type signatures show us the possible next states. The typical
+<code>transition</code> function can also be constructed from this to fold over inputs.</p>
+<p>I like this last attempt due to the explicitness of the transition functions
+and the fact that it extends to state machines where not all states may accept
+all inputs. Particularly useful for modelling protocols which may have short
+circuiting for errors or unique inputs for a subset of states.</p>
+<footer>
+    <hr />
+    <b>Correctness, Efficiency, Performance</b>
+    <ul>
+        <li>
+            <a href="https://github.com/jeffa5">GitHub - <code>jeffa5</code></a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/in/andrew-jeffery">LinkedIn</a>
+        </li>
+        <li>
+            <a href="https://scholar.google.com/citations?user=9mJpZCgAAAAJ&hl=en&citsig=AMD79oqdDsfKS5CDUdoSiOK42EeuPXKUMg">Google Scholar profile</a>
+        </li>
+        <li>
+            <a href="/blog/atom.xml">Atom/RSS feed</a>
+        </li>
+    </ul>
+</footer>
+  </main>
+</body>

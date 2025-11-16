@@ -1,6 +1,4 @@
----
-title: "XMPP server implementation in OCaml for MirageOS"
----
+# XMPP server implementation in OCaml for MirageOS
 
 This project is an attempt to create an OCaml library for XMPP and then build this into a functional MirageOS unikernel.
 

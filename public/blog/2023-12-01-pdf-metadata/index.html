@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+<head>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/style.css" />
+  <!-- <link rel="alternate" type="application/atom+xml" title="RSS" href="/blog/atom.xml"> -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Andrew's (jeffas') personal site.">
+
+  <title>Too late now</title>
+</head>
+
+<body>
+  <main>
+<header>
+    <h1>Too late now</h1>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/blog">Blog</a>
+        <a href="/publications">Publications</a>
+    </nav>
+    <hr />
+</header>
+<h2 id="the-background">The background</h2>
+<p>Metadata is commonly used for providing additional information in files that is typically also readable by computer programs.
+It can be very useful for automated extraction of things, such as the now popular machine learning, if for some reason you wanted to train a model to predict the next title based on your favourite papers locally.
+But I don&#8217;t want to do that, at least not yet.
+I just want to have a tool that knows how to read a PDF file&#8217;s metadata and use some of that data for keeping track of my paper collection.
+Seems simple: files include metadata, machines can extract that data, and I can write some glue code.</p>
+<p>But the problem is, not all files include the metadata.</p>
+<p>I can understand not all people bother to include metadata fields for quick things they put into a PDF, but for things such as published academic papers I would hope otherwise, with more care taken.
+To me, it is a mark of care.
+(Though I&#8217;m probably already guilty of going against this myself).</p>
+<p>Sure, there are automated tools for trying to extract common pieces of metadata from the main content of files but I don&#8217;t want some heuristic things, I want what the author put the title as, or their own names.
+Conveniently, these academic papers are uploaded to repositories that <strong>require</strong> them to input basic information such as the title and authors of the paper.
+Because the platforms have the data themselves, they could easily add it to the PDF file if it doesn&#8217;t already exist.
+Now, I don&#8217;t have any particular influence over these repositories, and I can understand them wanting to not interfere with the built artifacts (for reproducibility or otherwise), so we can switch back to the original authors&#8230;</p>
+<p>Rather than just speaking from my experience of downloading papers, I thought I&#8217;d try and have a look at some data.
+ArXiv is a popular repository for papers in my field, particularly because it is open-access.
+They handily publish archives of their PDFs, grouped by the year and month they were submitted, so we can play around with some of that.
+That also happens to be a lot of papers, so I&#8217;ve just selected a few <code>yearmonth</code>s and worked with those.
+You can find the scripts for processing, if you want to try with more data for instance, on my GitHub: <a href="https://github.com/jeffa5/arxiv-pdf-meta">github.com&#47;jeffa5&#47;arxiv-pdf-meta</a>.</p>
+<h2 id="the-data">The data</h2>
+<h3 id="titles">Titles</h3>
+<p>So, lets start with how many papers had a title specified in the metadata:</p>
+<p><img src="has_title.svg" alt="" /></p>
+<p>Well, that isn&#8217;t too promising.
+It doesn&#8217;t seem to be increasing much over the duration.</p>
+<p>Might as well have a look at the distribution of the title lengths while we&#8217;re here:</p>
+<p><img src="title_length.svg" alt="" /></p>
+<p>Oh, and yeah, lets remove the zero from that&#8230; (note the y-axis)</p>
+<p><img src="title_length_no_zero.svg" alt="" /></p>
+<h3 id="authors">Authors</h3>
+<p>Given the data for titles, I don&#8217;t have much of an expectation that authors are specified in the metadata either:</p>
+<p><img src="has_author.svg" alt="" /></p>
+<p>About what we expected, how about the distribution of lengths?</p>
+<p><img src="author_length.svg" alt="" /></p>
+<p>And again without the 0 ones&#8230;</p>
+<p><img src="author_length_no_zero.svg" alt="" /></p>
+<h2 id="other-oddities">Other oddities</h2>
+<p>So, there&#8217;s some strong evidence for papers often not having sufficient simple metadata embedded in the PDF.
+But, hold on, the length distributions look interesting, I&#8217;d expect the papers with a title to have one with reasonable length.</p>
+<p><em>what would a one letter title look like??</em></p>
+<p>Well, here you go</p>
+<table>
+<thead>
+<tr>
+<th>title</th>
+<th>count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\uf020</code></td>
+<td>262</td>
+</tr>
+<tr>
+<td><code></code></td>
+<td>20</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td>10</td>
+</tr>
+<tr>
+<td><code>_</code></td>
+<td>10</td>
+</tr>
+<tr>
+<td><code>A</code></td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<p>Yes, that is a space on the second row.
+Maybe PDF parsing isn&#8217;t completely accurate (given the unicode value) but that seems not too egregious.</p>
+<p>Titles with 42 characters were actually the most common after those with 0, just under a thousand of them.
+At least there are some reasonable length titles in there.
+Though, looking at the most common titles, <code>Submitted to INTERSPEECH</code>, <code>Overleaf Example</code>, <code>A template for the arxiv style</code>, and simply <code>Title</code> are&#8230; interesting.</p>
+<p>As for authors there are some better contenders at the low character count, but <code>-</code> (the most popular of length 1) doesn&#8217;t seem right.
+Some of the most popular authors are <code>Anonymous Submission</code>, <code>Author name(s) withheld</code>, <code>IEEE</code>, and <code>Author</code>, and <code>-</code> again.</p>
+<footer>
+    <hr />
+    <b>Correctness, Efficiency, Performance</b>
+    <ul>
+        <li>
+            <a href="https://github.com/jeffa5">GitHub - <code>jeffa5</code></a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/in/andrew-jeffery">LinkedIn</a>
+        </li>
+        <li>
+            <a href="https://scholar.google.com/citations?user=9mJpZCgAAAAJ&hl=en&citsig=AMD79oqdDsfKS5CDUdoSiOK42EeuPXKUMg">Google Scholar profile</a>
+        </li>
+        <li>
+            <a href="/blog/atom.xml">Atom/RSS feed</a>
+        </li>
+    </ul>
+</footer>
+  </main>
+</body>

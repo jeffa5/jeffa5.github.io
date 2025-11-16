@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+<head>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/style.css" />
+  <!-- <link rel="alternate" type="application/atom+xml" title="RSS" href="/blog/atom.xml"> -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Andrew's (jeffas') personal site.">
+
+  <title>Too late now</title>
+</head>
+
+<body>
+  <main>
+<header>
+    <h1>Too late now</h1>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/blog">Blog</a>
+        <a href="/publications">Publications</a>
+    </nav>
+    <hr />
+</header>
+<p>There are now a few papers covering distributed systems model checking (FlyMC, SandTable).
+These take one of two approaches:
+- deploy the system, and model check it through intercepting messages
+- create an abstract model of the implementation and check that</p>
+<p>The benefits seem to be either:
+- the implementation is checked directly
+- the checking is fast</p>
+<p>But why can&#8217;t we have both?
+Well, I think we can.</p>
+<p>The reason the first approach is slow is that it is actually running the system with all of the ancillary components.
+Meanwhile, the second approach is fast because it isn&#8217;t the actual implementation, rather its just some abstract model.
+The second approach also has problems ensuring that the implementation and abstract model remain synchronised and describing the same thing.</p>
+<p>So, a solution: model-check the implementation.</p>
+<p>The implementation of a distributed system should likely revolve around an actor-based system.
+Each actor takes a message, processes it and optionally produces a message for another actor.
+This is a clean interface that can run on a network, but doesn&#8217;t need to, it can run in memory.
+For disk and other ancillary components we just need the implementation to support swapping them out for in-memory simpler implementations; the abstact model wasn&#8217;t modelling them anyway.</p>
+<p>The actors can be combined together with a modelled network in-memory, producing a model-checkable implementation.
+Using a sensible language the in-memory storage components can be maintained using copying of the memory and optimizations made to them for checking.</p>
+<p>This new strategy, <em>true</em> implementation-level model checking can be both things we want:
+- accurate, we&#8217;re just checking the actual implementation
+- fast, its just the implementation code, which can be optimised</p>
+<p>Notably, optimising the implementation in this scenario can doubly improve performance, once for model checking, and once for the deployments.
+Also, engineers who know how to write code can just continue in the same language, just needing to express their integration tests as model properties to be checked.</p>
+<p>If you want to check out an example of this that I work on, see <a href="https://github.com/jeffa5/themelios">Themelios</a>, a model-checked reimplementation of Kubernetes.</p>
+<p>Caveats:
+- I wouldn&#8217;t use Python, or another slow language, for the model checker, but using it for a critical production system isn&#8217;t ideal either
+- there are uses for checking full deployments, and also for using abstract models, but I think the middle is an under-viewed option
+- I&#8217;m not the first to think of this, some existing model checkers do this (e.g. Stateright) and it builds on single-node model checking where there wouldn&#8217;t really be a different deployment</p>
+<footer>
+    <hr />
+    <b>Correctness, Efficiency, Performance</b>
+    <ul>
+        <li>
+            <a href="https://github.com/jeffa5">GitHub - <code>jeffa5</code></a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/in/andrew-jeffery">LinkedIn</a>
+        </li>
+        <li>
+            <a href="https://scholar.google.com/citations?user=9mJpZCgAAAAJ&hl=en&citsig=AMD79oqdDsfKS5CDUdoSiOK42EeuPXKUMg">Google Scholar profile</a>
+        </li>
+        <li>
+            <a href="/blog/atom.xml">Atom/RSS feed</a>
+        </li>
+    </ul>
+</footer>
+  </main>
+</body>
