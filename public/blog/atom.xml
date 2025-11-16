@@ -1,0 +1,1082 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Too late now - Blog</title>
+    <link rel="self" type="application/atom+xml" href="https://www.jeffas.net/blog/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://www.jeffas.net/blog/"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-04-05T00:00:00+00:00</updated>
+    <id>https://www.jeffas.net/blog/atom.xml</id>
+    <entry xml:lang="en">
+        <title>CSV Language Server</title>
+        <published>2025-04-05T00:00:00+00:00</published>
+        <updated>2025-04-05T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Andrew Jeffery
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.jeffas.net/blog/csv-lsp/"/>
+        <id>https://www.jeffas.net/blog/csv-lsp/</id>
+        
+        <content type="html" xml:base="https://www.jeffas.net/blog/csv-lsp/">&lt;p&gt;Language servers, part of the language server protocol (LSP), enable enriching plain text documents to provide navigation, completion, or extra hints, among other things.
+Typically we see them for programming languages, enabling us to complete function names, jump to definitions, and get type hints inline.
+But why stop there?&lt;&#x2F;p&gt;
+&lt;p&gt;In the line of enriching content, I had a thought about making a language server for CSV files.
+These are a great plain text format that sort of resembles spreadsheets, you get rows and columns with cells of data.
+We typically have a header row at the top for names of the columns, and then data in the cells below.
+This data is normally just plain data, even if we add some spreadsheet function into it, like &lt;code&gt;=SUM(A2:A5)&lt;&#x2F;code&gt;.
+That&#x27;s nice, it&#x27;s quick and easy to view, but what if we wanted to do a quick bit of spreadsheet work and didn&#x27;t need the full spreadsheet program, wouldn&#x27;t it be nice to have it just in the editor.&lt;&#x2F;p&gt;
+&lt;p&gt;Here&#x27;s where the language server comes in.
+I propose having the language server utilise the inlay hints (I think that&#x27;s a reasonable thing to use) to show the result of these computations.
+This might limit the functionality to more basic functions, but anything more advanced I think should be either in a full spreadsheet program, or done with code parsing the CSV file.
+This would also include the normal completion of spreadsheet functions, and maybe some hover help information too.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;csv&quot; class=&quot;language-csv &quot;&gt;&lt;code class=&quot;language-csv&quot; data-lang=&quot;csv&quot;&gt;Item,Amount
+food,20
+drink,5
+travel,30
+accommodation,55
+,=SUM(B2:B5)
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Might become (using &lt;code&gt;&amp;gt;&lt;&#x2F;code&gt; for the inlay hint part):&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;csv&quot; class=&quot;language-csv &quot;&gt;&lt;code class=&quot;language-csv&quot; data-lang=&quot;csv&quot;&gt;Item         ,Amount
+food         ,20
+drink        ,5
+travel       ,30
+accommodation,55
+             ,=SUM(B2:B5) &amp;gt; 110
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;A formatter would be nice to align the columns and add spacing, but we can leave that to another project.
+Maybe inlay hints could be used to do this without modifying the spacing in the actual file...&lt;&#x2F;p&gt;
+&lt;p&gt;CSV isn&#x27;t necessarily a perfect format, but this might just be enough to play around with.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Reflections on TUI discoverability</title>
+        <published>2025-04-04T00:00:00+00:00</published>
+        <updated>2025-04-04T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Andrew Jeffery
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.jeffas.net/blog/tui-discoverability/"/>
+        <id>https://www.jeffas.net/blog/tui-discoverability/</id>
+        
+        <content type="html" xml:base="https://www.jeffas.net/blog/tui-discoverability/">&lt;p&gt;&lt;em&gt;I talk about TUIs in this post, but it can equally apply to GUIs.
+I&#x27;d love to see that happen too!&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Terminal User Interfaces (TUIs) primarily focus on power users who can spend a reasonable (to long) amount of time customising their setup and learning about the application&#x27;s configuration mechanism and actions.
+That generally works OK, through reading the documentation online, or through man pages.
+What I struggle with though is that I may not be a power user for every application I want to use, but still like the TUI feel.
+So how do we work with that across applications?&lt;&#x2F;p&gt;
+&lt;p&gt;We want them to be flexible to users, allowing configuration of things, but with good defaults.
+And we want the applications to be discoverable for new comers, or when new commands are added.
+We don&#x27;t always have time to read all of the documentation and its sometimes a nice experience if you can learn new things within the application itself.
+I don&#x27;t mean an in-app tutorial though.&lt;&#x2F;p&gt;
+&lt;p&gt;So I generally see TUIs in one camp having limited configuration, hardwiring most things in.
+This is fine when they are young but can lead to lots of different mechanisms for handling adding this customisability in at a later stage.
+An instance of this might be that a key &lt;code&gt;&amp;lt;up&amp;gt;&lt;&#x2F;code&gt; maps to scrolling a list up, but I like vim-mode bindings so want to change it to &lt;code&gt;k&lt;&#x2F;code&gt;.
+This then leads to some configuration item being set up to either&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;allow mapping an action in the app to a key (or sequence of keys)&lt;&#x2F;li&gt;
+&lt;li&gt;or, allow mapping a key (or sequence of keys) to an action&lt;&#x2F;li&gt;
+&lt;li&gt;or, as I think is now my preferred way, allow mapping a key (or sequence of keys) to a sequence of keypresses&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;All are sensible options, depending on the complexity, and level of power-user you want to support.
+Option 1 keeps commands only having one keybinding and option 2 enables having multiple keys able to perform the same action.
+I&#x27;ll talk about option 3 in a bit, but it can feel a bit recursive (because it is!).&lt;&#x2F;p&gt;
+&lt;p&gt;How do we chain actions here?
+That&#x27;s a key feature of shortcuts for me, they don&#x27;t just have to perform one action, why not many.
+Option 1 doesn&#x27;t really give a way to sequence actions for the same keybinding.
+Option 2 does, but requires creating a way to sequence them, and the actions have to be some magical list that the application has an understanding of.
+Option 3 does, I can just map a key, &lt;code&gt;K&lt;&#x2F;code&gt; to &lt;code&gt;kk&lt;&#x2F;code&gt; to move up twice without me having to do anything else like explicitly write out the commands again.&lt;&#x2F;p&gt;
+&lt;p&gt;Option 3 is also really nice when coupled with a command line, this is really where the discoverability bit comes in.
+With a command line built-in to the application the previously obscure commands can be played around with in the application, not just the config file.
+Continuing the basic example we might have some command like &lt;code&gt;:move-up&lt;&#x2F;code&gt; in our application, the &lt;code&gt;:&lt;&#x2F;code&gt; is used to engage &lt;em&gt;command mode&lt;&#x2F;em&gt; for writing our commands.&lt;&#x2F;p&gt;
+&lt;p&gt;Bringing in a nice user experience we can build command completion, flag completion, and argument completion, contextual to the command.
+Simply this might mean that after typing &lt;code&gt;:m&amp;lt;tab&amp;gt;&lt;&#x2F;code&gt; I get a popover with a list of commands including &lt;code&gt;:move-up&lt;&#x2F;code&gt;.
+Also, typing &lt;code&gt;:&amp;lt;tab&amp;gt;&lt;&#x2F;code&gt; I can get a list of all of the commands and have a play around.&lt;&#x2F;p&gt;
+&lt;p&gt;From here we can extend to command history, building out something like a &lt;em&gt;repeat&lt;&#x2F;em&gt; command, maybe even a mapping such as &lt;code&gt;:&amp;lt;up&amp;gt;&amp;lt;enter&amp;gt;&lt;&#x2F;code&gt;, that focuses the command line, selects the previous entry, and executes it.
+This discoverability is something that I miss when trying a lot of TUI applications, especially those that I want to spend time using.&lt;&#x2F;p&gt;
+&lt;p&gt;The main project I think about when enjoying this experience is &lt;a href=&quot;https:&#x2F;&#x2F;aerc-mail.org&#x2F;&quot;&gt;aerc&lt;&#x2F;a&gt; which is a delight to interact with.
+I&#x27;ve since also started stealing inspiration from it for my TUI chat client &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;jeffa5&#x2F;chatters&#x2F;&quot;&gt;chatters&lt;&#x2F;a&gt;, but that&#x27;s on hold until I can work out some &lt;a href=&quot;..&#x2F;matrixdir&quot;&gt;matrixdir&lt;&#x2F;a&gt; stuff.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Matrixdir: a file-first approach for chat programs</title>
+        <published>2025-03-26T00:00:00+00:00</published>
+        <updated>2025-03-26T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Andrew Jeffery
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.jeffas.net/blog/matrixdir/"/>
+        <id>https://www.jeffas.net/blog/matrixdir/</id>
+        
+        <content type="html" xml:base="https://www.jeffas.net/blog/matrixdir/">&lt;h2 id=&quot;motivation&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#motivation&quot; aria-label=&quot;Anchor link for: motivation&quot;&gt;#&lt;&#x2F;a&gt;
+Motivation&lt;&#x2F;h2&gt;
+&lt;p&gt;In my email setup I have a nice separation between synchronising emails from my mail server, viewing my emails locally, and another program responsible for sending emails.
+This split is commonly called: mail retrieval agent (&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Mail_retrieval_agent&quot;&gt;MRA&lt;&#x2F;a&gt;) and mail delivery agent (&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Message_delivery_agent&quot;&gt;MDA&lt;&#x2F;a&gt;), message user agent (&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Email_client&quot;&gt;MUA&lt;&#x2F;a&gt;), and message submission agent (&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Message_submission_agent&quot;&gt;MSA&lt;&#x2F;a&gt;) and mail transfer agent (&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Message_transfer_agent&quot;&gt;MTA&lt;&#x2F;a&gt;).
+I like it, it keeps things separate and means that I don&#x27;t have to have my &#x27;email client&#x27; open all the time to receive email, but its downloaded and ready for my perusal offline whenever I like.
+Synchronising it to my device also means that I have a local archive and don&#x27;t need to repeatedly &#x27;export&#x27; my data from the service.
+One other key factor in this is that there is a defined standard for storing emails on a filesystem that other email programs are compatible with and can share.
+This standard is called &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Maildir&quot;&gt;maildir&lt;&#x2F;a&gt; (yes, there are extensions, and other standards like &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Mbox&quot;&gt;mbox&lt;&#x2F;a&gt; but I&#x27;ll keep it simple here).&lt;&#x2F;p&gt;
+&lt;p&gt;Now, I increasingly chat with people over instant messaging, not uncommon I know.
+However, my chats here are locked away in various apps in various clients, some of which are considerably more open than others.
+So, I&#x27;d like to try and bring my data out of those services and be more local to my devices and plaintext for ease.
+Plaintext means that other applications can do things like implementing search over messages, and I can easily take backups of them.&lt;&#x2F;p&gt;
+&lt;p&gt;There are multiple chat programs I use, but I want one standard filesystem layout for them, and then synchronisation programs can pull data down and lay it out there.
+Then we can have viewers of this data, like what I&#x27;ve thought about with &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;jeffa5&#x2F;chatters&quot;&gt;Chatters&lt;&#x2F;a&gt;, that can view messages from any chat system.&lt;&#x2F;p&gt;
+&lt;p&gt;But of course, I don&#x27;t want to create another standard for messages themselves.
+The &lt;a href=&quot;https:&#x2F;&#x2F;matrix.org&#x2F;&quot;&gt;Matrix protocol&lt;&#x2F;a&gt; does have a nice &lt;a href=&quot;https:&#x2F;&#x2F;matrix.org&#x2F;ecosystem&#x2F;bridges&#x2F;&quot;&gt;&#x27;bridge&#x27;&lt;&#x2F;a&gt; concept to integrate with other chat systems which gives me confidence that the Matrix format would be a suitable one for the messages.
+I imagine writing programs that synchronise messages from their respective chat servers and map them into the matrix format before storing on the filesystem.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;high-level-architecture&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#high-level-architecture&quot; aria-label=&quot;Anchor link for: high-level-architecture&quot;&gt;#&lt;&#x2F;a&gt;
+High level architecture&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;syncing-messages-down&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#syncing-messages-down&quot; aria-label=&quot;Anchor link for: syncing-messages-down&quot;&gt;##&lt;&#x2F;a&gt;
+Syncing messages down&lt;&#x2F;h3&gt;
+&lt;p&gt;I&#x27;d term this the chat retrieval agent (CRA).&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Chat system -&amp;gt; CRA -&amp;gt; matrixdir&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;Each CRA would be responsible for connecting to the chat system in question, downloading the messages for the user, and translating them into matrix format.
+The messages would then be stored unencrypted on the filesystem.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;viewing-messages&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#viewing-messages&quot; aria-label=&quot;Anchor link for: viewing-messages&quot;&gt;##&lt;&#x2F;a&gt;
+Viewing messages&lt;&#x2F;h3&gt;
+&lt;p&gt;I&#x27;d term this the chat user agent (CUA).&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;matrixdir -&amp;gt; CUA&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;The CUA here is a viewer of messages for the user, it just reads data off disk and builds its ui from that.
+It should be able to also watch the filesystem for new messages so that it doesn&#x27;t have to reload everything.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;sending-messages&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#sending-messages&quot; aria-label=&quot;Anchor link for: sending-messages&quot;&gt;##&lt;&#x2F;a&gt;
+Sending messages&lt;&#x2F;h3&gt;
+&lt;p&gt;I&#x27;d term this the chat submission agent (CSA).&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;CUA -&amp;gt; CSA -&amp;gt; Chat system&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;This is where I&#x27;m currently a bit fuzzy.
+Keeping to how it works in email, and keeping login logic out of the CUA, I want the CUA to invoke a process to send a message or write to a socket or something, with the matrix format as input.
+Then the CSA works out encrypting it or not, and sending it to the server.
+What I&#x27;m unsure about is whether the message needs to be copied to the matrixdir at this point, or whether the CRA should get it during a sync (or if we do both how do we avoid duplicates).&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;file-layout-and-format&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#file-layout-and-format&quot; aria-label=&quot;Anchor link for: file-layout-and-format&quot;&gt;#&lt;&#x2F;a&gt;
+File layout and format&lt;&#x2F;h2&gt;
+&lt;pre&gt;&lt;code&gt;chats&amp;#x2F;
+  lock.pid
+  room1&amp;#x2F;
+    &amp;lt;timestamp_millis&amp;gt;-events.jsonl
+    attachments&amp;#x2F;
+      &amp;lt;server-name&amp;gt;&amp;#x2F;
+        &amp;lt;media-id&amp;gt;
+  room2&amp;#x2F;
+    &amp;lt;timestamp_millis&amp;gt;-events.jsonl
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;My proposal is that, during synchronisation, events are split by the &#x27;room&#x27; that they are for (what chat the message is in), and there is a directory for the events in each room.
+Within the directory for each room are files split by the CRA&#x27;s chunking choice, but depict time slices of the events.
+A file&#x27;s name indicates the timestamp (in milliseconds) of the first event in its file, and should not include events from before this timestamp.
+Events should be added to the latest timestamp file that is available.
+The CRA is free to create new files based on, for example, each day, each week, or number of messages.
+The CRA only appends new events to files, never modifying events that have already been written.
+The particular format is JSON lines as the matrix messages can be arbitrary, and they have a convenient JSON representation which is self-describing, useful for use with tools like &lt;code&gt;jq&lt;&#x2F;code&gt;.
+When initialising, the CRA must acquire the file lock on the &lt;code&gt;lock.pid&lt;&#x2F;code&gt; file in the root of the &lt;code&gt;chats&lt;&#x2F;code&gt; directory, and write its own process ID into the file.&lt;&#x2F;p&gt;
+&lt;p&gt;Attachments are stored in an &lt;code&gt;attachments&lt;&#x2F;code&gt; directory next to the events file for each room.
+The location within is determined from the &lt;a href=&quot;https:&#x2F;&#x2F;spec.matrix.org&#x2F;latest&#x2F;client-server-api&#x2F;#matrix-content-mxc-uris&quot;&gt;matrix content URI&lt;&#x2F;a&gt; (&lt;code&gt;mxc:&#x2F;&#x2F;&amp;lt;server-name&amp;gt;&#x2F;&amp;lt;media-id&amp;gt;&lt;&#x2F;code&gt;).
+This enables leaving the original event untouched while being able to check whether the attachment has been downloaded.&lt;&#x2F;p&gt;
+&lt;p&gt;When a client (CUA) wants to view chats it can create a notify subscription on the event files for the rooms it is interested in, and maintain seek positions in them for where it has read to.
+Then, when given a notification that a file has been updated, it can read from its seek position in that file, reading line-by-line to get the events.&lt;&#x2F;p&gt;
+&lt;p&gt;Splitting the events by room means that a client can just load events for a room as needed.
+Splitting events by arbitrary chunks allows the CRA to adapt to volumes within channels and avoid lots of tiny files for a room or having one large file for a room.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;grievances&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#grievances&quot; aria-label=&quot;Anchor link for: grievances&quot;&gt;##&lt;&#x2F;a&gt;
+Grievances&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;strong&gt;This doesn&#x27;t achieve maildir&#x27;s nice atomicity through using the &lt;code&gt;mv&lt;&#x2F;code&gt; operation.&lt;&#x2F;strong&gt;
+The lack of atomicity in the writes could lead to incomplete data in the file.
+This could occur when, for instance, the CRA crashes before fully writing an event.
+A simple solution to this is for the CUAs to ignore invalid lines.
+When the CRA starts up it should check that each event file ends in a newline to ensure that if corrupt entries exist in the last line that they can be skipped properly.
+While it is tempting to provide a cleanup operation on the files, this invalidates the assumption that an event file is append-only.
+Additionally, the file lock aims to avoid concurrent processes (that are cooperating with the protocol) from invalidating and concurrently appending to the same file.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;This is not intended to be the only storage for CUAs.&lt;&#x2F;strong&gt;
+This format cannot be everything to every client, thus they may need to implement their own caches for performance.
+It does however aim to be solid starting point for them to rebuild caches from.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;alternatives&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#alternatives&quot; aria-label=&quot;Anchor link for: alternatives&quot;&gt;##&lt;&#x2F;a&gt;
+Alternatives&lt;&#x2F;h3&gt;
+&lt;p&gt;&lt;strong&gt;File per message.&lt;&#x2F;strong&gt;
+I envision this might lead to too many files and doesn&#x27;t have an inherent ordering scheme compared to appending to the file.
+File names could be ordered but I still think it might lead to too many files, particularly given that most chat messages are small.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;One big file.&lt;&#x2F;strong&gt;
+This prevents the clients from efficiently viewing events from a subset of rooms, such as on startup.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#conclusion&quot; aria-label=&quot;Anchor link for: conclusion&quot;&gt;#&lt;&#x2F;a&gt;
+Conclusion&lt;&#x2F;h2&gt;
+&lt;p&gt;I&#x27;d like to make some time to implement this in a Rust library, basic handling of the file layout things, and then try to integrate synchronising from a matrix server.
+In fact, here&#x27;s a work in progress repo: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;jeffa5&#x2F;matrixdir&quot;&gt;matrixdir&lt;&#x2F;a&gt;.
+Once that&#x27;s working I think it would be interesting to try and integrate other protocols via matrix bridges, hopefully minimising the work needed as they should already be able to transform things to and from the matrix protocol format.
+Perhaps in parallel I would be able to make a start on moving chatters towards working with this new file format rather than having the synchronisation backends embedded in it.&lt;&#x2F;p&gt;
+&lt;p&gt;If you have any comments on this proposal, or want to work on it in some way, let me know.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Check the implementation, not the deployment, not the abstract spec</title>
+        <published>2024-04-24T00:00:00+00:00</published>
+        <updated>2024-04-24T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Andrew Jeffery
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.jeffas.net/blog/model-checking-the-implementation/"/>
+        <id>https://www.jeffas.net/blog/model-checking-the-implementation/</id>
+        
+        <content type="html" xml:base="https://www.jeffas.net/blog/model-checking-the-implementation/">&lt;p&gt;There are now a few papers covering distributed systems model checking (FlyMC, SandTable).
+These take one of two approaches:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;deploy the system, and model check it through intercepting messages&lt;&#x2F;li&gt;
+&lt;li&gt;create an abstract model of the implementation and check that&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;The benefits seem to be either:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;the implementation is checked directly&lt;&#x2F;li&gt;
+&lt;li&gt;the checking is fast&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;But why can&#x27;t we have both?
+Well, I think we can.&lt;&#x2F;p&gt;
+&lt;p&gt;The reason the first approach is slow is that it is actually running the system with all of the ancillary components.
+Meanwhile, the second approach is fast because it isn&#x27;t the actual implementation, rather its just some abstract model.
+The second approach also has problems ensuring that the implementation and abstract model remain synchronised and describing the same thing.&lt;&#x2F;p&gt;
+&lt;p&gt;So, a solution: model-check the implementation.&lt;&#x2F;p&gt;
+&lt;p&gt;The implementation of a distributed system should likely revolve around an actor-based system.
+Each actor takes a message, processes it and optionally produces a message for another actor.
+This is a clean interface that can run on a network, but doesn&#x27;t need to, it can run in memory.
+For disk and other ancillary components we just need the implementation to support swapping them out for in-memory simpler implementations; the abstact model wasn&#x27;t modelling them anyway.&lt;&#x2F;p&gt;
+&lt;p&gt;The actors can be combined together with a modelled network in-memory, producing a model-checkable implementation.
+Using a sensible language the in-memory storage components can be maintained using copying of the memory and optimizations made to them for checking.&lt;&#x2F;p&gt;
+&lt;p&gt;This new strategy, &lt;em&gt;true&lt;&#x2F;em&gt; implementation-level model checking can be both things we want:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;accurate, we&#x27;re just checking the actual implementation&lt;&#x2F;li&gt;
+&lt;li&gt;fast, its just the implementation code, which can be optimised&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Notably, optimising the implementation in this scenario can doubly improve performance, once for model checking, and once for the deployments.
+Also, engineers who know how to write code can just continue in the same language, just needing to express their integration tests as model properties to be checked.&lt;&#x2F;p&gt;
+&lt;p&gt;If you want to check out an example of this that I work on, see &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;jeffa5&#x2F;themelios&quot;&gt;Themelios&lt;&#x2F;a&gt;, a model-checked reimplementation of Kubernetes.&lt;&#x2F;p&gt;
+&lt;p&gt;Caveats:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;I wouldn&#x27;t use Python, or another slow language, for the model checker, but using it for a critical production system isn&#x27;t ideal either&lt;&#x2F;li&gt;
+&lt;li&gt;there are uses for checking full deployments, and also for using abstract models, but I think the middle is an under-viewed option&lt;&#x2F;li&gt;
+&lt;li&gt;I&#x27;m not the first to think of this, some existing model checkers do this (e.g. Stateright) and it builds on single-node model checking where there wouldn&#x27;t really be a different deployment&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>What is the UI optimized for?</title>
+        <published>2024-03-25T00:00:00+00:00</published>
+        <updated>2024-03-25T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Andrew Jeffery
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.jeffas.net/blog/what-is-the-ui-optimized-for/"/>
+        <id>https://www.jeffas.net/blog/what-is-the-ui-optimized-for/</id>
+        
+        <content type="html" xml:base="https://www.jeffas.net/blog/what-is-the-ui-optimized-for/">&lt;p&gt;User interfaces are increasingly surrounding us.
+They are &lt;em&gt;designed&lt;&#x2F;em&gt; by someone with incentives.
+In otherwords, they are optimized for something.
+Not necessarily just the one thing but often for a primary purpose.&lt;&#x2F;p&gt;
+&lt;p&gt;So, Graphical vs text-based, GUI vs TUI.
+UIs originated in text before the evolution of graphical elements, initially mimicking the physical desktop.
+Since then, though, it seems that GUIs have evolved with more and more of a misaligned incentive for optimal use of the desktop.
+The incentive now seems to be more aligned with looking good, which I aplaud, but I find more distracting than anything, personally.
+A general web browser, like Firefox, opens up all websites, a large amount of which are optimised heavily to keep people on them.
+For me, this is leading to a lot of distraction and overhead.&lt;&#x2F;p&gt;
+&lt;p&gt;TUIs seem to offer different incentives, from being keyboard-focused, lacking enticing graphical complexities, and having less overhead.
+But importantly, I don&#x27;t open a TUI and get drawn into it in the same way as GUIs.
+They lack the pull to refresh spinners, glitzy spinner icons, and rich media, nearly all to their benefit.&lt;&#x2F;p&gt;
+&lt;p&gt;Now, this isn&#x27;t to say I&#x27;ll completely remove the GUI applications I have and use, but I&#x27;ll certainly be looking for more TUI alternatives.
+Though I have considered going back to just having the boot console only...&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Why am I a vegan?</title>
+        <published>2023-12-14T00:00:00+00:00</published>
+        <updated>2023-12-14T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Andrew Jeffery
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.jeffas.net/blog/why-am-i-a-vegan/"/>
+        <id>https://www.jeffas.net/blog/why-am-i-a-vegan/</id>
+        
+        <content type="html" xml:base="https://www.jeffas.net/blog/why-am-i-a-vegan/">&lt;p&gt;I grew up being, from what I remember, a picky eater.
+I liked some things and just wouldn&#x27;t try other things, I guess I just wanted to eat what I knew I liked.
+This eventually stopped being a problem and I ate pretty much anything, and became increasingly happy to try new things.
+This has been most of what I know for my whole life.&lt;&#x2F;p&gt;
+&lt;p&gt;But now I&#x27;m a vegan and, its hard.&lt;&#x2F;p&gt;
+&lt;p&gt;I think being a vegan has gotten substantially easier over the years (I still consider myself a recent convertee).
+But I&#x27;m not really talking about the things you can and can&#x27;t buy in the shop.&lt;&#x2F;p&gt;
+&lt;p&gt;The thing I think I have difficulty with at the moment comes from the experience of being surrounded by people eating meat, and to some varying extent other non-vegan things.&lt;&#x2F;p&gt;
+&lt;p&gt;My journey to becoming vegan started with the &lt;a href=&quot;https:&#x2F;&#x2F;carbonliteracy.com&#x2F;&quot;&gt;carbon literacy project&lt;&#x2F;a&gt;.
+I participated in a series of intro lectures during the COVID-19 pandemic.
+These were around some basic concepts for understanding the climate change situation, what causes it, where those things come from, how much of a problem each kind of thing can be.
+When we got to the food and drink part, I strongly agreed with the point: there is a heavy skew when looking at CO2e coming from our food and drink consumption.
+That skew comes, for me at least at the time, primarily around ruminant meats.&lt;&#x2F;p&gt;
+&lt;p&gt;So, easy, I&#x27;ll just stop eating ruminant meats.
+I did, I haven&#x27;t had them in a (seemingly) long time now, and don&#x27;t really miss them.
+Gradually I tried to reduce other parts of my diet that were high contributors to CO2e, so cow milk became oat milk, I gave tofu a try, and I started paying attention to packaging a bit more.&lt;&#x2F;p&gt;
+&lt;p&gt;I was happy with my decision, and supported as it was easy to explain and not too strict (I would, for instance, still eat chicken).&lt;&#x2F;p&gt;
+&lt;p&gt;Then, about a year later, I heard about this thing called &lt;a href=&quot;https:&#x2F;&#x2F;www.effectivealtruism.org&#x2F;&quot;&gt;Effective Altruism (EA)&lt;&#x2F;a&gt;.
+I did their intro fellowship, then their in-depth fellowship.
+I really engaged with a lot of things but at the time of doing the fellowships struggled to feel motivated for the causes at a deeper level than the logical reasoning.
+I decided to go more into veganism with my diet, based on the animal welfare angle, and ended up going fully vegan.&lt;&#x2F;p&gt;
+&lt;p&gt;Over time, not even having that many discussions, but gradually, it began to sink into the deeper level.
+This notion that by being vegan I&#x27;m not just choosing to not eat meat, or drink milk, but I&#x27;m choosing to truly value something, another non-human animal.
+Not just that, but en masse.
+It became harder to make the decision to do something non-vegan to a level of being, not difficult, but awkward.&lt;&#x2F;p&gt;
+&lt;p&gt;There is always the feeling that I don&#x27;t want to explain and justify my ethical framework over a restaurant choice.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;ve luckily had great friends who happen to have changed some of their stances too to be more vegetarian, making things much easier, and I guess we&#x27;re all used to checking restaurant menus for vegan options now.&lt;&#x2F;p&gt;
+&lt;p&gt;But something still keeps changing.
+I wouldn&#x27;t describe myself as comfortable at meal times now when there is a large amount of non-vegan food.
+I typically feel more strongly about this when the meat is a central part of the dish, and on show for it.
+It just brings it very strongly to my mind.
+And in that moment, I feel like I just have to take a breath.&lt;&#x2F;p&gt;
+&lt;p&gt;Given all of this, there are times when a vegan option is not available, or vegan is not even a thing.
+And I do just go with what&#x27;s on offer, I understand the situation, previously being able to put the vegan thing on hold for good reason.
+But I no longer think that when I have to do this I will be comfortable at the meal if it has a central meat portion.&lt;&#x2F;p&gt;
+&lt;p&gt;Maybe this will mean that I might say no to some social events if they are aimed around this, I hope I won&#x27;t, but I&#x27;m not sure any more and I&#x27;m starting to be OK with that.&lt;&#x2F;p&gt;
+&lt;p&gt;Meanwhile, Christmas is racing up to knock on the door, with a nice central bird...&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Analysing PDF metadata on arXiv</title>
+        <published>2023-12-01T00:00:00+00:00</published>
+        <updated>2023-12-01T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Andrew Jeffery
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.jeffas.net/blog/pdf-metadata/"/>
+        <id>https://www.jeffas.net/blog/pdf-metadata/</id>
+        
+        <content type="html" xml:base="https://www.jeffas.net/blog/pdf-metadata/">&lt;h2 id=&quot;the-background&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#the-background&quot; aria-label=&quot;Anchor link for: the-background&quot;&gt;#&lt;&#x2F;a&gt;
+The background&lt;&#x2F;h2&gt;
+&lt;p&gt;Metadata is commonly used for providing additional information in files that is typically also readable by computer programs.
+It can be very useful for automated extraction of things, such as the now popular machine learning, if for some reason you wanted to train a model to predict the next title based on your favourite papers locally.
+But I don&#x27;t want to do that, at least not yet.
+I just want to have a tool that knows how to read a PDF file&#x27;s metadata and use some of that data for keeping track of my paper collection.
+Seems simple: files include metadata, machines can extract that data, and I can write some glue code.&lt;&#x2F;p&gt;
+&lt;p&gt;But the problem is, not all files include the metadata.&lt;&#x2F;p&gt;
+&lt;p&gt;I can understand not all people bother to include metadata fields for quick things they put into a PDF, but for things such as published academic papers I would hope otherwise, with more care taken.
+To me, it is a mark of care.
+(Though I&#x27;m probably already guilty of going against this myself).&lt;&#x2F;p&gt;
+&lt;p&gt;Sure, there are automated tools for trying to extract common pieces of metadata from the main content of files but I don&#x27;t want some heuristic things, I want what the author put the title as, or their own names.
+Conveniently, these academic papers are uploaded to repositories that &lt;strong&gt;require&lt;&#x2F;strong&gt; them to input basic information such as the title and authors of the paper.
+Because the platforms have the data themselves, they could easily add it to the PDF file if it doesn&#x27;t already exist.
+Now, I don&#x27;t have any particular influence over these repositories, and I can understand them wanting to not interfere with the built artifacts (for reproducibility or otherwise), so we can switch back to the original authors...&lt;&#x2F;p&gt;
+&lt;p&gt;Rather than just speaking from my experience of downloading papers, I thought I&#x27;d try and have a look at some data.
+ArXiv is a popular repository for papers in my field, particularly because it is open-access.
+They handily publish archives of their PDFs, grouped by the year and month they were submitted, so we can play around with some of that.
+That also happens to be a lot of papers, so I&#x27;ve just selected a few &lt;code&gt;yearmonth&lt;&#x2F;code&gt;s and worked with those.
+You can find the scripts for processing, if you want to try with more data for instance, on my GitHub: &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;jeffa5&#x2F;arxiv-pdf-meta&quot;&gt;github.com&#x2F;jeffa5&#x2F;arxiv-pdf-meta&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;the-data&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#the-data&quot; aria-label=&quot;Anchor link for: the-data&quot;&gt;#&lt;&#x2F;a&gt;
+The data&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;titles&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#titles&quot; aria-label=&quot;Anchor link for: titles&quot;&gt;##&lt;&#x2F;a&gt;
+Titles&lt;&#x2F;h3&gt;
+&lt;p&gt;So, lets start with how many papers had a title specified in the metadata:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;www.jeffas.net&#x2F;blog&#x2F;pdf-metadata&#x2F;has_title.svg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Well, that isn&#x27;t too promising.
+It doesn&#x27;t seem to be increasing much over the duration.&lt;&#x2F;p&gt;
+&lt;p&gt;Might as well have a look at the distribution of the title lengths while we&#x27;re here:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;www.jeffas.net&#x2F;blog&#x2F;pdf-metadata&#x2F;title_length.svg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Oh, and yeah, lets remove the zero from that... (note the y-axis)&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;www.jeffas.net&#x2F;blog&#x2F;pdf-metadata&#x2F;title_length_no_zero.svg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;authors&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#authors&quot; aria-label=&quot;Anchor link for: authors&quot;&gt;##&lt;&#x2F;a&gt;
+Authors&lt;&#x2F;h3&gt;
+&lt;p&gt;Given the data for titles, I don&#x27;t have much of an expectation that authors are specified in the metadata either:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;www.jeffas.net&#x2F;blog&#x2F;pdf-metadata&#x2F;has_author.svg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;About what we expected, how about the distribution of lengths?&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;www.jeffas.net&#x2F;blog&#x2F;pdf-metadata&#x2F;author_length.svg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;And again without the 0 ones...&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;www.jeffas.net&#x2F;blog&#x2F;pdf-metadata&#x2F;author_length_no_zero.svg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;other-oddities&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#other-oddities&quot; aria-label=&quot;Anchor link for: other-oddities&quot;&gt;#&lt;&#x2F;a&gt;
+Other oddities&lt;&#x2F;h2&gt;
+&lt;p&gt;So, there&#x27;s some strong evidence for papers often not having sufficient simple metadata embedded in the PDF.
+But, hold on, the length distributions look interesting, I&#x27;d expect the papers with a title to have one with reasonable length.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;em&gt;what would a one letter title look like??&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Well, here you go&lt;&#x2F;p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;title&lt;&#x2F;th&gt;&lt;th&gt;count&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;\uf020&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;262&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt; &lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;20&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;1&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;10&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;_&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;10&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;code&gt;A&lt;&#x2F;code&gt;&lt;&#x2F;td&gt;&lt;td&gt;8&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;Yes, that is a space on the second row.
+Maybe PDF parsing isn&#x27;t completely accurate (given the unicode value) but that seems not too egregious.&lt;&#x2F;p&gt;
+&lt;p&gt;Titles with 42 characters were actually the most common after those with 0, just under a thousand of them.
+At least there are some reasonable length titles in there.
+Though, looking at the most common titles, &lt;code&gt;Submitted to INTERSPEECH&lt;&#x2F;code&gt;, &lt;code&gt;Overleaf Example&lt;&#x2F;code&gt;, &lt;code&gt;A template for the arxiv style&lt;&#x2F;code&gt;, and simply &lt;code&gt;Title&lt;&#x2F;code&gt; are... interesting.&lt;&#x2F;p&gt;
+&lt;p&gt;As for authors there are some better contenders at the low character count, but &lt;code&gt;-&lt;&#x2F;code&gt; (the most popular of length 1) doesn&#x27;t seem right.
+Some of the most popular authors are &lt;code&gt;Anonymous Submission&lt;&#x2F;code&gt;, &lt;code&gt;Author name(s) withheld&lt;&#x2F;code&gt;, &lt;code&gt;IEEE&lt;&#x2F;code&gt;, and &lt;code&gt;Author&lt;&#x2F;code&gt;, and &lt;code&gt;-&lt;&#x2F;code&gt; again.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Notes on presentations</title>
+        <published>2021-05-13T00:00:00+00:00</published>
+        <updated>2021-05-13T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Andrew Jeffery
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.jeffas.net/blog/presentation-notes/"/>
+        <id>https://www.jeffas.net/blog/presentation-notes/</id>
+        
+        <content type="html" xml:base="https://www.jeffas.net/blog/presentation-notes/">&lt;p&gt;This is a collection of notes on making a presentation.&lt;&#x2F;p&gt;
+&lt;p&gt;Of course, this is not all my own advice but things I have learned and picked up from friends and colleagues.
+Many thanks.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;title-slide&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#title-slide&quot; aria-label=&quot;Anchor link for: title-slide&quot;&gt;#&lt;&#x2F;a&gt;
+Title slide&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Who are you?&lt;&#x2F;li&gt;
+&lt;li&gt;How do I contact you?&lt;&#x2F;li&gt;
+&lt;li&gt;What are you talking about?&lt;&#x2F;li&gt;
+&lt;li&gt;When is this talk?&lt;&#x2F;li&gt;
+&lt;li&gt;Where is this talk and what is it a part of?&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;conclusion-slide&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#conclusion-slide&quot; aria-label=&quot;Anchor link for: conclusion-slide&quot;&gt;#&lt;&#x2F;a&gt;
+Conclusion slide&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Who are you?&lt;&#x2F;li&gt;
+&lt;li&gt;How do I contact you?&lt;&#x2F;li&gt;
+&lt;li&gt;What did you talk about?&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;have-slide-numbers&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#have-slide-numbers&quot; aria-label=&quot;Anchor link for: have-slide-numbers&quot;&gt;#&lt;&#x2F;a&gt;
+Have slide numbers&lt;&#x2F;h2&gt;
+&lt;p&gt;Slide numbers not only help you see how far through you are (for timing) but also your audience.
+They can also be useful for when people have questions... which they will.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;signpost&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#signpost&quot; aria-label=&quot;Anchor link for: signpost&quot;&gt;#&lt;&#x2F;a&gt;
+Signpost&lt;&#x2F;h2&gt;
+&lt;p&gt;Having a rough table of contents (for longer talks) helps the audience see where you will go.
+Periodically going back to this helps them see where they are.
+Also, some people might tune out for sections so give them an easy chance to come back.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;start-general-and-with-the-problem&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#start-general-and-with-the-problem&quot; aria-label=&quot;Anchor link for: start-general-and-with-the-problem&quot;&gt;#&lt;&#x2F;a&gt;
+Start general and with the problem&lt;&#x2F;h2&gt;
+&lt;p&gt;You&#x27;ll gradually lose people (through tiredness and confusion&#x2F;disinterest) so state the problem early, state it frequently and state it clearly.
+If the problem isn&#x27;t simple (or you have a nice way to describe it) then the solution likely isn&#x27;t simple either.&lt;&#x2F;p&gt;
+&lt;p&gt;On that note...&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;have-a-problem&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#have-a-problem&quot; aria-label=&quot;Anchor link for: have-a-problem&quot;&gt;#&lt;&#x2F;a&gt;
+Have a problem&lt;&#x2F;h2&gt;
+&lt;p&gt;Have a problem you are going to solve in the presentation.
+Big or small it gives you and your audience something to focus on and a shared point of reference.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;have-a-key-takeaway&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#have-a-key-takeaway&quot; aria-label=&quot;Anchor link for: have-a-key-takeaway&quot;&gt;#&lt;&#x2F;a&gt;
+Have a key takeaway&lt;&#x2F;h2&gt;
+&lt;p&gt;After stating your problem, maybe (hopefully) there is a quick one-liner version of the solution you&#x27;ll be talking about.
+Present it early, frequently and clearly, like the problem.
+If everyone tunes out after this that&#x27;s fine, hopefully they got the message.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;don-t-present-speaker-notes&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#don-t-present-speaker-notes&quot; aria-label=&quot;Anchor link for: don-t-present-speaker-notes&quot;&gt;#&lt;&#x2F;a&gt;
+Don&#x27;t present speaker notes&lt;&#x2F;h2&gt;
+&lt;p&gt;No, I don&#x27;t &lt;em&gt;just&lt;&#x2F;em&gt; mean having the wrong screen up, as bad as that may be for the whole talk.
+Speaker notes belong in the notes, for you.
+Replace them with graphics or questions related to what you&#x27;re saying and keep any text full enough that they could understand it without you talking.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;don-t-give-a-lecture-unless-it-is-a-lecture&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#don-t-give-a-lecture-unless-it-is-a-lecture&quot; aria-label=&quot;Anchor link for: don-t-give-a-lecture-unless-it-is-a-lecture&quot;&gt;#&lt;&#x2F;a&gt;
+Don&#x27;t give a lecture (unless it is a lecture)&lt;&#x2F;h2&gt;
+&lt;p&gt;Talks are rarely lectures, at least outside of University.
+Focus on the interesting bits and make them fun with relatable examples.
+Trim out unnecessary information guiding the audience on a clear path.
+No tutorials.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;tell-them&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#tell-them&quot; aria-label=&quot;Anchor link for: tell-them&quot;&gt;#&lt;&#x2F;a&gt;
+Tell them&lt;&#x2F;h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Tell them what you are going to tell them&lt;&#x2F;li&gt;
+&lt;li&gt;Tell them&lt;&#x2F;li&gt;
+&lt;li&gt;Tell them what you told them&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h2 id=&quot;some-other-useful-advice&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#some-other-useful-advice&quot; aria-label=&quot;Anchor link for: some-other-useful-advice&quot;&gt;#&lt;&#x2F;a&gt;
+Some other useful advice&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.microsoft.com&#x2F;en-us&#x2F;research&#x2F;wp-content&#x2F;uploads&#x2F;2016&#x2F;08&#x2F;giving-a-talk.pdf&quot;&gt;How to give a good research talk&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Notes on papers</title>
+        <published>2021-04-13T00:00:00+00:00</published>
+        <updated>2021-04-13T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Andrew Jeffery
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.jeffas.net/blog/paper-notes/"/>
+        <id>https://www.jeffas.net/blog/paper-notes/</id>
+        
+        <content type="html" xml:base="https://www.jeffas.net/blog/paper-notes/">&lt;p&gt;This is a collection of notes on writing a paper.
+Some of these may apply more generally to writing but no promises.
+The target for this is an academic paper written in LaTeX.&lt;&#x2F;p&gt;
+&lt;p&gt;Of course, this is not all my own advice but things I have learned and picked up from friends and colleagues.
+Many thanks.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;write-one-line-per-sentence-or-one-sentence-per-line&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#write-one-line-per-sentence-or-one-sentence-per-line&quot; aria-label=&quot;Anchor link for: write-one-line-per-sentence-or-one-sentence-per-line&quot;&gt;#&lt;&#x2F;a&gt;
+Write one line per sentence (or one sentence per line)&lt;&#x2F;h2&gt;
+&lt;p&gt;This makes it easier to skim through a document and see particularly long sentences.
+These can often be broken down into multiple sentences for a clearer message.
+If there are long links in the way then maybe try detexifying the source first.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;have-a-self-referential-layout&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#have-a-self-referential-layout&quot; aria-label=&quot;Anchor link for: have-a-self-referential-layout&quot;&gt;#&lt;&#x2F;a&gt;
+Have a self-referential layout&lt;&#x2F;h2&gt;
+&lt;p&gt;The structure of the abstract should reflect the structure of the sections in the paper.
+This is similar with the introduction but it may add more context, this follows the general to specific principle.
+The conclusion may be a similar style again but in reverse, specific to general.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;link-the-introduction-to-the-layout&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#link-the-introduction-to-the-layout&quot; aria-label=&quot;Anchor link for: link-the-introduction-to-the-layout&quot;&gt;#&lt;&#x2F;a&gt;
+Link the introduction to the layout&lt;&#x2F;h2&gt;
+&lt;p&gt;The introduction is a key part of the paper that people will read first.
+This shouldn&#x27;t be boring or too lengthy so give the reader a guide to the paper.
+It doesn&#x27;t need a pointer paragraph at the end of it to say the section headings again.
+Instead, point out your key contributions with reference to the sections, much more interesting and useful.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;use-booktabs-for-tables&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#use-booktabs-for-tables&quot; aria-label=&quot;Anchor link for: use-booktabs-for-tables&quot;&gt;#&lt;&#x2F;a&gt;
+Use booktabs for tables&lt;&#x2F;h2&gt;
+&lt;p&gt;That is all.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;use-a-non-breaking-space-between-text-and-cite-ref&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#use-a-non-breaking-space-between-text-and-cite-ref&quot; aria-label=&quot;Anchor link for: use-a-non-breaking-space-between-text-and-cite-ref&quot;&gt;#&lt;&#x2F;a&gt;
+Use a non-breaking space between text and cite&#x2F;ref&lt;&#x2F;h2&gt;
+&lt;p&gt;In LaTeX: &lt;code&gt;~&lt;&#x2F;code&gt;, e.g. &lt;code&gt;some smart paper~\cite{smarts}&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;ensure-figures-are-referenced-in-the-text-and-pull-their-weight&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#ensure-figures-are-referenced-in-the-text-and-pull-their-weight&quot; aria-label=&quot;Anchor link for: ensure-figures-are-referenced-in-the-text-and-pull-their-weight&quot;&gt;#&lt;&#x2F;a&gt;
+Ensure figures are referenced in the text and pull their weight&lt;&#x2F;h2&gt;
+&lt;p&gt;If a figure isn&#x27;t referenced then when should the reader look at it?
+The reference should tie the figure into the discussion and so it should be relevant and beneficial to that discussion.
+Figures also take space in the paper so plan to include only the most pertinent.
+Take care as besides distracting the user they can be confusing and detrimental if not clearly thought out or explained.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;use-references-early-on-in-the-text&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#use-references-early-on-in-the-text&quot; aria-label=&quot;Anchor link for: use-references-early-on-in-the-text&quot;&gt;#&lt;&#x2F;a&gt;
+Use references early on in the text&lt;&#x2F;h2&gt;
+&lt;p&gt;When linking to a figure, table, etc.,  (that&#x27;s pulling its weight) try and have the reference to it appear early on in the text.
+Having it appear early helps the reader realise that you&#x27;re talking about the figure, and so can reference it, rather than reading, noticing the figure link, then re-reading.
+Keep the flow.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;consistent-citations&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#consistent-citations&quot; aria-label=&quot;Anchor link for: consistent-citations&quot;&gt;#&lt;&#x2F;a&gt;
+Consistent citations&lt;&#x2F;h2&gt;
+&lt;p&gt;All the citations in the bibliography should be in a consistent style.
+For instance, all first names in full rather than initials, conference proceedings in common format with common fields filled out where possible.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;captions-above-tables-and-below-figures&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#captions-above-tables-and-below-figures&quot; aria-label=&quot;Anchor link for: captions-above-tables-and-below-figures&quot;&gt;#&lt;&#x2F;a&gt;
+Captions above tables and below figures&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;tex.stackexchange.com&#x2F;questions&#x2F;3243&#x2F;why-should-a-table-caption-be-placed-above-the-table&quot;&gt;See here for a reference&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;use-description-for-improving-accessibility&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#use-description-for-improving-accessibility&quot; aria-label=&quot;Anchor link for: use-description-for-improving-accessibility&quot;&gt;#&lt;&#x2F;a&gt;
+Use &lt;code&gt;\Description&lt;&#x2F;code&gt; for improving accessibility&lt;&#x2F;h2&gt;
+&lt;p&gt;This is more than a caption and should describe what happens in the figure, it is &lt;em&gt;describing&lt;&#x2F;em&gt; the figure.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;captions-represent-the-takeaways&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#captions-represent-the-takeaways&quot; aria-label=&quot;Anchor link for: captions-represent-the-takeaways&quot;&gt;#&lt;&#x2F;a&gt;
+Captions represent the takeaways&lt;&#x2F;h2&gt;
+&lt;p&gt;The caption needs to (succinctly) state what the takeaway is.
+What is the thing that you want the reader to notice in particular and relate to from the text.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;some-other-useful-advice&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#some-other-useful-advice&quot; aria-label=&quot;Anchor link for: some-other-useful-advice&quot;&gt;#&lt;&#x2F;a&gt;
+Some other useful advice&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.acm.org&#x2F;publications&#x2F;taps&#x2F;latex-best-practices&quot;&gt;ACM best practices&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;capra.cs.cornell.edu&#x2F;styleguide&#x2F;&quot;&gt;Capra style guide&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;irenezhang.net&#x2F;blog&#x2F;2021&#x2F;06&#x2F;05&#x2F;hints.html&quot;&gt;Hints on how to write an SOSP paper&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;people.mpi-sws.org&#x2F;~dreyer&#x2F;talks&#x2F;talk-plmw20icfp.pdf&quot;&gt;How to write papers so people can read them&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.cs.columbia.edu&#x2F;~hgs&#x2F;etc&#x2F;writing-bugs.html&quot;&gt;Common Bugs in Writing&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Nodo Part 1 - Formats</title>
+        <published>2020-08-28T00:00:00+00:00</published>
+        <updated>2020-08-28T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Andrew Jeffery
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.jeffas.net/blog/nodo-part-1-formats/"/>
+        <id>https://www.jeffas.net/blog/nodo-part-1-formats/</id>
+        
+        <content type="html" xml:base="https://www.jeffas.net/blog/nodo-part-1-formats/">&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.jeffas.net&#x2F;blog&#x2F;nodo-part-0-an-exploration&#x2F;&quot;&gt;Nodo Part 0 - An Exploration&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;jeffa5&#x2F;nodo&quot;&gt;Git Repo&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;To begin implementing Nodo we need to make a start with Rust. This means
+creating a new workspace and some subdirs for crates. I&#x27;ll use a workspace to
+ease the management of multiple crates (I&#x27;m planning one for the core and
+another for each frontend).&lt;&#x2F;p&gt;
+&lt;p&gt;All formats we want to implement will need to implement a &lt;code&gt;trait&lt;&#x2F;code&gt;. So we can
+separate the functionality into two traits:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;pub trait Parse {
+    type ParseError;
+
+    fn parse(s: &amp;amp;str) -&amp;gt; Result&amp;lt;Nodo, Self::ParseError&amp;gt;;
+}
+
+pub trait Render {
+    type RenderError;
+
+    fn render&amp;lt;W: std::io::Write&amp;gt;(n: &amp;amp;Nodo, w: &amp;amp;mut W) -&amp;gt; Result&amp;lt;(), Self::RenderError&amp;gt;;
+}
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;These together tell us that each formatter can provide a &lt;code&gt;parse&lt;&#x2F;code&gt; function and a
+&lt;code&gt;render&lt;&#x2F;code&gt; function. So if a particular formatter only implements the &lt;code&gt;Parse&lt;&#x2F;code&gt;
+trait then it may not be able to be rendered yet. This is fine in it&#x27;s other
+form too, &lt;code&gt;Render&lt;&#x2F;code&gt; without &lt;code&gt;Parse&lt;&#x2F;code&gt;, as that can be for example the JSON API,
+which may need to read from a Markdown file and just return the JSON
+formatting.&lt;&#x2F;p&gt;
+&lt;p&gt;For an implementation of these traits I&#x27;ve started with just the &lt;code&gt;markdown&lt;&#x2F;code&gt;
+module. This is going to be the main format for now at least. We can use a
+simple unit struct to give us something to implement our traits on:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;pub struct Markdown;
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;And then implement the traits like so, for full code reference see the Git Repo
+link:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;impl Parse for Markdown {
+    type ParseError = ParseError;
+
+    fn parse(s: &amp;amp;str) -&amp;gt; Result&amp;lt;Nodo, Self::ParseError&amp;gt; {
+        let mut opts = Options::empty();
+        opts.insert(Options::ENABLE_TASKLISTS);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
+        let blocks = parse_blocks(&amp;amp;mut (Parser::new_ext(s, opts)).peekable())?;
+        Ok(Nodo { blocks })
+    }
+}
+
+impl Render for Markdown {
+    type RenderError = RenderError;
+
+    fn render&amp;lt;W: std::io::Write&amp;gt;(n: &amp;amp;Nodo, w: &amp;amp;mut W) -&amp;gt; Result&amp;lt;(), Self::RenderError&amp;gt; {
+        render_blocks(&amp;amp;n.blocks, &amp;quot;&amp;quot;, w)?;
+        Ok(())
+    }
+}
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;With some &lt;code&gt;enum&lt;&#x2F;code&gt; error types, defined using the
+&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;dtolnay&#x2F;thiserror&quot;&gt;&lt;code&gt;thiserror&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; crate, very simple. These
+can then be called (when the trait is in scope) with &lt;code&gt;Markdown::parse(...)&lt;&#x2F;code&gt; and
+&lt;code&gt;Markdown::render(...)&lt;&#x2F;code&gt;, respectively. I used the &lt;code&gt;std::io::Write&lt;&#x2F;code&gt; trait for
+the &lt;code&gt;render&lt;&#x2F;code&gt; function so that we don&#x27;t have to explicitly write it all to a
+&lt;code&gt;String&lt;&#x2F;code&gt;, and can instead go straight to a file.  This could have been mimicked
+with &lt;code&gt;std::io::Read&lt;&#x2F;code&gt;, or a relative of, and the &lt;code&gt;parse&lt;&#x2F;code&gt; function, however the
+&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;raphlinus&#x2F;pulldown-cmark&quot;&gt;&lt;code&gt;pulldown_cmark&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; crate doesn&#x27;t
+provide such a utility so it wouldn&#x27;t have made as much sense. I may change
+this to allow other parsers to read straight from a file or other compatible
+source though.&lt;&#x2F;p&gt;
+&lt;p&gt;So far there have been some unexplained things such as the implementations of
+&lt;code&gt;Nodo&lt;&#x2F;code&gt;, &lt;code&gt;ParseError&lt;&#x2F;code&gt; and &lt;code&gt;RenderError&lt;&#x2F;code&gt;. These are not so important as I don&#x27;t
+want to get into all of the parsing logic too much but more outlay my high
+level thoughts, yes I&#x27;ve written the code, no it is likely not in a finished
+state, whatever that means.&lt;&#x2F;p&gt;
+&lt;p&gt;One other thing I&#x27;d like to briefly mention was my experience implementing the
+functionality here. Rust gives us powerful mechanisms to manipulate our
+structures as well as ensuring we aren&#x27;t being too silly with them, mostly here
+was a lot of &lt;code&gt;match&lt;&#x2F;code&gt; statements. This just gives me confidence in the code as
+well as a nice way of seeing how many cases you have left to implement, a
+little welcome motivation.&lt;&#x2F;p&gt;
+&lt;p&gt;Oh, and getting to use peekable was nice. I needed it for checking if a list
+item has a &lt;code&gt;TaskListMarker&lt;&#x2F;code&gt; and parsing &lt;em&gt;tight&lt;&#x2F;em&gt; paragraphs which don&#x27;t come
+with much warning and also don&#x27;t have a nice tagged ending, stumped me for a
+while.&lt;&#x2F;p&gt;
+&lt;p&gt;Next, I need to think whether I want to have a CLI or work on the internals
+some more...&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Nodo Part 0 - An Exploration</title>
+        <published>2020-08-21T00:00:00+00:00</published>
+        <updated>2020-08-21T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Andrew Jeffery
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.jeffas.net/blog/nodo-part-0-an-exploration/"/>
+        <id>https://www.jeffas.net/blog/nodo-part-0-an-exploration/</id>
+        
+        <content type="html" xml:base="https://www.jeffas.net/blog/nodo-part-0-an-exploration/">&lt;p&gt;I&#x27;ve just published a brief &lt;a href=&quot;https:&#x2F;&#x2F;www.jeffas.net&#x2F;blog&#x2F;thoughts-on-notes-and-todos&#x2F;&quot;&gt;post&lt;&#x2F;a&gt; about notes and todos in which I
+outline some ways I want to interact with my notes and todos. I&#x27;m going to try
+and keep up with the development of the tool I experiment with here to outline
+to myself why I&#x27;m making decisions and for anyone else that finds it useful.&lt;&#x2F;p&gt;
+&lt;p&gt;So, without further ado, Nodo (notes and todos) is my intended notes and todo
+management tool. I must briefly preface this with saying that I have already
+tried building Nodo, twice, and have a semi-working version in OCaml at the
+moment. I first tried creating it in Rust but as I was a bit too new to Rust
+then it felt rather strenuous for a tool that should at its core be very
+simple. Due to slightly more familiarity with OCaml, and the fact that it has
+lots of the nice functional programming aspects, I decided to recreate it,
+getting somewhat further than I did with the Rust version.&lt;&#x2F;p&gt;
+&lt;p&gt;Now I&#x27;m back to Rust land and wanting to give it another go with all of the
+safety and correctness it can offer me. In addition I want it to be fast and
+efficient, all things which Rust seems built for.&lt;&#x2F;p&gt;
+&lt;p&gt;To start things off, I have a few ideas for the design:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;I want the notes and todos (nodos from now on) to be stored in plaintext
+files, one file per nodo. This makes sharing with other users, as well as
+manipulation via other tools, easy.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;I want some sort of history, like git, probably git. This means that if for
+some reason I delete a bit and later want to revert to that I can, and I can
+do so with native git commands. This will hopefully help with the syncing
+issue as well, though may pose some challenges for more advanced use cases.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;There needs to be a core library for most of the common operations such as
+parsing, querying, formatting, etc. Then various frontends can be built to
+use this same logic and just implement the UX elements they need.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;As for formats I want to use Markdown and the core should be able to
+translate this to other formats such as HTML and JSON, probably. Any other
+formats would then be added to the core library, or I may try and have some
+ability to optionally include them.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;Now for some potential execution examples:&lt;&#x2F;p&gt;
+&lt;p&gt;Showing the current nodos. Displays attributes and task completion status.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh &quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;$ nodo
+review [repeats:daily]
+ideas
+nodo
+├─ bugs [0&amp;#x2F;1]
+└─ syncing [1&amp;#x2F;5 due:tomorrow priority:1]
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Open a nodo for editing or create it if it doesn&#x27;t exist.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh &quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;$ nodo edit ideas
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Move a nodo to the archive, keeping it around for viewing but hiding from normal view.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh &quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;$ nodo archive nodo&amp;#x2F;syncing
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Sync the current set of nodos.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;sh&quot; class=&quot;language-sh &quot;&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;$ nodo sync
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;As well as some moving and deleting commands.&lt;&#x2F;p&gt;
+&lt;p&gt;I think this should at least allow for a start for things and I can rework them
+later as needed.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Thoughts on notes and todos</title>
+        <published>2020-08-16T00:00:00+00:00</published>
+        <updated>2020-08-16T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Andrew Jeffery
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.jeffas.net/blog/thoughts-on-notes-and-todos/"/>
+        <id>https://www.jeffas.net/blog/thoughts-on-notes-and-todos/</id>
+        
+        <content type="html" xml:base="https://www.jeffas.net/blog/thoughts-on-notes-and-todos/">&lt;p&gt;I often find myself a bit lost with what I have going on, what needs doing and
+what state things are in. I make notes on pieces of paper which are nice, small
+and physical, but easily lost, missed and forgotten. I also have some notes on
+Google&#x27;s Keep, these mostly get forgotten about though. I primarily spend my
+computer time on the command line or in a TUI of some sort or other. My paper
+notes solution doesn&#x27;t work there and doesn&#x27;t stay with me when I move places
+or computers. My Keep collection stays with me but also isn&#x27;t where I want it,
+in the terminal.&lt;&#x2F;p&gt;
+&lt;p&gt;I like writing markdown files in my editor, keeping them easily readable by
+anyone while still retaining some pretty formatting. Sometimes I use task lists
+to give myself some todos inline, again, these get forgotten about.&lt;&#x2F;p&gt;
+&lt;p&gt;I also want to be able to programmatically interact with my notes and todos so
+that I can write things around them and automate stuff.&lt;&#x2F;p&gt;
+&lt;p&gt;There are a few online notes services which work online, there are a few CLI
+programs for tasks that work on the CLI and occasionally have a syncing option
+to the web or another machine. None of these seem to fit me though, perhaps I
+just haven&#x27;t spent enough time in them.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;a-loose-list-of-wants&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#a-loose-list-of-wants&quot; aria-label=&quot;Anchor link for: a-loose-list-of-wants&quot;&gt;#&lt;&#x2F;a&gt;
+A loose list of wants&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;CLI interface using &lt;code&gt;$EDITOR&lt;&#x2F;code&gt; for composition&lt;&#x2F;li&gt;
+&lt;li&gt;notes and todos in the same place&lt;&#x2F;li&gt;
+&lt;li&gt;inline todos in notes&lt;&#x2F;li&gt;
+&lt;li&gt;priority handling with due dates, potentially repetition&lt;&#x2F;li&gt;
+&lt;li&gt;hierarchical grouping of notes and todos&lt;&#x2F;li&gt;
+&lt;li&gt;syncing to other machines, with a native way of interacting with them there,
+e.g. a website&lt;&#x2F;li&gt;
+&lt;li&gt;plaintext formats, like markdown, for sharing with people&lt;&#x2F;li&gt;
+&lt;li&gt;conversion to json or something for sharing with machines&lt;&#x2F;li&gt;
+&lt;li&gt;having sub-spaces for public, private and collaborative items&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;experimentation&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#experimentation&quot; aria-label=&quot;Anchor link for: experimentation&quot;&gt;#&lt;&#x2F;a&gt;
+Experimentation&lt;&#x2F;h2&gt;
+&lt;p&gt;I might as well have a go at building something that might start to fit these
+criteria, mainly just for fun and learning. Perhaps I&#x27;ll find an existing
+application that does what I want out of the box, who knows. Maybe I&#x27;ll explore
+more what I want out of the tool too.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>OCaml state machines</title>
+        <published>2020-04-15T00:00:00+00:00</published>
+        <updated>2020-04-15T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Andrew Jeffery
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.jeffas.net/blog/ocaml-state-machines/"/>
+        <id>https://www.jeffas.net/blog/ocaml-state-machines/</id>
+        
+        <content type="html" xml:base="https://www.jeffas.net/blog/ocaml-state-machines/">&lt;h2 id=&quot;the-goal-type-correct-state-machines&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#the-goal-type-correct-state-machines&quot; aria-label=&quot;Anchor link for: the-goal-type-correct-state-machines&quot;&gt;#&lt;&#x2F;a&gt;
+The goal, type correct state machines&lt;&#x2F;h2&gt;
+&lt;p&gt;OCaml has great type inference and functions permeate the language. Coupling
+these, how do we design not only a type safe mechanism for state machines but a
+type correct one?&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;type-correct-what&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#type-correct-what&quot; aria-label=&quot;Anchor link for: type-correct-what&quot;&gt;##&lt;&#x2F;a&gt;
+Type correct, what?&lt;&#x2F;h3&gt;
+&lt;p&gt;Type safety gives us things like exhaustive matching on variants but I want a
+way of preventing certain transitions in a state machine at the type level so
+our machine can be (more) statically correct.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;the-example-state-machine&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#the-example-state-machine&quot; aria-label=&quot;Anchor link for: the-example-state-machine&quot;&gt;#&lt;&#x2F;a&gt;
+The example state machine&lt;&#x2F;h2&gt;
+&lt;p&gt;We have two states: &lt;code&gt;A&lt;&#x2F;code&gt; and &lt;code&gt;B&lt;&#x2F;code&gt;, and two inputs &lt;code&gt;0&lt;&#x2F;code&gt; and &lt;code&gt;1&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The machine is as follows:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;www.jeffas.net&#x2F;blog&#x2F;ocaml-state-machines&#x2F;machine.png&quot; alt=&quot;State Machine&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Or in table form:&lt;&#x2F;p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;From \ To&lt;&#x2F;th&gt;&lt;th&gt;A&lt;&#x2F;th&gt;&lt;th&gt;B&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;A&lt;&#x2F;td&gt;&lt;td&gt;0&lt;&#x2F;td&gt;&lt;td&gt;1&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;B&lt;&#x2F;td&gt;&lt;td&gt;0&lt;&#x2F;td&gt;&lt;td&gt;1&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;h2 id=&quot;attempt-one-variants&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#attempt-one-variants&quot; aria-label=&quot;Anchor link for: attempt-one-variants&quot;&gt;#&lt;&#x2F;a&gt;
+Attempt one, variants&lt;&#x2F;h2&gt;
+&lt;p&gt;Variants, or algebraic datatypes, give us nice ways of doing enumerations at
+the type level which can be &lt;code&gt;match&lt;&#x2F;code&gt;ed on, perfect for limited sets of states
+and inputs.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;ocaml&quot; class=&quot;language-ocaml &quot;&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;type state = A | B
+
+type input = Zero | One
+
+(* state *)
+let initial = A
+
+(* state -&amp;gt; input -&amp;gt; state *)
+let transition s i =
+  match (s, i) with
+  | A, Zero -&amp;gt; A
+  | A, One -&amp;gt; B
+  | B, Zero -&amp;gt; A
+  | B, One -&amp;gt; B
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This gives us a complete implementation with an exhaustively checked &lt;code&gt;match&lt;&#x2F;code&gt;
+statement in the &lt;code&gt;transitions&lt;&#x2F;code&gt; function. This is useful as it specifies the
+transitions but requires us to look into the code to see what transitions are
+possible from a given state so this isn&#x27;t typey enough for me.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;attempt-two-polymorphic-variants&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#attempt-two-polymorphic-variants&quot; aria-label=&quot;Anchor link for: attempt-two-polymorphic-variants&quot;&gt;#&lt;&#x2F;a&gt;
+Attempt two, polymorphic Variants&lt;&#x2F;h2&gt;
+&lt;p&gt;Polymorphic variants, super powered variants (kinda), allow us to have
+enumerations of states but can appear in type signatures as their individual
+&lt;em&gt;atoms&lt;&#x2F;em&gt;.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;ocaml&quot; class=&quot;language-ocaml &quot;&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;type state = [ `A | `B ]
+
+type input = [ `Zero | `One ]
+
+(* [&amp;gt; `A ] *)
+let initial = `A
+
+(* [&amp;lt; `A | `B ] -&amp;gt; [&amp;lt; `One | `Zero ] -&amp;gt; [&amp;gt; `A | `B ] *)
+let transition s i =
+  match (s, i) with
+  | `A, `Zero -&amp;gt; `A
+  | `A, `One -&amp;gt; `B
+  | `B, `Zero -&amp;gt; `A
+  | `B, `One -&amp;gt; `B
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This may seem like I&#x27;ve just added backticks before the names of our states and
+inputs (and that is what I did) but we also gained some different type
+signatures, look at &lt;code&gt;initial&lt;&#x2F;code&gt; for instance, which will lead us to attempt
+three.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;attempt-three-transition-functions&quot;&gt;&lt;a class=&quot;anchor&quot; href=&quot;#attempt-three-transition-functions&quot; aria-label=&quot;Anchor link for: attempt-three-transition-functions&quot;&gt;#&lt;&#x2F;a&gt;
+Attempt three, transition functions&lt;&#x2F;h2&gt;
+&lt;p&gt;From attempt two we could see that our states and inputs are split up in the
+type system. How about we make that more useful?&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;ocaml&quot; class=&quot;language-ocaml &quot;&gt;&lt;code class=&quot;language-ocaml&quot; data-lang=&quot;ocaml&quot;&gt;type state = [ `A | `B ]
+
+(* [&amp;gt; `A ] *)
+let initial = `A
+
+(* [&amp;lt; `A | `B ] -&amp;gt; [&amp;gt; `A ] *)
+let zero = function `A | `B -&amp;gt; `A
+
+(* [&amp;lt; `A | `B ] -&amp;gt; [&amp;gt; `B ] *)
+let one = function `A | `B -&amp;gt; `B
+
+(* [&amp;lt; `One | `Zero ] -&amp;gt; [&amp;lt; `A | `B ] -&amp;gt; [&amp;gt; `A | `B ] *)
+let input_to_function = function `Zero -&amp;gt; zero | `One -&amp;gt; one
+
+(*  [&amp;lt; `A | `B ] -&amp;gt; [&amp;lt; `One | `Zero ] -&amp;gt; [&amp;gt; `A | `B ] *)
+let transition s = function `Zero -&amp;gt; zero s | `One -&amp;gt; one s
+&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This allows us to now create functions representing the transitions for a given
+input and the type signatures show us the possible next states. The typical
+&lt;code&gt;transition&lt;&#x2F;code&gt; function can also be constructed from this to fold over inputs.&lt;&#x2F;p&gt;
+&lt;p&gt;I like this last attempt due to the explicitness of the transition functions
+and the fact that it extends to state machines where not all states may accept
+all inputs. Particularly useful for modelling protocols which may have short
+circuiting for errors or unique inputs for a subset of states.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Block breaker</title>
+        <published>2019-06-30T00:00:00+00:00</published>
+        <updated>2019-06-30T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Andrew Jeffery
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.jeffas.net/blog/block-breaker/"/>
+        <id>https://www.jeffas.net/blog/block-breaker/</id>
+        
+        <content type="html" xml:base="https://www.jeffas.net/blog/block-breaker/">&lt;p&gt;Block breaker is a fun game for killing time. There is a library component and
+frontend implementations. It doesn&#x27;t make use of a game engine or anything and
+is just some simple Rust modules stitched together.&lt;&#x2F;p&gt;
+&lt;p&gt;Since I spend a lot of time in the terminal I created an accompanying tui
+frontend. This is quite nice and certainly enough for this simple game.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;jeffa5&#x2F;block-breaker&quot;&gt;GitHub (core)&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;jeffa5&#x2F;block-breaker-tui&quot;&gt;GitHub (tui)&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Owork</title>
+        <published>2019-06-20T00:00:00+00:00</published>
+        <updated>2019-06-20T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Andrew Jeffery
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.jeffas.net/blog/owork/"/>
+        <id>https://www.jeffas.net/blog/owork/</id>
+        
+        <content type="html" xml:base="https://www.jeffas.net/blog/owork/">&lt;p&gt;Owork is a productivity timer written in OCaml. It provides four states of
+work: &lt;code&gt;idle&lt;&#x2F;code&gt;, &lt;code&gt;working&lt;&#x2F;code&gt;, &lt;code&gt;short break&lt;&#x2F;code&gt; and &lt;code&gt;long break&lt;&#x2F;code&gt;. The times for each
+duration are configurable and the user can create their own scripts to interact
+with the server.&lt;&#x2F;p&gt;
+&lt;p&gt;This should encourage regular breaks from work to get up and about while also
+encouraging focus for the duration of sessions. The exact principle the user
+wants to follow is completely up to them provided it fits into the states of
+work.&lt;&#x2F;p&gt;
+&lt;p&gt;Since it is just a server custom scripts can be used to:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;send requests to the server&lt;&#x2F;li&gt;
+&lt;li&gt;notify the user of a change of state&lt;&#x2F;li&gt;
+&lt;li&gt;get the state of the timer from the server&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;jeffa5&#x2F;owork&quot;&gt;GitHub&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Waytext</title>
+        <published>2019-06-16T00:00:00+00:00</published>
+        <updated>2019-06-16T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Andrew Jeffery
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.jeffas.net/blog/waytext/"/>
+        <id>https://www.jeffas.net/blog/waytext/</id>
+        
+        <content type="html" xml:base="https://www.jeffas.net/blog/waytext/">&lt;p&gt;Waytext is a simple Wayland program to display text to a user on all displays
+at once.&lt;&#x2F;p&gt;
+&lt;p&gt;It makes use of the (currently) unstable layer shell protocol to render on top
+of other windows.&lt;&#x2F;p&gt;
+&lt;p&gt;This is useful for notifications where the user should be more aware of them,
+for instance I use it for notifying me of when to take regular breaks. The fact
+that it overlays even over fullscreen windows is very useful!&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;jeffa5&#x2F;waytext&quot;&gt;GitHub&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>XMPP server implementation in OCaml for MirageOS</title>
+        <published>2018-11-06T00:00:00+00:00</published>
+        <updated>2018-11-06T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Andrew Jeffery
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.jeffas.net/blog/mirage-xmpp/"/>
+        <id>https://www.jeffas.net/blog/mirage-xmpp/</id>
+        
+        <content type="html" xml:base="https://www.jeffas.net/blog/mirage-xmpp/">&lt;p&gt;This project is an attempt to create an OCaml library for XMPP and then build this into a functional MirageOS unikernel.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;jeffa5&#x2F;mirage-xmpp&quot;&gt;GitHub&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

@@ -1,0 +1,45 @@
+<!doctype html><html lang=en-gb><head><link href=data:, rel=icon><link href=/style.css rel=stylesheet><link href=https://www.jeffas.net/blog/atom.xml rel=alternate title=RSS type=application/atom+xml><meta charset=utf-8><meta content="width=device-width,initial-scale=1" name=viewport><meta content="Andrew's (jeffas') personal site." name=description><title>OCaml state machines | Too late now</title><body><div id=main><header><h1>Too late now</h1><nav><a href=https://www.jeffas.net>Home</a><a href=https://www.jeffas.net/blog>Blog</a><a href=https://www.jeffas.net/publications>Publications</a></nav><hr></header><div><h1>OCaml state machines</h1><em>2020-04-15</em></div><div><details open><summary>Contents</summary> <ul><li><a href=https://www.jeffas.net/blog/ocaml-state-machines/#the-goal-type-correct-state-machines>The goal, type correct state machines</a> <ul><li><a href=https://www.jeffas.net/blog/ocaml-state-machines/#type-correct-what>Type correct, what?</a></ul><li><a href=https://www.jeffas.net/blog/ocaml-state-machines/#the-example-state-machine>The example state machine</a><li><a href=https://www.jeffas.net/blog/ocaml-state-machines/#attempt-one-variants>Attempt one, variants</a><li><a href=https://www.jeffas.net/blog/ocaml-state-machines/#attempt-two-polymorphic-variants>Attempt two, polymorphic Variants</a><li><a href=https://www.jeffas.net/blog/ocaml-state-machines/#attempt-three-transition-functions>Attempt three, transition functions</a></ul></details></div><div><h2 id=the-goal-type-correct-state-machines><a aria-label="Anchor link for: the-goal-type-correct-state-machines" class=anchor href=#the-goal-type-correct-state-machines>#</a> The goal, type correct state machines</h2><p>OCaml has great type inference and functions permeate the language. Coupling these, how do we design not only a type safe mechanism for state machines but a type correct one?<h3 id=type-correct-what><a aria-label="Anchor link for: type-correct-what" class=anchor href=#type-correct-what>##</a> Type correct, what?</h3><p>Type safety gives us things like exhaustive matching on variants but I want a way of preventing certain transitions in a state machine at the type level so our machine can be (more) statically correct.<h2 id=the-example-state-machine><a aria-label="Anchor link for: the-example-state-machine" class=anchor href=#the-example-state-machine>#</a> The example state machine</h2><p>We have two states: <code>A</code> and <code>B</code>, and two inputs <code>0</code> and <code>1</code>.<p>The machine is as follows:<p><img alt="State Machine" src=https://www.jeffas.net/blog/ocaml-state-machines/machine.png><p>Or in table form:<table><thead><tr><th>From \ To<th>A<th>B<tbody><tr><td>A<td>0<td>1<tr><td>B<td>0<td>1</table><h2 id=attempt-one-variants><a aria-label="Anchor link for: attempt-one-variants" class=anchor href=#attempt-one-variants>#</a> Attempt one, variants</h2><p>Variants, or algebraic datatypes, give us nice ways of doing enumerations at the type level which can be <code>match</code>ed on, perfect for limited sets of states and inputs.<pre class=language-ocaml data-lang=ocaml><code class=language-ocaml data-lang=ocaml>type state = A | B
+
+type input = Zero | One
+
+(* state *)
+let initial = A
+
+(* state -> input -> state *)
+let transition s i =
+  match (s, i) with
+  | A, Zero -> A
+  | A, One -> B
+  | B, Zero -> A
+  | B, One -> B
+</code></pre><p>This gives us a complete implementation with an exhaustively checked <code>match</code> statement in the <code>transitions</code> function. This is useful as it specifies the transitions but requires us to look into the code to see what transitions are possible from a given state so this isn't typey enough for me.<h2 id=attempt-two-polymorphic-variants><a aria-label="Anchor link for: attempt-two-polymorphic-variants" class=anchor href=#attempt-two-polymorphic-variants>#</a> Attempt two, polymorphic Variants</h2><p>Polymorphic variants, super powered variants (kinda), allow us to have enumerations of states but can appear in type signatures as their individual <em>atoms</em>.<pre class=language-ocaml data-lang=ocaml><code class=language-ocaml data-lang=ocaml>type state = [ `A | `B ]
+
+type input = [ `Zero | `One ]
+
+(* [> `A ] *)
+let initial = `A
+
+(* [< `A | `B ] -> [< `One | `Zero ] -> [> `A | `B ] *)
+let transition s i =
+  match (s, i) with
+  | `A, `Zero -> `A
+  | `A, `One -> `B
+  | `B, `Zero -> `A
+  | `B, `One -> `B
+</code></pre><p>This may seem like I've just added backticks before the names of our states and inputs (and that is what I did) but we also gained some different type signatures, look at <code>initial</code> for instance, which will lead us to attempt three.<h2 id=attempt-three-transition-functions><a aria-label="Anchor link for: attempt-three-transition-functions" class=anchor href=#attempt-three-transition-functions>#</a> Attempt three, transition functions</h2><p>From attempt two we could see that our states and inputs are split up in the type system. How about we make that more useful?<pre class=language-ocaml data-lang=ocaml><code class=language-ocaml data-lang=ocaml>type state = [ `A | `B ]
+
+(* [> `A ] *)
+let initial = `A
+
+(* [< `A | `B ] -> [> `A ] *)
+let zero = function `A | `B -> `A
+
+(* [< `A | `B ] -> [> `B ] *)
+let one = function `A | `B -> `B
+
+(* [< `One | `Zero ] -> [< `A | `B ] -> [> `A | `B ] *)
+let input_to_function = function `Zero -> zero | `One -> one
+
+(*  [< `A | `B ] -> [< `One | `Zero ] -> [> `A | `B ] *)
+let transition s = function `Zero -> zero s | `One -> one s
+</code></pre><p>This allows us to now create functions representing the transitions for a given input and the type signatures show us the possible next states. The typical <code>transition</code> function can also be constructed from this to fold over inputs.<p>I like this last attempt due to the explicitness of the transition functions and the fact that it extends to state machines where not all states may accept all inputs. Particularly useful for modelling protocols which may have short circuiting for errors or unique inputs for a subset of states.</div><footer><hr><b>Correctness, Efficiency, Performance</b><ul><li><a href=https://github.com/jeffa5>GitHub - <code>jeffa5</code></a><li><a href=https://www.linkedin.com/in/andrew-jeffery>LinkedIn</a><li><a href="https://scholar.google.com/citations?user=9mJpZCgAAAAJ&hl=en&citsig=AMD79oqdDsfKS5CDUdoSiOK42EeuPXKUMg">Google Scholar profile</a><li><a href=https://www.jeffas.net/blog/atom.xml>Atom/RSS feed</a></ul></footer></div>

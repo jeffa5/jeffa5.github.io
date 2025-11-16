@@ -1,0 +1,33 @@
+<!doctype html><html lang=en-gb><head><link href=data:, rel=icon><link href=/style.css rel=stylesheet><link href=https://www.jeffas.net/blog/atom.xml rel=alternate title=RSS type=application/atom+xml><meta charset=utf-8><meta content="width=device-width,initial-scale=1" name=viewport><meta content="Andrew's (jeffas') personal site." name=description><title>Nodo Part 1 - Formats | Too late now</title><body><div id=main><header><h1>Too late now</h1><nav><a href=https://www.jeffas.net>Home</a><a href=https://www.jeffas.net/blog>Blog</a><a href=https://www.jeffas.net/publications>Publications</a></nav><hr></header><div><h1>Nodo Part 1 - Formats</h1><em>2020-08-28</em></div><div><ul><li><a href=https://www.jeffas.net/blog/nodo-part-0-an-exploration/>Nodo Part 0 - An Exploration</a><li><a href=https://github.com/jeffa5/nodo>Git Repo</a></ul><p>To begin implementing Nodo we need to make a start with Rust. This means creating a new workspace and some subdirs for crates. I'll use a workspace to ease the management of multiple crates (I'm planning one for the core and another for each frontend).<p>All formats we want to implement will need to implement a <code>trait</code>. So we can separate the functionality into two traits:<pre class=language-rust data-lang=rust><code class=language-rust data-lang=rust>pub trait Parse {
+    type ParseError;
+
+    fn parse(s: &str) -> Result&LTNodo, Self::ParseError>;
+}
+
+pub trait Render {
+    type RenderError;
+
+    fn render&LTW: std::io::Write>(n: &Nodo, w: &mut W) -> Result<(), Self::RenderError>;
+}
+</code></pre><p>These together tell us that each formatter can provide a <code>parse</code> function and a <code>render</code> function. So if a particular formatter only implements the <code>Parse</code> trait then it may not be able to be rendered yet. This is fine in it's other form too, <code>Render</code> without <code>Parse</code>, as that can be for example the JSON API, which may need to read from a Markdown file and just return the JSON formatting.<p>For an implementation of these traits I've started with just the <code>markdown</code> module. This is going to be the main format for now at least. We can use a simple unit struct to give us something to implement our traits on:<pre class=language-rust data-lang=rust><code class=language-rust data-lang=rust>pub struct Markdown;
+</code></pre><p>And then implement the traits like so, for full code reference see the Git Repo link:<pre class=language-rust data-lang=rust><code class=language-rust data-lang=rust>impl Parse for Markdown {
+    type ParseError = ParseError;
+
+    fn parse(s: &str) -> Result&LTNodo, Self::ParseError> {
+        let mut opts = Options::empty();
+        opts.insert(Options::ENABLE_TASKLISTS);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
+        let blocks = parse_blocks(&mut (Parser::new_ext(s, opts)).peekable())?;
+        Ok(Nodo { blocks })
+    }
+}
+
+impl Render for Markdown {
+    type RenderError = RenderError;
+
+    fn render&LTW: std::io::Write>(n: &Nodo, w: &mut W) -> Result<(), Self::RenderError> {
+        render_blocks(&n.blocks, "", w)?;
+        Ok(())
+    }
+}
+</code></pre><p>With some <code>enum</code> error types, defined using the <a href=https://github.com/dtolnay/thiserror><code>thiserror</code></a> crate, very simple. These can then be called (when the trait is in scope) with <code>Markdown::parse(...)</code> and <code>Markdown::render(...)</code>, respectively. I used the <code>std::io::Write</code> trait for the <code>render</code> function so that we don't have to explicitly write it all to a <code>String</code>, and can instead go straight to a file. This could have been mimicked with <code>std::io::Read</code>, or a relative of, and the <code>parse</code> function, however the <a href=https://github.com/raphlinus/pulldown-cmark><code>pulldown_cmark</code></a> crate doesn't provide such a utility so it wouldn't have made as much sense. I may change this to allow other parsers to read straight from a file or other compatible source though.<p>So far there have been some unexplained things such as the implementations of <code>Nodo</code>, <code>ParseError</code> and <code>RenderError</code>. These are not so important as I don't want to get into all of the parsing logic too much but more outlay my high level thoughts, yes I've written the code, no it is likely not in a finished state, whatever that means.<p>One other thing I'd like to briefly mention was my experience implementing the functionality here. Rust gives us powerful mechanisms to manipulate our structures as well as ensuring we aren't being too silly with them, mostly here was a lot of <code>match</code> statements. This just gives me confidence in the code as well as a nice way of seeing how many cases you have left to implement, a little welcome motivation.<p>Oh, and getting to use peekable was nice. I needed it for checking if a list item has a <code>TaskListMarker</code> and parsing <em>tight</em> paragraphs which don't come with much warning and also don't have a nice tagged ending, stumped me for a while.<p>Next, I need to think whether I want to have a CLI or work on the internals some more...</div><footer><hr><b>Correctness, Efficiency, Performance</b><ul><li><a href=https://github.com/jeffa5>GitHub - <code>jeffa5</code></a><li><a href=https://www.linkedin.com/in/andrew-jeffery>LinkedIn</a><li><a href="https://scholar.google.com/citations?user=9mJpZCgAAAAJ&hl=en&citsig=AMD79oqdDsfKS5CDUdoSiOK42EeuPXKUMg">Google Scholar profile</a><li><a href=https://www.jeffas.net/blog/atom.xml>Atom/RSS feed</a></ul></footer></div>
