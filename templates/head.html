@@ -1,5 +1,5 @@
 <link rel="icon" href="data:,">
-<link rel="stylesheet" href="/style.css" />
+<link rel="stylesheet" href="{{ get_url(path="/style.css") }}" />
 {% block atom %}
 <link rel="alternate" type="application/atom+xml" title="RSS" href="{{ get_url(path="/blog/atom.xml", trailing_slash=false) }}">
 {% endblock %}
