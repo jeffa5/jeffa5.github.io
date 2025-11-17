@@ -1,13 +1,13 @@
 {
   stdenvNoCC,
-  zola,
+  lowdown,
 }:
 stdenvNoCC.mkDerivation {
   name = "website";
   src = ./..;
-  nativeBuildInputs = [zola];
+  nativeBuildInputs = [lowdown];
   buildPhase = ''
-    zola build
+    make
   '';
   installPhase = ''
     mv public $out
