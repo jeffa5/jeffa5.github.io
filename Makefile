@@ -1,48 +1,76 @@
-# no need for implicits here
-.SUFFIXES:
+OUT_DIR := public
+TEMPLATES := $(wildcard templates/*)
 
-OUT_DIR=public
-MARKDOWN_FILES=$(addprefix $(OUT_DIR)/,$(patsubst content/%.md,%/index.html,$(shell find content -name '*.md' -type f)))
-CONTENT_FILES=$(addprefix $(OUT_DIR)/,$(patsubst content/%,%,$(shell find content -type f \( -name '*.png' -o -name '*.svg' -o -name '*.pdf' \) )))
-STATIC_FILES=$(patsubst static/%,$(OUT_DIR)/%,$(shell find static -type f))
-TEMPLATES=$(wildcard templates/*)
+# --- 1. Dependency Calculation ---
 
-all: $(MARKDOWN_FILES) $(CONTENT_FILES) $(OUT_DIR)/index.html $(STATIC_FILES)
+# Use shell find once, then filter/transform the results using Make functions
+# Find all files in 'content/' and 'static/' directories
+ALL_CONTENT_FILES := $(shell find content -type f)
+ALL_STATIC_FILES := $(shell find static -type f)
 
-$(OUT_DIR)/%/index.html: content/%.md $(TEMPLATES)
-	mkdir -p $$(dirname $@)
-	cat templates/head.html > $@
-	cat templates/header.html >> $@
+# A. Markdown Files (Target: public/path/to/index.html)
+# Filter for .md files, then transform the paths.
+MARKDOWN_SRCS := $(filter %.md, $(ALL_CONTENT_FILES))
+MARKDOWN_TARGETS := $(patsubst content/%.md, $(OUT_DIR)/%/index.html, $(MARKDOWN_SRCS))
+
+# Handle the root index file separately if it exists (assuming content/index.md for simplicity)
+ROOT_INDEX_MD := content/index.md
+ROOT_INDEX_TARGET := $(patsubst content/index.md, $(OUT_DIR)/index.html, $(ROOT_INDEX_MD))
+
+# B. Direct Content Files (Target: public/path/to/image.png)
+# Filter for non-markdown content files and transform paths.
+CONTENT_SRCS := $(filter-out %.md, $(ALL_CONTENT_FILES))
+CONTENT_TARGETS := $(patsubst content/%, $(OUT_DIR)/%, $(CONTENT_SRCS))
+
+# C. Static Files (Target: public/style.css)
+STATIC_TARGETS := $(patsubst static/%, $(OUT_DIR)/%, $(ALL_STATIC_FILES))
+
+# Combine all final targets
+all: $(MARKDOWN_TARGETS) $(ROOT_INDEX_TARGET) $(CONTENT_TARGETS) $(STATIC_TARGETS)
+
+# --- 2. Directory Creation (Order-Only Prerequisite) ---
+
+# Extract the directory paths from the dynamic targets.
+# $(dir $(patsubst content/%.md, $(OUT_DIR)/%/index.html, content/%.md)) -> $(OUT_DIR)/%
+# For public/foo/index.html, this extracts public/foo.
+
+# Get the list of unique directories that need to exist for all targets
+ALL_TARGET_DIRS := $(sort $(dir $(MARKDOWN_TARGETS) $(ROOT_INDEX_TARGET) $(CONTENT_TARGETS) $(STATIC_TARGETS)))
+
+# Directory creation rule (Phony target pattern)
+# Use a pattern rule for directories, although an explicit list is faster if stable.
+$(ALL_TARGET_DIRS):
+	mkdir -p $@
+
+# --- 3. Consolidated Rules ---
+
+# Rule for all Markdown files (including nested ones)
+# Uses the directory as an order-only prerequisite to ensure it's created first.
+$(OUT_DIR)/%/index.html: content/%.md $(TEMPLATES) | $(ALL_TARGET_DIRS)
+	cat templates/head.html templates/header.html > $@
 	lowdown $< >> $@
-	cat templates/footer.html >> $@
-	cat templates/foot.html >> $@
+	cat templates/footer.html templates/foot.html >> $@
 	./scripts/replace-vars.sh $@
 
-$(OUT_DIR)/index.html: content.md $(TEMPLATES)
-	mkdir -p $$(dirname $@)
-	cat templates/head.html > $@
-	cat templates/header.html >> $@
+# Rule for the Root Index file (content.md -> public/index.html)
+# It's an explicit target, but can share the same recipe logic.
+$(OUT_DIR)/index.html: content.md $(TEMPLATES) | $(ALL_TARGET_DIRS)
+	cat templates/head.html templates/header.html > $@
 	lowdown $< >> $@
-	cat templates/footer.html >> $@
-	cat templates/foot.html >> $@
+	cat templates/footer.html templates/foot.html >> $@
 	./scripts/replace-vars.sh $@
 
-$(OUT_DIR)/%.svg: content/%.svg
-	mkdir -p $$(dirname $@)
+# Consolidated rule for ALL direct file copies (png, svg, pdf, and static files)
+# The prerequisite uses VPATH-like syntax (%). We only use the content/ and static/ prefixes
+# to ensure the right source file is found by Make's pattern matching.
+$(OUT_DIR)/%: content/% | $(ALL_TARGET_DIRS)
 	cp $< $@
 
-$(OUT_DIR)/%.png: content/%.png
-	mkdir -p $$(dirname $@)
+$(OUT_DIR)/%: static/% | $(ALL_TARGET_DIRS)
 	cp $< $@
 
-$(OUT_DIR)/%.pdf: content/%.pdf
-	mkdir -p $$(dirname $@)
-	cp $< $@
 
-$(OUT_DIR)/%: static/%
-	mkdir -p $$(dirname $@)
-	cp $< $@
-
-.PHONY: clean
+# --- Cleanup ---
+.PHONY: all clean
 clean:
-	rm -rf public
+	rm -rf $(OUT_DIR)
