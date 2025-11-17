@@ -16,6 +16,7 @@ $(OUT_DIR)/%/index.html: content/%.md $(TEMPLATES)
 	lowdown $< >> $@
 	cat templates/footer.html >> $@
 	cat templates/foot.html >> $@
+	./scripts/replace-vars.sh $@
 
 $(OUT_DIR)/index.html: content.md $(TEMPLATES)
 	mkdir -p $$(dirname $@)
@@ -24,6 +25,7 @@ $(OUT_DIR)/index.html: content.md $(TEMPLATES)
 	lowdown $< >> $@
 	cat templates/footer.html >> $@
 	cat templates/foot.html >> $@
+	./scripts/replace-vars.sh $@
 
 $(OUT_DIR)/%.pdf: content/%.pdf
 	mkdir -p $$(dirname $@)
