@@ -23,6 +23,7 @@ The machine is as follows:
 Or in table form:
 
 | From \\ To | A   | B   |
+| ---------- | --- | --- |
 | A          | 0   | 1   |
 | B          | 0   | 1   |
 
