@@ -17,7 +17,18 @@
         pkgs = import nixpkgs {inherit system;};
         packages = pkgs.callPackage ./nix {};
       in {
-        packages = packages;
+        packages = {
+          inherit
+            (packages)
+            website
+            deploy
+            format
+            linkcheck
+            new-post
+            ;
+        };
+
+        checks = {inherit (packages) website linkcheck;};
 
         formatter = pkgs.alejandra;
 

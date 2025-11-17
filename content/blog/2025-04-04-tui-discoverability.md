@@ -44,4 +44,4 @@ From here we can extend to command history, building out something like a _repea
 This discoverability is something that I miss when trying a lot of TUI applications, especially those that I want to spend time using.
 
 The main project I think about when enjoying this experience is [aerc](https://aerc-mail.org/) which is a delight to interact with.
-I've since also started stealing inspiration from it for my TUI chat client [chatters](https://github.com/jeffa5/chatters/), but that's on hold until I can work out some [matrixdir](../matrixdir) stuff.
+I've since also started stealing inspiration from it for my TUI chat client [chatters](https://github.com/jeffa5/chatters/), but that's on hold until I can work out some [matrixdir](../2025-03-26-matrixdir) stuff.

@@ -3,11 +3,11 @@
 
 OUT_DIR=public
 MARKDOWN_FILES=$(addprefix $(OUT_DIR)/,$(patsubst content/%.md,%/index.html,$(shell find content -name '*.md' -type f)))
-PDF_FILES=$(addprefix $(OUT_DIR)/,$(patsubst content/%.pdf,%.pdf,$(shell find content -name '*.pdf' -type f)))
+CONTENT_FILES=$(addprefix $(OUT_DIR)/,$(patsubst content/%,%,$(shell find content -type f \( -name '*.png' -o -name '*.svg' -o -name '*.pdf' \) )))
 STATIC_FILES=$(patsubst static/%,$(OUT_DIR)/%,$(shell find static -type f))
 TEMPLATES=$(wildcard templates/*)
 
-all: $(MARKDOWN_FILES) $(OUT_DIR)/index.html $(PDF_FILES) $(STATIC_FILES)
+all: $(MARKDOWN_FILES) $(CONTENT_FILES) $(OUT_DIR)/index.html $(STATIC_FILES)
 
 $(OUT_DIR)/%/index.html: content/%.md $(TEMPLATES)
 	mkdir -p $$(dirname $@)
@@ -26,6 +26,14 @@ $(OUT_DIR)/index.html: content.md $(TEMPLATES)
 	cat templates/footer.html >> $@
 	cat templates/foot.html >> $@
 	./scripts/replace-vars.sh $@
+
+$(OUT_DIR)/%.svg: content/%.svg
+	mkdir -p $$(dirname $@)
+	cp $< $@
+
+$(OUT_DIR)/%.png: content/%.png
+	mkdir -p $$(dirname $@)
+	cp $< $@
 
 $(OUT_DIR)/%.pdf: content/%.pdf
 	mkdir -p $$(dirname $@)
