@@ -1,6 +1,4 @@
----
-title: "Why am I a vegan?"
----
+# Why am I a vegan?
 
 I grew up being, from what I remember, a picky eater.
 I liked some things and just wouldn't try other things, I guess I just wanted to eat what I knew I liked.

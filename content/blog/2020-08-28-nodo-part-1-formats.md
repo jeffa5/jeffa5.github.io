@@ -1,6 +1,4 @@
----
-title: Nodo Part 1 - Formats
----
+# Nodo Part 1 - Formats
 
 - [Nodo Part 0 - An Exploration](@/blog/2020-08-21-nodo-part-0-an-exploration.md)
 - [Git Repo](https://github.com/jeffa5/nodo)

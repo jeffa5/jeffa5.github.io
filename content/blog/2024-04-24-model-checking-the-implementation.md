@@ -1,6 +1,4 @@
----
-title: Check the implementation, not the deployment, not the abstract spec
----
+# Check the implementation, not the deployment, not the abstract spec
 
 There are now a few papers covering distributed systems model checking (FlyMC, SandTable).
 These take one of two approaches:

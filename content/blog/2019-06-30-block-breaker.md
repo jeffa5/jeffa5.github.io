@@ -1,6 +1,4 @@
----
-title: "Block breaker"
----
+# Block breaker
 
 Block breaker is a fun game for killing time. There is a library component and
 frontend implementations. It doesn't make use of a game engine or anything and

@@ -1,6 +1,4 @@
----
-title: Nodo Part 0 - An Exploration
----
+# Nodo Part 0 - An Exploration
 
 I've just published a brief [post](@/blog/2020-08-16-thoughts-on-notes-and-todos.md) about notes and todos in which I
 outline some ways I want to interact with my notes and todos. I'm going to try

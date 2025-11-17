@@ -1,8 +1,4 @@
----
-title: "Publications"
-extra:
-  enable_toc: false
----
+# Publications
 
 ## PhD dissertation
 

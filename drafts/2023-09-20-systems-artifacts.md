@@ -1,8 +1,3 @@
----
-title: "Systems artifacts"
-draft: true
----
-
 # Systems research artifacts
 
 When working on systems research things need to be built, run (with some metrics collection) and then the metrics analysed.

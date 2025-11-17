@@ -1,6 +1,4 @@
----
-title: "What is the UI optimized for?"
----
+# What is the UI optimized for?
 
 User interfaces are increasingly surrounding us.
 They are _designed_ by someone with incentives.

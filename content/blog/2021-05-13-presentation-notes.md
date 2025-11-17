@@ -1,6 +1,4 @@
----
-title: Notes on presentations
----
+# Notes on presentations
 
 This is a collection of notes on making a presentation.
 

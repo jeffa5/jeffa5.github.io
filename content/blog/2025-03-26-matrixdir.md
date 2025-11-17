@@ -1,6 +1,4 @@
----
-title: "Matrixdir: a file-first approach for chat programs"
----
+# Matrixdir: a file-first approach for chat programs
 
 ## Motivation
 

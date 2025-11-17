@@ -1,7 +1,4 @@
----
-title: Notes on reproducibility
-draft: true
----
+# Notes on reproducibility
 
 Conferences are now introducing badges for artefact evaluation results.
 These in principle are good - the things we build should be buildable by other people and the results we get should be reprocducible.

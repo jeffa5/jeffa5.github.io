@@ -1,6 +1,4 @@
----
-title: "Reflections on TUI discoverability"
----
+# Reflections on TUI discoverability
 
 _I talk about TUIs in this post, but it can equally apply to GUIs.
 I'd love to see that happen too!_

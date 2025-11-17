@@ -1,7 +1,4 @@
----
-draft: true
-title: On consumption, comfort, and content
----
+# On consumption, comfort, and content
 
 Consumption, the act of consuming things; comfort, being able to consume in comfort; and content, the thing that seems to drive things.
 

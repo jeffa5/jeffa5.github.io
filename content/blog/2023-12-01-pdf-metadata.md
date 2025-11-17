@@ -1,6 +1,4 @@
----
-title: Analysing PDF metadata on arXiv
----
+# Analysing PDF metadata on arXiv
 
 ## The background
 

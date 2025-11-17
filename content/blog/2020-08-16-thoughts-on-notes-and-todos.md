@@ -1,6 +1,4 @@
----
-title: "Thoughts on notes and todos"
----
+# Thoughts on notes and todos
 
 I often find myself a bit lost with what I have going on, what needs doing and
 what state things are in. I make notes on pieces of paper which are nice, small

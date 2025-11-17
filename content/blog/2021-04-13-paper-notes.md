@@ -1,6 +1,4 @@
----
-title: Notes on papers
----
+# Notes on papers
 
 This is a collection of notes on writing a paper.
 Some of these may apply more generally to writing but no promises.
