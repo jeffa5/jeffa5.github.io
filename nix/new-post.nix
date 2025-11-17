@@ -5,7 +5,7 @@ writeShellScriptBin "new-post" ''
   post="$path/index.md"
   touch "$post"
 
-  echo -e "---\ntitle: \"$1\"\ndraft: true\n---\n\n" > "$post"
+  echo "# $1" > "$post"
 
   echo "Created post at $post"
 ''
