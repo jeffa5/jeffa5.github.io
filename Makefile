@@ -13,6 +13,8 @@ ALL_STATIC_FILES := $(shell find static -type f)
 MARKDOWN_SRCS := $(filter %.md, $(ALL_CONTENT_FILES))
 MARKDOWN_TARGETS := $(patsubst content/%.md, $(OUT_DIR)/%/index.html, $(MARKDOWN_SRCS))
 
+BLOG_SRCS := $(wildcard content/blog/*)
+
 # Handle the root index file separately if it exists (assuming content/index.md for simplicity)
 ROOT_INDEX_MD := content/index.md
 ROOT_INDEX_TARGET := $(patsubst content/index.md, $(OUT_DIR)/index.html, $(ROOT_INDEX_MD))
@@ -69,6 +71,8 @@ $(OUT_DIR)/%: content/% | $(ALL_TARGET_DIRS)
 $(OUT_DIR)/%: static/% | $(ALL_TARGET_DIRS)
 	cp $< $@
 
+content/blog.md: $(BLOG_SRCS) ./scripts/page-tree.py
+	./scripts/page-tree.py $(BLOG_SRCS) > $@
 
 # --- Cleanup ---
 .PHONY: all clean

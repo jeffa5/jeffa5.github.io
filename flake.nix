@@ -35,6 +35,7 @@
         devShell = pkgs.mkShell {
           packages = [
             pkgs.lowdown
+            pkgs.python3
             packages.new-post
           ];
         };
