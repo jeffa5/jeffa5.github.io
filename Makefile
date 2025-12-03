@@ -48,19 +48,13 @@ $(ALL_TARGET_DIRS):
 
 # Rule for all Markdown files (including nested ones)
 # Uses the directory as an order-only prerequisite to ensure it's created first.
-$(OUT_DIR)/%/index.html: content/%.md $(TEMPLATES) | $(ALL_TARGET_DIRS)
-	cat templates/head.html templates/header.html > $@
-	lowdown $< >> $@
-	cat templates/footer.html templates/foot.html >> $@
-	./scripts/replace-vars.sh $@
+$(OUT_DIR)/%/index.html: content/%.md $(TEMPLATES) ./scripts/md-to-html.sh | $(ALL_TARGET_DIRS)
+	./scripts/md-to-html.sh $< $@
 
 # Rule for the Root Index file (content.md -> public/index.html)
 # It's an explicit target, but can share the same recipe logic.
-$(OUT_DIR)/index.html: content.md $(TEMPLATES) | $(ALL_TARGET_DIRS)
-	cat templates/head.html templates/header.html > $@
-	lowdown $< >> $@
-	cat templates/footer.html templates/foot.html >> $@
-	./scripts/replace-vars.sh $@
+$(OUT_DIR)/index.html: content.md $(TEMPLATES) ./scripts/md-to-html.sh | $(ALL_TARGET_DIRS)
+	./scripts/md-to-html.sh $< $@
 
 # Consolidated rule for ALL direct file copies (png, svg, pdf, and static files)
 # The prerequisite uses VPATH-like syntax (%). We only use the content/ and static/ prefixes
