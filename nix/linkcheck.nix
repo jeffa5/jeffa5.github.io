@@ -1,9 +1,10 @@
 {
   lib,
-  writeShellScriptBin,
+  runCommand,
   website,
   lychee,
 }:
-writeShellScriptBin "linkcheck" ''
-  ${lib.getExe lychee} --offline ${website}
+runCommand "linkcheck" {} ''
+  mkdir $out
+  ${lib.getExe lychee} --offline --index-files "" --include-fragments ${website} | tee $out/out
 ''

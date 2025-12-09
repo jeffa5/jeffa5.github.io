@@ -1,6 +1,6 @@
 # Nodo Part 0 - An Exploration
 
-I've just published a brief [post](../2020-08-16-thoughts-on-notes-and-todos) about notes and todos in which I
+I've just published a brief [post](../2020-08-16-thoughts-on-notes-and-todos/index.html) about notes and todos in which I
 outline some ways I want to interact with my notes and todos. I'm going to try
 and keep up with the development of the tool I experiment with here to outline
 to myself why I'm making decisions and for anyone else that finds it useful.

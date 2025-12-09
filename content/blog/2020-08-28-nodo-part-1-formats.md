@@ -1,6 +1,6 @@
 # Nodo Part 1 - Formats
 
-- [Nodo Part 0 - An Exploration](../2020-08-21-nodo-part-0-an-exploration)
+- [Nodo Part 0 - An Exploration](../2020-08-21-nodo-part-0-an-exploration/index.html)
 - [Git Repo](https://github.com/jeffa5/nodo)
 
 To begin implementing Nodo we need to make a start with Rust. This means
