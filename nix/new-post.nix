@@ -2,7 +2,7 @@
 writeShellScriptBin "new-post" ''
   path="content/blog/$(date +'%Y-%m-%d')-$1"
   mkdir "$path"
-  post="$path/index.md"
+  post="$path.md"
   touch "$post"
 
   echo "# $1" > "$post"
