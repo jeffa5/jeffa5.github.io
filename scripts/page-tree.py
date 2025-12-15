@@ -34,6 +34,6 @@ for page in pages:
     title = open(file, 'r').readline().strip()
     if title.startswith("# "):
         title = title.removeprefix("# ")
-        print(f"\n{date} [{title}](./{page}/index.html)")
+        print(f"\n_{date}_ [{title}](./{page}/index.html)")
     else:
         raise Exception(f"invalid file {file}")
