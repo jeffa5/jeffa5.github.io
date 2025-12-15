@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+<head>
+  <link rel="icon" href="favicon.ico" />
+  <link rel="stylesheet" href="../../style.css" />
+  <!-- <link rel="alternate" type="application/atom+xml" title="RSS" href="/blog/atom.xml"> -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Andrew's (jeffas') personal site.">
+
+  <title>Too late now</title>
+</head>
+
+<body>
+  <main>
+<header>
+    <h1>Too late now</h1>
+
+    <nav>
+        <a href="../../index.html">Home</a>
+        <a href="../../blog/index.html">Blog</a>
+        <a href="../../publications/index.html">Publications</a>
+        <a href="https://git.jeffas.net">Git</a>
+    </nav>
+    <hr />
+</header>
+<em>2025-12-15</em>
+<h1 id="your-static-site"><code>make</code> your static site</h1>
+<p>This website is just a static site, and I&#8217;m trying to move more things to static sites now that I want to self-host more things, like <a href="https://git.jeffas.net">my git repos</a>, a personal knowledge-base&#47;wiki and files on my NAS server.</p>
+<p>I&#8217;m more of a person who wants to know how my things work, to some extent at least, and don&#8217;t feel like I often want a lot of the bells and whistles of full-featured mainstream tools.
+This site used to be built with <a href="https://getzola.com">Zola</a>, which means the structure is pretty similar now to what it was before, but instead, I now build it with Make directly.
+There are trade-offs to this approach and it was more manual, but also more customisable without having to understand the Zola codebase.</p>
+<p>The main work the <code>Makefile</code> does is converting markdown files to html files.
+For this I have a script (below) that takes a file to read from, and a path to write to.
+This builds the page with my templates, converting the markdown content with <code>lowdown</code>.
+I store the date in the path to keep the blog entries unique and aid in building the list of articles.
+Templates are just simple snippets of html that are intended to be sequenced.</p>
+<pre><code class="language-bash">from=${1:?"need from"}
+to=${2:?"need to"}
+
+cat templates&#47;head.html templates&#47;header.html &#62; $to
+
+if [[ "$from" == content&#47;blog&#47;* ]]; then
+  date=$(basename $from | cut -d- -f -3)
+  echo "&#60;em&#62;$date&#60;&#47;em&#62;" &#62;&#62; $to
+fi
+
+lowdown $from &#62;&#62; $to
+cat templates&#47;footer.html templates&#47;foot.html &#62;&#62; $to
+.&#47;scripts&#47;replace-vars.sh $to
+</code></pre>
+<p>The <code>.&#47;scripts&#47;replace-vars.sh</code> script is a simple one that just runs a <code>sed</code> command to replace some placeholder I have in the templates, aiming to make the site fully relocatable under other URLs if needed, and make it work when viewing as a filesystem.</p>
+<pre><code class="language-bash">file=${1:?"need a file as the argument"}
+
+../..="$(echo "$1" | sed -e &#39;s#public&#47;##&#39; | sed -e &#39;s#[^&#47;]\+&#47;#..&#47;#g&#39; | xargs dirname)"
+sed -i -e "s#../..#$BASE_URL_RELATIVE#" "$1"
+</code></pre>
+<p>That&#8217;s mostly it, static files are copied as is to the build directory and I commit the built website so that I can see and track the diff there as not all changes will have a come from the content of articles.
+I can also use that to check if I break the build process.</p>
+<p>The final interesting script for me, not that its complex, is the page-tree builder, that builds the listing of blog articles.
+Its a python script that just goes through the articles and finds the title.</p>
+<pre><code class="language-python">import os.path
+import sys
+
+pages = sys.argv[1:]
+if not pages:
+    print("need a list of pages to process", file=sys.stderr)
+    sys.exit(1)
+
+prefix = "content&#47;blog&#47;"
+
+pages = [page.removeprefix(prefix) for page in pages]
+
+pages.sort(reverse=True)
+
+print("# Blog")
+
+for page in pages:
+    file = f"{prefix}{page}"
+    if not os.path.isfile(file):
+        continue
+
+    page = os.path.splitext(page)[0]
+
+    dirname = os.path.dirname(page)
+    if not dirname:
+        dirname = "."
+
+    stem = os.path.basename(page)
+
+    date = "-".join(stem.split("-")[:3])
+
+    title = open(file, &#39;r&#39;).readline().strip()
+    if title.startswith("# "):
+        title = title.removeprefix("# ")
+        print(f"\n_{date}_ [{title}](.&#47;{page}&#47;index.html)")
+    else:
+        raise Exception(f"invalid file {file}")
+</code></pre>
+<p>The other piece that brings it all together is the <code>Makefile</code>.
+I wrote a version and then was curious to see how Gemini would handle it so there is some AI-generated influence here.</p>
+<p>Could it be more efficient? Maybe.
+But its incremental so I don&#8217;t need it to be hugely efficient anyway, its only a small blog.
+Scaling this out to other projects I have, like building a static site of my personal cloud files will likely be something based on <a href="https://ninja-build.org"><code>ninja</code></a> as I&#8217;m curious about it and it has some nice features like build graph visualisation, parallelism built-in (yes, I know I could use <code>-j</code> with Make), and an interesting split in generating the build description somehow else before <code>ninja</code> builds it optimally.</p>
+<p>I&#8217;m happy with this for now, its easy to use, doesn&#8217;t have a lot of dependencies and feels easy to reconfigure if I want to switch to authoring in another format, e.g. <code>typst</code>.</p>
+<pre><code class="language-make">OUT_DIR := public
+TEMPLATES := $(wildcard templates&#47;*)
+
+# --- 1. Dependency Calculation ---
+
+# Use shell find once, then filter&#47;transform the results using Make functions
+# Find all files in &#39;content&#47;&#39; and &#39;static&#47;&#39; directories
+ALL_CONTENT_FILES := $(shell find content -type f)
+ALL_STATIC_FILES := $(shell find static -type f)
+
+# A. Markdown Files (Target: public&#47;path&#47;to&#47;index.html)
+# Filter for .md files, then transform the paths.
+MARKDOWN_SRCS := $(filter %.md, $(ALL_CONTENT_FILES))
+MARKDOWN_TARGETS := $(patsubst content&#47;%.md, $(OUT_DIR)&#47;%&#47;index.html, $(MARKDOWN_SRCS))
+
+BLOG_SRCS := $(wildcard content&#47;blog&#47;*)
+
+# Handle the root index file separately if it exists (assuming content&#47;index.md for simplicity)
+ROOT_INDEX_MD := content&#47;index.md
+ROOT_INDEX_TARGET := $(patsubst content&#47;index.md, $(OUT_DIR)&#47;index.html, $(ROOT_INDEX_MD))
+
+# B. Direct Content Files (Target: public&#47;path&#47;to&#47;image.png)
+# Filter for non-markdown content files and transform paths.
+CONTENT_SRCS := $(filter-out %.md, $(ALL_CONTENT_FILES))
+CONTENT_TARGETS := $(patsubst content&#47;%, $(OUT_DIR)&#47;%, $(CONTENT_SRCS))
+
+# C. Static Files (Target: public&#47;style.css)
+STATIC_TARGETS := $(patsubst static&#47;%, $(OUT_DIR)&#47;%, $(ALL_STATIC_FILES))
+
+# Combine all final targets
+all: $(MARKDOWN_TARGETS) $(ROOT_INDEX_TARGET) $(CONTENT_TARGETS) $(STATIC_TARGETS)
+
+# --- 2. Directory Creation (Order-Only Prerequisite) ---
+
+# Extract the directory paths from the dynamic targets.
+# $(dir $(patsubst content&#47;%.md, $(OUT_DIR)&#47;%&#47;index.html, content&#47;%.md)) -&#62; $(OUT_DIR)&#47;%
+# For public&#47;foo&#47;index.html, this extracts public&#47;foo.
+
+# Get the list of unique directories that need to exist for all targets
+ALL_TARGET_DIRS := $(sort $(dir $(MARKDOWN_TARGETS) $(ROOT_INDEX_TARGET) $(CONTENT_TARGETS) $(STATIC_TARGETS)))
+
+# Directory creation rule (Phony target pattern)
+# Use a pattern rule for directories, although an explicit list is faster if stable.
+$(ALL_TARGET_DIRS):
+    mkdir -p $@
+
+# --- 3. Consolidated Rules ---
+
+# Rule for all Markdown files (including nested ones)
+# Uses the directory as an order-only prerequisite to ensure it&#39;s created first.
+$(OUT_DIR)&#47;%&#47;index.html: content&#47;%.md $(TEMPLATES) .&#47;scripts&#47;md-to-html.sh | $(ALL_TARGET_DIRS)
+    .&#47;scripts&#47;md-to-html.sh $&#60; $@
+
+# Rule for the Root Index file (content.md -&#62; public&#47;index.html)
+# It&#39;s an explicit target, but can share the same recipe logic.
+$(OUT_DIR)&#47;index.html: content.md $(TEMPLATES) .&#47;scripts&#47;md-to-html.sh | $(ALL_TARGET_DIRS)
+    .&#47;scripts&#47;md-to-html.sh $&#60; $@
+
+# Consolidated rule for ALL direct file copies (png, svg, pdf, and static files)
+# The prerequisite uses VPATH-like syntax (%). We only use the content&#47; and static&#47; prefixes
+# to ensure the right source file is found by Make&#39;s pattern matching.
+$(OUT_DIR)&#47;%: content&#47;% | $(ALL_TARGET_DIRS)
+    cp $&#60; $@
+
+$(OUT_DIR)&#47;%: static&#47;% | $(ALL_TARGET_DIRS)
+    cp $&#60; $@
+
+content&#47;blog.md: $(BLOG_SRCS) .&#47;scripts&#47;page-tree.py
+    .&#47;scripts&#47;page-tree.py $(BLOG_SRCS) &#62; $@
+
+# --- Cleanup ---
+.PHONY: all clean
+clean:
+    rm -rf $(OUT_DIR)
+</code></pre>
+<footer>
+    <hr />
+    <b>Correctness, Efficiency, Performance</b>
+    <ul>
+        <li>
+            <a href="https://github.com/jeffa5">GitHub - <code>jeffa5</code></a>
+        </li>
+        <li>
+            <a href="https://www.linkedin.com/in/andrew-jeffery">LinkedIn</a>
+        </li>
+        <li>
+            <a href="https://scholar.google.com/citations?user=9mJpZCgAAAAJ&hl=en&citsig=AMD79oqdDsfKS5CDUdoSiOK42EeuPXKUMg">Google Scholar profile</a>
+        </li>
+        <!-- <li> -->
+        <!--     <a href="/blog/atom.xml">Atom/RSS feed</a> -->
+        <!-- </li> -->
+    </ul>
+</footer>
+  </main>
+</body>
