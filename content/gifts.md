@@ -4,7 +4,7 @@
 
 I do not _expect_ gifts.
 
-Given that, if you want to give me a present then I strongly prefer that you donate the value that you would have spent to my chosen charity: [GiveWell's All Grants Fund](https://www.givewell.org/all-grants-fund).
+Given that, if you want to give me a present then I strongly prefer that you donate the value that you would have spent to my chosen charity: [GiveWell's All Grants Fund](https://www.givewell.org/all-grants-fund), UK donations are best done through the [GiveWell UK CIO](https://www.givewell.org/gwuk/about#Donating_to_GiveWell_UK).
 No need for something to unwrap; either tell me directly about the donation or note it in a card.
 The donation is very much appreciated.
 
