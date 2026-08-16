@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           lfs: true
       - name: Install Nix
@@ -24,7 +24,7 @@ jobs:
           # https://github.com/actions/deploy-pages/issues/58
           cp --recursive --dereference --no-preserve=mode,ownership result public
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: public
 
